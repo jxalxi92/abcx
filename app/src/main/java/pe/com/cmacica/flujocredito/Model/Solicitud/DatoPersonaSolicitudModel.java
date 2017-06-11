@@ -10,16 +10,16 @@ import pe.com.cmacica.flujocredito.Model.General.PersonaBusqModel;
  */
 
 public class DatoPersonaSolicitudModel {
-    public int nExisteRet ;
-    public Boolean bMicroSeguroActivo ;
-    public int nNumMSCliente ;
-    public int nNumSolPend ;
-    public PersonaBusqModel DatoPersonal ;
+    private int nExisteRet ;
+    private Boolean bMicroSeguroActivo ;
+    private int nNumMSCliente ;
+    private int nNumSolPend ;
+    private PersonaBusqModel DatoPersonal ;
 
     //Base Negativa
-    public List<RccTotalULTModel> ListaBaseNegativa ;
+    private List<RccTotalULTModel> ListaBaseNegativa ;
     //Ultimo RCC reportado del cliente
-    public RccTotalULTModel UltimoRcc ;
+    private RccTotalULTModel UltimoRcc ;
     //Solicitudes Pendientes
     //public List<BaseCreditoNormalDto> SolicitudesPendientes ;
 }

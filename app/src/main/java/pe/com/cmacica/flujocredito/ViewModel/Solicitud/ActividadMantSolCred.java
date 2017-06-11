@@ -35,6 +35,7 @@ import java.util.List;
 import pe.com.cmacica.flujocredito.AgenteServicio.SrvCmacIca;
 import pe.com.cmacica.flujocredito.AgenteServicio.VolleySingleton;
 import pe.com.cmacica.flujocredito.Model.General.ConstanteModel;
+import pe.com.cmacica.flujocredito.Model.Solicitud.DatoPersonaSolicitudModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.FrecuenciaPagoModel;
 import pe.com.cmacica.flujocredito.Model.General.PersonaBusqModel;
 import pe.com.cmacica.flujocredito.Model.General.PersonaDto;
@@ -1255,7 +1256,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                                         @Override
                                         public void onResponse(JSONObject response) {
                                             // Procesar la respuesta Json
-                                            //ProcesarBuscarPersona(response);
+                                            OnProcesarDatoClienteSolCred(response);
                                         }
                                     },
                                     new Response.ErrorListener() {
@@ -1276,8 +1277,37 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     Toast.LENGTH_LONG).show();
         }
     }
-    private void OnProcesarDatoClienteSolCred(JSONObject response){
+    private void OnProcesarDatoClienteSolCred(JSONObject response) {
+        try {
+            if (response.getBoolean("IsCorrect")) {
 
+                DatoPersonaSolicitudModel obj = gson.fromJson(response.getJSONArray("Data").toString(), DatoPersonaSolicitudModel.class);
+            }else{
+                new AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Aviso")
+                        .setMessage(response.getString("Message"))
+                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface arg0) {
+                                //ActividadLogin.this.finish();
+                            }})
+
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
+                            @Override
+                            public void onClick(DialogInterface dialog, int which){
+
+                            }
+                        })
+                        .show();
+            }
+        } catch (JSONException e) {
+            Log.d(TAG, e.getMessage());
+            Toast.makeText(
+                    this,
+                    e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     //endregion
