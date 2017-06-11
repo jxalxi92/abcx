@@ -1276,6 +1276,9 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     Toast.LENGTH_LONG).show();
         }
     }
+    private void OnProcesarDatoClienteSolCred(JSONObject response){
+
+    }
 
     //endregion
 
