@@ -128,6 +128,13 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
 
         lblFecha.setEnabled(false);
         txtMonto.setEnabled(false);
+        txtTipoCredito.setFocusable(false);
+        txtProducto.setFocusable(false);
+        txtEstado.setFocusable(false);
+        txtValorDeuda.setFocusable(false);
+        txtDiasAtraso.setFocusable(false);
+
+
 
 
         lblFecha.setOnClickListener(
@@ -1033,7 +1040,7 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
                     else
                     {
                         Snackbar.make(findViewById(R.id.actividadGestionCobranza),
-                                "Agregado correctamente",
+                                "Ingrese Monto",
                                 Snackbar.LENGTH_LONG).show();
                     }
 
