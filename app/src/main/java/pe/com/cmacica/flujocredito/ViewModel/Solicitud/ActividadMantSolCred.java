@@ -301,8 +301,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 }
                 OnCargarFrecPago();
                 OnCargarDestino();
-        
-
             }
 
             @Override
