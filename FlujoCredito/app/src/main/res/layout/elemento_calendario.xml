@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:rowCount="2"
+    android:columnCount="5">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/llCuotaFecha"
+        >
+
+        <TextView
+            android:id="@+id/lblNroCuota"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="100"
+            android:padding="1dp"
+            android:layout_weight="1"
+            android:textSize="@dimen/ancho_text_elemntocalendario"
+
+            />
+        <TextView
+            android:id="@+id/lblFechaPago"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="2016/08/25"
+            android:padding="1dp"
+            android:textSize="@dimen/ancho_text_elemntocalendario"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+             />
+
+        <TextView
+            android:id="@+id/lblMontoCuota"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:padding="1dp"
+            android:text="1224.50"
+            android:textSize="@dimen/ancho_text_elemntocalendario"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+        <TextView
+            android:id="@+id/lblCapital"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="2"
+            android:padding="1dp"
+            android:text="1224.50"
+            android:textSize="@dimen/ancho_text_elemntocalendario"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+        <TextView
+            android:id="@+id/lblInteres"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_gravity="center_horizontal"
+            android:text="224.50"
+            android:padding="1dp"
+            android:textSize="@dimen/ancho_text_elemntocalendario"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+     <TextView
+            android:id="@+id/lblSaldoCapital"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="10224.50"
+            android:padding="1dp"
+         android:textSize="@dimen/ancho_text_elemntocalendario"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

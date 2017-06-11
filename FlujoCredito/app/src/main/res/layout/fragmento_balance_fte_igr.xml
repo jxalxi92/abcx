@@ -1,0 +1,527 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragmentoBalanceFteIgr"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ViewModel.Digitacion.FragmentoBalanceFteIgr">
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/app_bar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           >
+           <TextView
+               android:id="@+id/titulo_Balance_sit"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:paddingBottom="4dp"
+               android:textColor="@color/colorPrimary"
+               android:text="Balance de situación"
+               android:textAppearance="?android:attr/textAppearanceSmall" />
+           <View
+               android:id="@+id/divider"
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:layout_marginBottom="4dp"
+               android:background="@color/colorPrimary" />
+
+           <RadioGroup
+               android:layout_row="0"
+               android:layout_column="0"
+               android:layout_columnSpan="3"
+               android:layout_marginLeft="16dp"
+               android:id="@+id/opciones_Moneda"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               >
+
+               <RadioButton
+                   android:id="@+id/rbtSoles"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginRight="16dp"
+                   android:checked="true"
+                   android:text="Soles" />
+
+               <RadioButton
+                   android:id="@+id/rbtDolares"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:checked="false"
+                   android:text="Dólares" />
+
+           </RadioGroup>
+
+           <GridLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:rowCount="24"
+               android:columnCount="2"
+               android:layout_margin="16dp"
+               android:id="@+id/GridBalance" >
+
+               <TextView
+                   android:text="Activo Corriente:"
+                   android:layout_column="0"
+                   android:textStyle="bold"
+                   android:layout_row="0" />
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:ems="1"
+                   android:background="@drawable/edit_text_border"
+                   android:padding="2dp"
+                   android:layout_margin="2dp"
+                   android:id="@+id/txtMontoActivoCorriente"
+                   android:enabled="false"
+                   android:layout_row="0"
+                   android:maxLength="10"
+                   android:layout_column="1"
+                   android:hint="0" />
+
+               <TextView
+                   android:text="Disponible:"
+                   android:layout_column="0"
+                   android:layout_row="1" />
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:ems="10"
+                   android:focusable="false"
+                   android:padding="2dp"
+                   android:layout_margin="2dp"
+                   android:id="@+id/txtMontoDisponible"
+                   android:maxLength="10"
+                   android:layout_row="1"
+                   android:background="@color/ColorEditTextPopUp"
+                   android:layout_column="1"
+                   android:hint="0" />
+
+               <TextView
+                   android:text="Cuentas x Cobrar:"
+                   android:layout_row="2"
+                   android:layout_column="0" />
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:background="@drawable/edit_text_border"
+                   android:padding="2dp"
+                   android:layout_margin="2dp"
+                   android:ems="10"
+                   android:id="@+id/txtMontoCuentasxCobrar"
+                   android:maxLength="10"
+                   android:layout_row="2"
+                   android:layout_column="1"
+                   android:hint="0" />
+
+               <TextView
+                   android:text="Inventario:"
+                   android:layout_column="0"
+                   android:layout_row="3" />
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:ems="0"
+                   android:focusable="false"
+                   android:padding="2dp"
+                   android:layout_margin="2dp"
+                   android:maxLength="12"
+                   android:id="@+id/txtMontoInventario"
+                   android:layout_row="3"
+                   android:layout_column="1"
+                   android:background="@color/ColorEditTextPopUp"
+                   android:hint="0" />
+
+               <TextView
+                   android:text="Activo No Cte:"
+                   android:layout_column="0"
+                   android:textStyle="bold"
+                   android:layout_row="4" />
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:background="@drawable/edit_text_border"
+                   android:padding="2dp"
+                   android:layout_margin="2dp"
+                   android:id="@+id/txtMontoActivoNoCorriente"
+                   android:layout_row="4"
+                   android:maxLength="10"
+                   android:enabled="false"
+                   android:hint="0"
+                   android:layout_column="1"
+
+                   />
+
+               <TextView
+                   android:text="Activo Fijo:"
+                   android:layout_column="0"
+                   android:layout_row="5" />
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:focusable="false"
+                   android:ems="10"
+                   android:padding="2dp"
+                   android:layout_margin="2dp"
+                   android:id="@+id/txtMontoActivoFijo"
+                   android:layout_row="5"
+                   android:maxLength="10"
+                   android:background="@color/ColorEditTextPopUp"
+                   android:layout_column="1"
+                   android:hint="0" />
+
+               <TextView
+                   android:text="Total Activo:"
+                   android:layout_column="0"
+                   android:layout_row="6"
+                   android:textStyle="bold"
+                   android:textSize="18dp" />
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:enabled="false"
+                   android:background="@drawable/edit_text_border"
+                   android:padding="2dp"
+                   android:layout_margin="2dp"
+                   android:ems="10"
+                   android:text="0"
+                   android:maxLength="15"
+                   android:textStyle="bold"
+                   android:id="@+id/txtMontoTotalActivo"
+                   android:layout_row="6"
+                   android:layout_column="1"
+                   android:textSize="@dimen/Size_EditText_SubTotal"
+                   />
+
+               <TextView
+                   android:text="Pasivo Corriente:"
+                   android:layout_column="0"
+                   android:textStyle="bold"
+                   android:layout_row="7" />
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:enabled="false"
+                   android:background="@drawable/edit_text_border"
+                   android:padding="2dp"
+                   android:layout_margin="2dp"
+                   android:ems="1"
+                   android:id="@+id/txtMontoPasivoCorriente"
+                   android:layout_row="7"
+                   android:maxLength="10"
+                   android:layout_column="1"
+                   android:hint="0" />
+
+               <TextView
+                   android:text="Proveedores:"
+                   android:layout_column="0"
+                   android:layout_row="8" />
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:background="@drawable/edit_text_border"
+                   android:padding="2dp"
+                   android:layout_margin="2dp"
+                   android:ems="10"
+                   android:id="@+id/txtMontoProveedores"
+                   android:maxLength="10"
+                   android:layout_row="8"
+                   android:layout_column="1"
+                   android:hint="0" />
+
+               <TextView
+                   android:text="Otros Prestamos:"
+                   android:layout_row="9"
+                   android:layout_column="0" />
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:background="@drawable/edit_text_border"
+                   android:padding="2dp"
+                   android:layout_margin="2dp"
+                   android:ems="10"
+                   android:id="@+id/txtMontoOtrosPrestamos"
+                   android:maxLength="10"
+                   android:layout_row="9"
+                   android:layout_column="1"
+                   android:hint="0" />
+
+               <TextView
+                   android:text="Prestamos CMAC:"
+                   android:layout_column="0"
+                   android:layout_row="10" />
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:background="@drawable/edit_text_border"
+                   android:padding="2dp"
+                   android:layout_margin="2dp"
+                   android:ems="0"
+                   android:maxLength="12"
+                   android:textStyle="bold"
+                   android:id="@+id/txtMontoPrestamoCmac"
+                   android:layout_row="10"
+                   android:layout_column="1"
+                   android:hint="0" />
+
+               <TextView
+                   android:text="Pasivos No Corr:"
+                   android:layout_column="0"
+                   android:textStyle="bold"
+                   android:layout_row="11" />
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:id="@+id/txtMontoPasivoNoCorriente"
+                   android:layout_row="11"
+                   android:maxLength="10"
+                   android:padding="2dp"
+                   android:focusable="false"
+                   android:layout_margin="2dp"
+                   android:hint="0"
+                   android:layout_column="1"
+                   android:background="@color/ColorEditTextPopUp"
+                   />
+
+               <TextView
+                   android:text="Total Pasivo:"
+                   android:layout_column="0"
+                   android:layout_row="13"
+                   android:textStyle="bold"
+                   android:textSize="20dp" />
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:background="@drawable/edit_text_border"
+                   android:padding="2dp"
+                   android:layout_margin="2dp"
+                   android:focusable="false"
+                   android:ems="10"
+                   android:text="0"
+                   android:maxLength="15"
+                   android:textStyle="bold"
+                   android:id="@+id/txtMontoTotalPasivo"
+                   android:layout_row="13"
+                   android:layout_column="1"
+                   android:textSize="@dimen/Size_EditText_SubTotal"/>
+
+               <TextView
+                   android:text="Patrimonio:"
+                   android:layout_column="0"
+                   android:layout_row="14"
+                   android:textStyle="bold"
+                   android:textSize="20dp" />
+
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:ems="10"
+                   android:background="@drawable/edit_text_border"
+                   android:padding="2dp"
+                   android:layout_margin="2dp"
+                   android:focusable="false"
+                   android:text="0"
+                   android:maxLength="15"
+                   android:textStyle="bold"
+                   android:id="@+id/txtMontoPatrimonio"
+                   android:layout_row="14"
+                   android:layout_column="1"
+                   android:textSize="@dimen/Size_EditText_Total"
+                   />
+
+
+           </GridLayout>
+
+           <TextView
+               android:id="@+id/titulo_Igr_Egr"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:paddingBottom="8dp"
+               android:textColor="@color/colorPrimary"
+               android:text="Ingresos y egresos"
+               android:textAppearance="?android:attr/textAppearanceSmall" />
+           <View
+               android:id="@+id/divider2"
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:layout_below="@+id/info_text"
+               android:layout_marginBottom="@dimen/padding_between"
+               android:background="@color/colorPrimary" />
+
+           <GridLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:rowCount="24"
+               android:columnCount="2"
+               android:layout_margin="16dp"
+               android:id="@+id/GridDetIgrEgr" >
+
+               <TextView
+                   android:text="Ventas Netas:"
+                   android:layout_column="0"
+                   android:layout_row="0" />
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:ems="1"
+                   android:background="@drawable/edit_text_border"
+                   android:padding="2dp"
+                   android:layout_margin="2dp"
+                   android:id="@+id/txtMontoVentasNetas"
+
+                   android:layout_row="0"
+                   android:maxLength="10"
+                   android:layout_column="1"
+                   android:hint="0" />
+
+               <TextView
+                   android:text="Rec. de Ctas x Cobrar:"
+                   android:layout_column="0"
+                   android:layout_row="1" />
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:ems="10"
+                   android:id="@+id/txtMontoRecCtasCobrar"
+                   android:maxLength="10"
+                   android:layout_row="1"
+                   android:background="@drawable/edit_text_border"
+                   android:padding="2dp"
+                   android:layout_margin="2dp"
+                   android:layout_column="1"
+                   android:hint="0" />
+
+               <TextView
+                   android:text="Igr Fuera Neg:"
+                   android:layout_row="2"
+                   android:layout_column="0" />
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:ems="10"
+                   android:padding="2dp"
+                   android:focusable="false"
+                   android:layout_margin="2dp"
+                   android:background="@color/ColorEditTextPopUp"
+                   android:id="@+id/txtMontoIgrFueraNegocio"
+                   android:maxLength="10"
+                   android:layout_row="2"
+                   android:layout_column="1"
+                   android:hint="0" />
+
+               <TextView
+                   android:text="Costo Mercad.:"
+                   android:layout_column="0"
+                   android:layout_row="3" />
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:ems="0"
+                   android:background="@drawable/edit_text_border"
+                   android:padding="2dp"
+                   android:layout_margin="2dp"
+                   android:maxLength="12"
+                   android:id="@+id/txtMontoCostoMerc"
+                   android:layout_row="3"
+                   android:layout_column="1"
+
+                   android:hint="0" />
+
+               <TextView
+                   android:text="Gasto Oper y Adm:"
+                   android:layout_column="0"
+                   android:layout_row="4" />
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:id="@+id/txtMontoGastoOpeAdm"
+                   android:layout_row="4"
+                   android:maxLength="10"
+                   android:focusable="false"
+                   android:background="@color/ColorEditTextPopUp"
+                   android:padding="2dp"
+                   android:layout_margin="2dp"
+                   android:hint="0"
+                   android:layout_column="1"
+
+                   />
+
+               <TextView
+                   android:text="Gastos Fam:"
+                   android:layout_column="0"
+                   android:layout_row="5" />
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:ems="10"
+                   android:padding="2dp"
+                   android:focusable="false"
+                   android:layout_margin="2dp"
+                   android:id="@+id/txtMontoGastoFam"
+                   android:layout_row="5"
+                   android:maxLength="10"
+                   android:background="@color/ColorEditTextPopUp"
+                   android:layout_column="1"
+                   android:hint="0" />
+
+               <TextView
+                   android:text="Saldo:"
+                   android:layout_column="0"
+                   android:layout_row="6"
+                   android:textStyle="bold"
+                   android:textSize="18dp" />
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="numberDecimal"
+                   android:enabled="false"
+                   android:background="@drawable/edit_text_border"
+                   android:padding="2dp"
+                   android:layout_margin="2dp"
+                   android:ems="10"
+                   android:text="0"
+                   android:maxLength="15"
+                   android:textStyle="bold"
+                   android:id="@+id/txtMontoSaldo"
+                   android:layout_row="6"
+                   android:layout_column="1"
+                   android:textSize="@dimen/Size_EditText_SubTotal"
+                   />
+
+           </GridLayout>
+
+       </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+</FrameLayout>

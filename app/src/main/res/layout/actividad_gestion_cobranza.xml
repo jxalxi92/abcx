@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/actividadGestionCobranza"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:weightSum="1">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_weight="1.05"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/CarViewDatosCredito"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView21"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="DATOS CREDITO"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <View
+                        android:id="@+id/view2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/lblTituloFteIgr"
+                        android:layout_marginBottom="@dimen/padding_between"
+                        android:background="@color/ColorSentinel" />
+
+                    <TextView
+                        android:id="@+id/textView23"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nro de Credito" />
+
+                    <Spinner
+                        android:id="@+id/spn_NroCredito"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:columnCount="2"
+                        android:rowCount="5">
+
+                        <TextView
+                            android:id="@+id/lblTipo"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="0"
+                            android:text="Tipo Credito" />
+
+                        <EditText
+                            android:id="@+id/txtTipoCredito"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_row="0"
+                            android:ems="10" />
+
+                        <TextView
+                            android:id="@+id/lblProducto"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="1"
+                            android:text="Producto" />
+
+                        <EditText
+                            android:id="@+id/txtProducto"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_row="1"
+                            android:ems="10" />
+
+                        <TextView
+                            android:id="@+id/lblEstado"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="2"
+                            android:text="Estado" />
+
+                        <EditText
+                            android:id="@+id/txtEstado"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_row="2"
+                            android:ems="10" />
+
+                        <TextView
+                            android:id="@+id/lblValorDeuda"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="3"
+                            android:text="Valor Deuda" />
+
+                        <EditText
+                            android:id="@+id/txtValorDeuda"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_row="3"
+                            android:ems="10" />
+
+                        <TextView
+                            android:id="@+id/lblDiasAtraso"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="4"
+                            android:text="Dias Atraso" />
+
+                        <EditText
+                            android:id="@+id/txtDiasAtraso"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_row="4"
+                            android:ems="10" />
+
+
+                    </GridLayout>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/CardViewIngresoGestion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView28"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="INGRESO GESTION"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <View
+                        android:id="@+id/view3"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/lblTituloFteIgr"
+                        android:layout_marginBottom="@dimen/padding_between"
+                        android:background="@color/ColorSentinel" />
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tipo Contacto" />
+
+                    <Spinner
+                        android:id="@+id/spn_TipoContacto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/textView20"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tefefono" />
+
+                    <Spinner
+                        android:id="@+id/spn_Telefono"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/textView22"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tipo Gestion" />
+
+                    <Spinner
+                        android:id="@+id/spn_TipoGestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/textView24"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Resultado Gestion" />
+
+                    <Spinner
+                        android:id="@+id/spn_Resultado"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/textView25"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mtv porque no pago" />
+
+                    <Spinner
+                        android:id="@+id/spn_MtvnoPago"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/CardViewDatosCompromisoPago"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView29"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="DATOS COMPROMISO PAGO"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <View
+                        android:id="@+id/view4"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/lblTituloFteIgr"
+                        android:layout_marginBottom="@dimen/padding_between"
+                        android:background="@color/ColorSentinel" />
+
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:columnCount="4"
+                        android:rowCount="5">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="3">
+
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="1">
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="2">
+
+                        </android.support.design.widget.TextInputLayout>
+
+                    </GridLayout>
+
+                    <TextView
+                        android:id="@+id/txtFechaPromesa"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:text="Fecha Promesa" />
+
+                    <TextView
+                        android:id="@+id/lblFecha"
+                        style="@android:style/Widget.DeviceDefault.Light.Spinner"
+                        android:layout_width="354dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/llGraciaCuotas"
+                        android:layout_below="@+id/llGraciaCuotas"
+
+                        android:layout_toEndOf="@+id/textoFechaDesem"
+                        android:layout_weight="0.44"
+                        android:text="2015-07-11"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textSize="20dp" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/txtMonto"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:hint="Monto Promesa"
+                            android:inputType="numberDecimal"
+
+                            />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/txtResultaGestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Resultado Gestion MK" />
+
+                    <Spinner
+                        android:id="@+id/spn_ResultadoGestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/txtEstrategiaGestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Estrategia de Gestion" />
+
+                    <Spinner
+                        android:id="@+id/spn_EstrategiaGestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                  />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/txtObservacion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:hint="Observacion"
+                            android:layout_marginBottom="15dp"
+                            />
+
+                    </android.support.design.widget.TextInputLayout>
+
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

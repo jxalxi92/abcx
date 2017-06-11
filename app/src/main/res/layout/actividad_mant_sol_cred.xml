@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/cardview_shadow_start_color"
+    tools:context="pe.com.cmacica.flujocredito.ViewModel.Solicitud.ActividadMantSolCred">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:weightSum="1">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_weight="1.05"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/app_bar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/llOperacionSim"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/CarviewDatos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="6dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <GridLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:columnCount="3"
+                        android:rowCount="1">
+
+                        <EditText
+                            android:id="@+id/txt_Dni"
+                            android:layout_width="145dp"
+                            android:layout_height="match_parent"
+                            android:layout_column="0"
+                            android:layout_marginRight="4dp"
+                            android:layout_row="0"
+                            android:ems="4"
+                            android:hint="DNI"
+                            android:inputType='number'
+                            android:maxLength="11" />
+
+                        <android.support.design.widget.FloatingActionButton
+                            android:id="@+id/Fab_Buscar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:clickable="true"
+                            app:backgroundTint="@color/colorPrimary"
+                            app:fabSize="mini"
+                            app:srcCompat="@android:drawable/ic_search_category_default" />
+
+                        <android.support.design.widget.FloatingActionButton
+                            android:id="@+id/Fab_nuevo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:clickable="true"
+                            app:backgroundTint="@color/colorPrimary"
+                            app:fabSize="mini"
+                            app:srcCompat="@drawable/ic_add" />
+                    </GridLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/textInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp">
+
+                        <EditText
+                            android:id="@+id/txtNombres"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Nombre y Apellidos" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/textInputLayout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp">
+
+                        <EditText
+                            android:id="@+id/txtTipoPersona"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Tipo Persona" />
+
+                        <Button
+                            android:id="@+id/button4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Button" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/CarViewCredito"
+                android:layout_width="match_parent"
+                app:cardCornerRadius="6dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:id="@+id/llCredito"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/checkboxMicroSeg"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textProceso"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:text="Proceso" />
+
+                    <Spinner
+                        android:id="@+id/spinnerProceso"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp">
+
+                        <EditText
+                            android:id="@+id/txtCondicion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Condición" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/textTipoCredito"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:text="Tipo Crédito" />
+
+                    <Spinner
+                        android:id="@+id/spinnerTipoCredito"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp" />
+
+                    <TextView
+                        android:id="@+id/textProducto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:text="Producto" />
+
+                    <Spinner
+                        android:id="@+id/spinnerProducto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp" />
+
+                    <GridLayout
+                        android:id="@+id/GvMonto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/GvTipoPeriodo"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:columnCount="2"
+                        android:rowCount="2">
+
+                        <TextView
+                            android:id="@+id/lblMoneda"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="0"
+                            android:text="Moneda"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <Spinner
+                            android:id="@+id/spinnerMoneda"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="1" />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_columnWeight="1"
+                            android:layout_row="0"
+                            android:layout_rowSpan="2">
+
+                            <EditText
+                                android:id="@+id/TxtMontoSol"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="Monto"
+                                android:inputType='number'
+                                android:maxLength="11" />
+                        </android.support.design.widget.TextInputLayout>
+
+
+                    </GridLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp">
+
+                        <EditText
+                            android:id="@+id/txtNroCuotas"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="N° Cuotas" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <GridLayout
+                        android:id="@+id/GvFrecPago"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:columnCount="2"
+                        android:rowCount="3">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_row="0"
+                            android:layout_rowSpan="2">
+
+                            <EditText
+                                android:id="@+id/txtDiasFrecuencia"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="Dias"
+                                android:inputType='number'
+                                android:maxLength="11" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <Spinner
+                            android:id="@+id/spinnerFrecPago"
+                            android:layout_width="167dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="1" />
+
+                        <TextView
+                            android:id="@+id/lblFrecPago"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="0"
+                            android:text="Frecuencia Pago"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <CheckBox
+                            android:id="@+id/chckAgropecuario"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_column="0"
+                            android:layout_row="2"
+                            android:text="Agropecuario" />
+
+                        <Spinner
+                            android:id="@+id/spinnerAgropecuario"
+                            android:layout_width="167dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_row="2" />
+
+                    </GridLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/CarViewInstitucion"
+                app:cardCornerRadius="6dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <GridLayout
+                        android:id="@+id/GvInstitucion"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:columnCount="2"
+                        android:rowCount="3">
+
+
+                        <TextView
+                            android:id="@+id/lblInstitucion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="0"
+                            android:text="Insitucion"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <Spinner
+                            android:id="@+id/spinnerSector"
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="1" />
+
+                        <Spinner
+                            android:id="@+id/spinnerIntSector"
+                            android:layout_width="250dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_row="1" />
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="2">
+                            -->android:layout_rowSpan="2">
+
+                            <EditText
+                                android:id="@+id/txtCodModular"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="Cod.Modular"
+                                android:maxLength="11" />
+                        </android.support.design.widget.TextInputLayout>
+
+                    </GridLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                app:cardCornerRadius="6dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <GridLayout
+                        android:id="@+id/GvVarios"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:columnCount="2"
+                        android:rowCount="2">
+
+                        <CheckBox
+                            android:id="@+id/chckCampaña"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="0"
+                            android:text="Campaña" />
+
+                        <Spinner
+                            android:id="@+id/spinnerCampaña"
+                            android:layout_width="167dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_row="0" />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="1">
+                            -->android:layout_rowSpan="2">
+
+                            <EditText
+                                android:id="@+id/txtTea"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="TEA% CredCompra"
+                                android:inputType="number"
+                                android:maxLength="5" />
+                        </android.support.design.widget.TextInputLayout>
+                    </GridLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llDestino"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/lblDestino"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:text="Destino"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <Spinner
+                            android:id="@+id/spinnerDestino"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp" />
+
+                    </LinearLayout>
+
+                    <GridLayout
+                        android:id="@+id/GvBanco"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:columnCount="2"
+                        android:rowCount="2">
+
+                        <CheckBox
+                            android:id="@+id/chckBancoNacion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="0"
+                            android:text="Banco de La Nacion" />
+
+                        <Spinner
+                            android:id="@+id/spinnerBanco"
+                            android:layout_width="214dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_row="0" />
+
+                    </GridLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llProyectos"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/lblProyectoImnmobiliario"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:text="Proy.Inmobiliario"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <Spinner
+                            android:id="@+id/spinnerProyImmobiliario"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp" />
+
+
+                        <TextView
+                            android:id="@+id/lblProyecto"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:text="Proyecto"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <Spinner
+                            android:id="@+id/spinnerProyecto"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llSeguros"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/lblSeguro"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:text="Seguros"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <CheckBox
+                            android:id="@+id/chckMicroSeguro"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:text="MICROSEGURO" />
+
+                    </LinearLayout>
+
+                    <GridLayout
+                        android:id="@+id/GvSolioitud"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:columnCount="2"
+                        android:rowCount="2">
+
+                        <TextView
+                            android:id="@+id/lblSolicitud"
+                            android:layout_width="214dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="0"
+                            android:text="Estado Solicitud"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <CheckBox
+                            android:id="@+id/chckAsignado"
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_row="1"
+                            android:text="AutoAsignado" />
+
+                        <Spinner
+                            android:id="@+id/spinnerSolicitud"
+                            android:layout_width="214dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="1" />
+                    </GridLayout>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

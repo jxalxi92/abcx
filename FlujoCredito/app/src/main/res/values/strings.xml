@@ -1,0 +1,86 @@
+<resources>
+    <string name="app_name">Credi Móvil</string>
+    <string name="action_settings">Configuraciones</string>
+
+    <string name="item_inicio">Calif. SF.</string>
+    <string name="item_Solicitud">Calendario</string>
+    <string name="item_digitacion">Digitación</string>
+    <string name="item_calendario">Sim. crédito</string>
+    <string name="item_FteIngresoDep">Fte. Ingreso</string>
+    <string name="item_RegistroPersona">Registro Persona</string>
+    <string name="item_Configuracion">Configuración</string>
+    <string name="item_Ajustes">Ajustes</string>
+    <string name="log_out_item">Cerrar Sesión</string>
+
+
+
+    <!-- TODO: elementos de la fuente de ingreso -->
+
+    <string name="tap_FteDatosCliente">Datos Cliente</string>
+    <string name="tap_FteComentario">Comentarios</string>
+    <string name="tap_FteIgrEgr">Ingr y Egre</string>
+    <string name="tap_FteIgrBalance">Balance</string>
+
+
+    <string name="item_CerrarSesion">Cerrar Sesión</string>
+    <string name="titulo_Tap_FteIngComentario">COMENTARIOS</string>
+    <string name="titulo_Tap_FteIngEgrSoles">INGRESO Y EGRESO SOLES</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="texto_cambiar_contrasena">Cambia tu contraseña</string>
+    <string name="etiqueta_contrasena">Contraseña</string>
+    <string name="etiqueta_info_usuario">DATOS INTERNOS DEL CLIENTE</string>
+    <string name="etiqueta_DetCalif_usuario">CALIFICACIÓN 6 ÚLTIMOS MESES</string>
+    <string name="title_activity_actividad_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."
+    </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="nombre_empresa">Credi Móvil</string>
+    <string name="DisplayAgencia">NombreAgencia</string>
+
+    <!-- Tooltips acciones toolbar -->
+    <string name="accion_sync">Sincronizar</string>
+    <string name="accion_eliminar">Eliminar</string>
+    <string name="accion_guardar">Guardar</string>
+    <string name="accion_descartar">Descartar</string>
+
+    <!-- Diálogos -->
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_discard_msg">¿Descartar Cambios?</string>
+    <string name="dialog_cancel">Cancelar</string>
+    <string name="dialog_delete_msg">Se eliminará la meta</string>
+
+    <string-array name="FrecPagoFteIngreso">
+        <item>Diario</item>
+        <item>Quincenal</item>
+        <item>Mensual</item>
+    </string-array>
+
+    <!-- Cuenta Sync Adapter -->
+    <string name="tipo_cuenta">pe.com.cmacica.flujocredito.cuenta</string>
+
+    <!-- Autoridad del provider -->
+    <string name="autoridad_provider">pe.com.cmacica.flujocredito</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_actividad_hoja_ruta_ana">Map</string>
+
+
+    <string name="search_hint">Nombre...</string>
+    <string name="title_activity_actividad_hist_plan_pago">Historial de Pago</string>
+
+</resources>

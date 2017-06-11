@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="pe.com.cmacica.flujocredito.ViewModel.Digitacion.fragmentoInicio">
+
+    <RadioGroup
+        android:layout_row="0"
+        android:layout_column="0"
+        android:layout_columnSpan="3"
+        android:layout_marginLeft="16dp"
+        android:id="@+id/opciones_Moneda"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+
+        <RadioButton
+            android:id="@+id/rbDNI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:checked="true"
+            android:text="DNI" />
+
+        <RadioButton
+            android:id="@+id/rbRUC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:layout_marginRight="16dp"
+            android:text="RUC" />
+
+        <RadioButton
+            android:id="@+id/rbtCarnetExt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="Carnet ext." />
+
+    </RadioGroup>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/llbusqueda">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_Doi"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp">
+
+            <EditText
+                android:id="@+id/TxtDoi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="4"
+                android:maxLength="11"
+                android:hint="DOI"
+                android:inputType='number'
+                android:layout_marginRight="4dp"
+                android:layout_weight="1" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- FAB -->
+
+
+        <Button
+            android:id="@+id/btnBuscarCalif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/cardview_light_background"
+            android:layout_marginRight="4dp"
+            android:text="Buscar" />
+
+        <Button
+            android:id="@+id/btnNuevoCalif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/cardview_light_background"
+            android:text="Nuevo" />
+
+    </LinearLayout>
+    <!--
+            <TextView
+            android:id="@+id/titulo_informacion_usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:text="@string/etiqueta_info_usuario"
+            android:textAppearance="?android:attr/textAppearanceSmall" />-->
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/app_bar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/llresultado">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="INFORMACIÓN ESTANDAR"
+                android:id="@+id/lblTituloFteIgr"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:gravity="center"
+                android:textColor="@color/ColorSentinel"
+                android:layout_alignParentEnd="true" />
+            <View
+                android:id="@+id/dividerInfoEstandar"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/lblTituloFteIgr"
+                android:layout_marginBottom="@dimen/padding_between"
+                android:background="@color/ColorSentinel" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvInfoEstandar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:scrollbars="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Det. Deudad SBS/Microfinanzas"
+                android:id="@+id/lblTituloSBS"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:gravity="center"
+                android:textColor="@color/ColorSentinel"
+                android:layout_alignParentEnd="true" />
+            <View
+                android:id="@+id/dividerSBS"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/lblTituloFteIgr"
+                android:layout_marginBottom="@dimen/padding_between"
+                android:background="@color/ColorSentinel" />
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/llInfoSBS"
+                >
+
+                <TextView
+                    android:id="@+id/lblCalificacion"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Cal."
+                    android:textStyle="bold"
+                    android:padding="1dp"
+                    android:textSize="@dimen/ancho_text_elemntocalendario"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    />
+
+                <TextView
+                    android:id="@+id/lblNomRazSocEnt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:padding="1dp"
+                    android:text="Entidad"
+                    android:textSize="@dimen/ancho_text_elemntocalendario"
+                    android:textStyle="bold"
+
+                    />
+
+                <TextView
+                    android:id="@+id/lblMontoDeuda"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textStyle="bold"
+                    android:padding="1dp"
+                    android:text="Monto"
+                    android:textSize="@dimen/ancho_text_elemntocalendario"
+                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+                <TextView
+                    android:id="@+id/lblFechaReporte"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="2"
+                    android:padding="1dp"
+                    android:textStyle="bold"
+                    android:text="F. Rep."
+                    android:textSize="@dimen/ancho_text_elemntocalendario"
+                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvInfoSBS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:scrollbars="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Utilización de Líneas de Crédito"
+                android:id="@+id/lblTituloLinCred"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:gravity="center"
+                android:textColor="@color/ColorSentinel"
+                android:layout_alignParentEnd="true" />
+            <View
+                android:id="@+id/dividerLineasCred"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/lblTituloFteIgr"
+                android:layout_marginBottom="@dimen/padding_between"
+                android:background="@color/ColorSentinel" />
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/llLinCred"
+                >
+
+                <TextView
+                    android:id="@+id/lblInstituciones"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Inst."
+                    android:textStyle="bold"
+                    android:padding="1dp"
+                    android:layout_weight="3"
+                    android:textSize="@dimen/ancho_text_elemntocalendario"
+
+                    />
+                <TextView
+                    android:id="@+id/lblLineaAprop"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="L. Apro."
+                    android:padding="1dp"
+                    android:textSize="@dimen/ancho_text_elemntocalendario"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    />
+
+                <TextView
+                    android:id="@+id/lblLineaNoUti"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="1dp"
+                    android:textStyle="bold"
+                    android:text="L. No Uti."
+                    android:textSize="@dimen/ancho_text_elemntocalendario"
+                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+                <TextView
+                    android:id="@+id/lblLineaUti"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="2"
+                    android:padding="1dp"
+                    android:textStyle="bold"
+                    android:text="L. Uti."
+                    android:textSize="@dimen/ancho_text_elemntocalendario"
+                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+                <TextView
+                    android:id="@+id/lblLinePorcenUti"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1.5"
+                    android:padding="1dp"
+                    android:textStyle="bold"
+                    android:text="% L. Uti."
+                    android:textSize="@dimen/ancho_text_elemntocalendario"
+                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+
+
+
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvInfoLinCred"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:scrollbars="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Detalle deuda Vencido"
+                android:id="@+id/lblTituloDeuVencidos"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:gravity="center"
+                android:textColor="@color/ColorSentinel"
+                android:layout_alignParentEnd="true" />
+
+            <View
+                android:id="@+id/dividerVencido"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/lblTituloFteIgr"
+                android:layout_marginBottom="@dimen/padding_between"
+                android:background="@color/ColorSentinel" />
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/llDeudaVenc"
+                >
+
+                <TextView
+                    android:id="@+id/lblEntidad"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Entidad"
+                    android:padding="1dp"
+                    android:layout_weight="5"
+                    android:textSize="@dimen/ancho_text_elemntocalendario"
+                    />
+                <TextView
+                    android:id="@+id/lblFuente"
+                    android:layout_weight="5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Fuente"
+                    android:padding="1dp"
+                    android:textSize="@dimen/ancho_text_elemntocalendario"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    />
+
+                <TextView
+                    android:id="@+id/lblMonto"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:padding="1dp"
+                    android:textStyle="bold"
+                    android:text="Monto"
+                    android:textSize="@dimen/ancho_text_elemntocalendario"
+                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+                <TextView
+                    android:id="@+id/lbldiasvencidos"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="2"
+                    android:textStyle="bold"
+                    android:padding="1dp"
+                    android:text="D. Atr"
+                    android:textSize="@dimen/ancho_text_elemntocalendario"
+                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+
+
+            </LinearLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvInfoDeuVenc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:scrollbars="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+<!--
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Representante Legal"
+                android:id="@+id/lblTituloRepLegales"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:layout_alignParentEnd="true" />
+
+            <View
+                android:id="@+id/dividerRepLegales"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/lblTituloFteIgr"
+                android:layout_marginBottom="@dimen/padding_between"
+                android:background="@color/colorPrimary" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvInfoRepLegales"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:scrollbars="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+-->
+
+            <TextView
+                android:id="@+id/lblDatInterno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/etiqueta_info_usuario" />
+            <View
+                android:id="@+id/dividerDatInterno"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/lblTituloFteIgr"
+                android:layout_marginBottom="@dimen/padding_between"
+                android:background="@color/colorPrimary" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/llDatInterno"
+                >
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="4"
+                    android:padding="2dp"
+                    android:rowCount="6">
+
+                    <TextView
+                        android:id="@+id/texto_nombre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nombres: "
+                        android:textStyle="bold"
+                        android:layout_column="0"
+                        android:layout_row="0"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/lblnombre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:layout_row="0"
+                        android:text=""
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_columnSpan="3" />
+
+                    <TextView
+                        android:id="@+id/texto_CodigoSbs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_row="1"
+                        android:textStyle="bold"
+                        android:text="Cod SBS:"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/lblCodigoSbs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:layout_column="1"
+                        android:layout_row="1"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_columnSpan="3" />
+
+
+
+                    <TextView
+                        android:id="@+id/texto_CalifSBS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_row="2"
+                        android:textStyle="bold"
+                        android:text="Calif. SBS: "
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/lblCalifSBS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:layout_row="2"
+                        android:text=""
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_columnSpan="3" />
+                    <TextView
+                        android:id="@+id/texto_CalifCmac"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_row="3"
+                        android:textStyle="bold"
+                        android:text="Calif. Int: "
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+                    <TextView
+                        android:id="@+id/lblCalifCmac"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:layout_row="3"
+                        android:text=""
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_columnSpan="3" />
+
+                    <TextView
+                        android:id="@+id/texto_DeudaSf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_row="4"
+                        android:textStyle="bold"
+                        android:text="Deuda SF: "
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/lblDeudaSf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:layout_row="4"
+                        android:text="0"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/texto_NumEnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:layout_row="4"
+                        android:textStyle="bold"
+                        android:text=" Num. Ent.: "
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/lblNumEnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="3"
+                        android:layout_row="4"
+                        android:text="0"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </GridLayout>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/titulo_Det_Calif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/etiqueta_DetCalif_usuario"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <View
+                android:id="@+id/dividerCalif6meses"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/lblTituloFteIgr"
+                android:layout_marginBottom="@dimen/padding_between"
+                android:background="@color/colorPrimary" />
+            <!-- Recycler -->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvCalif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:layout_below="@+id/LlyCabCalif"
+                android:scrollbars="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            <!-- Recycler para créditos vigentes -->
+            <TextView
+                android:id="@+id/titulo_Cred_Cliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:text="Créditos Vigentes"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <View
+                android:id="@+id/dividerCredCliente"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/padding_between"
+                android:background="@color/colorPrimary" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvCredVigente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:layout_below="@+id/LlyCabCalif"
+                android:scrollbars="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            <!-- Recycler para reglas negocio -->
+            <TextView
+                android:id="@+id/titulo_reglas_negocio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:text="Observado según política de Créditos"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <View
+                android:id="@+id/dividerreglasnegocio"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/padding_between"
+                android:background="@color/colorPrimary" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvreglasnegocio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:scrollbars="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

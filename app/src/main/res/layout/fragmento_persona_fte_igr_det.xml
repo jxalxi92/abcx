@@ -1,0 +1,149 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    tools:context="pe.com.cmacica.flujocredito.ViewModel.Digitacion.FragmentoPersonaFteIgrDet">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="DETALLE"
+        android:id="@+id/lblTituloFteIgr"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:layout_alignParentEnd="true" />
+    <View
+        android:id="@+id/dividertitulo"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/lblTituloFteIgr"
+        android:layout_marginBottom="@dimen/padding_between"
+        android:background="@color/colorPrimary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_margin="4dp"
+        android:text="Dirección: "
+        android:textStyle="bold"
+        android:id="@+id/textViewDireccion"
+        android:layout_below="@+id/lblTituloFteIgr"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_margin="4dp"
+        android:text="fdgdfg"
+        android:id="@+id/lblDirección"
+        android:layout_below="@+id/textViewDireccion"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_margin="4dp"
+        android:textStyle="bold"
+        android:text="Tel: "
+        android:id="@+id/textviewCel"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/lblDirección" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text=""
+        android:id="@+id/lblCel"
+        android:layout_alignTop="@+id/textviewCel"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_margin="4dp"
+        android:text="Cel:"
+        android:textStyle="bold"
+        android:id="@+id/textViewTel"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textviewCel" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text=""
+        android:id="@+id/lblTel"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textviewCel"
+       />
+
+    <View
+        android:id="@+id/divideroperacion"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="1dp"
+        android:layout_below="@+id/textViewTel"
+        android:layout_marginBottom="@dimen/padding_between"
+        android:background="@color/colorPrimary" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divideroperacion"
+        android:padding="2dp"     >
+
+        <ImageView
+            android:layout_weight="1"
+            android:id="@+id/icono_llamar_persona"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icono_telefono" />
+        <ImageView
+            android:layout_weight="1"
+            android:id="@+id/icono_llamar_persona2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@android:drawable/stat_sys_phone_call_on_hold" />
+
+        <ImageView
+            android:layout_weight="1"
+            android:id="@+id/icono_fuente_dep"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/cuenta" />
+
+        <ImageView
+            android:layout_weight="1"
+            android:id="@+id/icono_fuente_Ind"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_home" />
+
+
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

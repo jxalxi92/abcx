@@ -1,0 +1,7 @@
+#Fri Dec 02 12:21:17 COT 2016
+base.0=C\:\\Users\\jhcc\\AndroidStudioProjects\\FlujoCredito\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_b1c6c4aa2f153a0a3bc646a8b045a7714347656a
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=C\:\\Users\\jhcc\\AndroidStudioProjects\\FlujoCredito\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_dea82c227a84057ea898194a8595a7c3baa12eac\\classes.dex
+base.1=C\:\\Users\\jhcc\\AndroidStudioProjects\\FlujoCredito\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_dea82c227a84057ea898194a8595a7c3baa12eac
+file.0=C\:\\Users\\jhcc\\AndroidStudioProjects\\FlujoCredito\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_b1c6c4aa2f153a0a3bc646a8b045a7714347656a\\classes.dex

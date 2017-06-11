@@ -1,0 +1,97 @@
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context="pe.com.cmacica.flujocredito.ViewModel.Calificacion.ActividadHistPlanPago"
+        android:id="@+id/llresultado">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/llplanpagohist" >
+
+                <TextView
+                    android:id="@+id/lblNroCuota"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="N°"
+                    android:textStyle="bold"
+                    android:padding="1dp"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/ancho_text_elemntocalendario"
+
+                    />
+                <TextView
+                    android:id="@+id/lblFechaVenc"
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="F. Venc"
+                    android:textStyle="bold"
+                    android:padding="1dp"
+                    android:textSize="@dimen/ancho_text_elemntocalendario"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    />
+
+                <TextView
+                    android:id="@+id/lblFechaPago"
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="F. Pago"
+                    android:textStyle="bold"
+                    android:padding="1dp"
+                    android:textSize="@dimen/ancho_text_elemntocalendario"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    />
+
+                <TextView
+                    android:id="@+id/lblMontoCuota"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textStyle="bold"
+                    android:padding="1dp"
+                    android:text="Cuota"
+                    android:textSize="@dimen/ancho_text_elemntocalendario"
+                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+                <TextView
+                    android:id="@+id/lblMontoCuotaPag"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="2"
+                    android:textStyle="bold"
+                    android:padding="1dp"
+                    android:text="Cuota Pag."
+                    android:textSize="@dimen/ancho_text_elemntocalendario"
+                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+                <TextView
+                    android:id="@+id/lblEstado"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Est"
+                    android:padding="1dp"
+                    android:textSize="@dimen/ancho_text_elemntocalendario"
+                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+
+
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvHistPlanPago"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:layout_below="@+id/LlyCabCalif"
+            android:scrollbars="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</LinearLayout>

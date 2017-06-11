@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/actividad_configuracion"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="pe.com.cmacica.flujocredito.ViewModel.General.ActividadConfiguracion">
+
+
+    <TextView
+        android:id="@+id/lblTituloGeneral"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="1"
+        android:text="General"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/colorPrimary" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/llbusqueda"
+        android:layout_below="@+id/lblTituloGeneral"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Sincronizar persona jurídica"
+            android:id="@+id/lblTituloSyncPersona"
+            android:layout_weight="1"
+            />
+
+        <TextView
+
+            android:id="@+id/lblPorSyncPer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="0.24"
+            android:text="100%"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <Button
+
+        android:id="@+id/btnSyncPersona"
+        android:layout_width="114dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:padding="4dp"
+        android:text="Sincronizar"
+        android:textColor="@color/cardview_light_background" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/llbusqueda"
+        android:layout_marginTop="@dimen/padding_between"
+        android:background="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/divider2"
+        android:layout_marginTop="16dp"
+        android:text="Constantes"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/colorPrimary" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_below="@+id/textView9"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/lblTituloSyncConstante"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Sincronizar Constante"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_weight="1"
+           />
+
+        <TextView
+            android:id="@+id/lblPorSynCons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="100%"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <Button
+            android:id="@+id/btnSyncConstante"
+            android:layout_width="114dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:padding="4dp"
+            android:text="SINCRONIZAR"
+            android:textColor="@color/cardview_light_background" />
+
+    </LinearLayout>
+
+</RelativeLayout>

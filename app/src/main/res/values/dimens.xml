@@ -1,0 +1,29 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="header_left_padding">16dp</dimen>
+    <dimen name="header_height">192dp</dimen>
+
+    <dimen name="perfil_image_size">64dp</dimen>
+
+    <dimen name="size_fab">56dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="espacio_norma_1">16dp</dimen>
+    <dimen name="espacio_norma_2">8dp</dimen>
+
+    <dimen name="padding_between">10dp</dimen>
+
+    <dimen name="edit_text_padding">16dp</dimen>
+    <dimen name="button_padding">24dp</dimen>
+    <dimen name="card_margin">16dp</dimen>
+
+    <dimen name="ancho_EditText_Monto">150dp</dimen>
+    <dimen name="Size_EditText_SubTotal">25dp</dimen>
+    <dimen name="Size_EditText_Total">30dp</dimen>
+
+    <dimen name="ancho_text_elemntocalendario">12dp</dimen>
+
+</resources>

@@ -1,0 +1,236 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="pe.com.cmacica.flujocredito.ViewModel.Digitacion.FragmentoGastoOpeAdmDet">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Detalle Gasto Ope/Adm"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/texttitulo" />
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
+        android:layout_below="@+id/texttitulo"
+        android:layout_marginTop="@dimen/padding_between"
+        android:background="@color/colorPrimaryDark"/>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:rowCount="9"
+        android:layout_margin="8dp"
+        android:columnCount="2"
+        android:layout_below="@+id/divider"
+        android:id="@+id/GridDetGastoFteIgrDep" >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Personal:"
+            android:layout_row="0"
+            android:layout_column="0" />
+        <EditText
+            android:layout_width="@dimen/ancho_EditText_Monto"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:background="@drawable/edit_text_border"
+            android:ems="10"
+            android:maxLength="11"
+            android:hint="0"
+            android:padding="2dp"
+            android:layout_margin="2dp"
+            android:id="@+id/txtMontoPersonal"
+            android:layout_row="0"
+            android:layout_column="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tributos:"
+            android:layout_row="1"
+            android:layout_column="0" />
+        <EditText
+            android:layout_width="@dimen/ancho_EditText_Monto"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:background="@drawable/edit_text_border"
+            android:ems="10"
+            android:maxLength="11"
+            android:hint="0"
+            android:padding="2dp"
+            android:layout_margin="2dp"
+            android:id="@+id/txtMontoTributos"
+            android:layout_row="1"
+            android:layout_column="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Transporte:"
+            android:layout_row="2"
+            android:layout_column="0" />
+        <EditText
+            android:layout_width="@dimen/ancho_EditText_Monto"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:background="@drawable/edit_text_border"
+            android:ems="10"
+            android:maxLength="11"
+            android:hint="0"
+            android:padding="2dp"
+            android:layout_margin="2dp"
+            android:id="@+id/txtMontoTransporte"
+            android:layout_row="2"
+            android:layout_column="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alquiler:"
+            android:layout_column="0"
+            android:layout_row="3" />
+        <EditText
+            android:layout_width="@dimen/ancho_EditText_Monto"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:background="@drawable/edit_text_border"
+            android:ems="10"
+            android:hint="0"
+            android:maxLength="11"
+            android:padding="2dp"
+            android:layout_margin="2dp"
+            android:id="@+id/txtMontoAlquiler"
+            android:layout_row="3"
+            android:layout_column="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agua/Luz:"
+            android:layout_column="0"
+            android:layout_row="4" />
+        <EditText
+            android:layout_width="@dimen/ancho_EditText_Monto"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_border"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:hint="0"
+            android:maxLength="11"
+            android:id="@+id/txtMontoAguaLuz"
+            android:padding="2dp"
+            android:layout_margin="2dp"
+            android:layout_row="4"
+            android:layout_column="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deudas:"
+            android:layout_row="5"
+            android:layout_column="0" />
+        <EditText
+            android:layout_width="@dimen/ancho_EditText_Monto"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:background="@drawable/edit_text_border"
+            android:ems="10"
+            android:maxLength="11"
+            android:hint="0"
+            android:padding="2dp"
+            android:layout_margin="2dp"
+            android:id="@+id/txtMontoDeudas"
+            android:layout_row="5"
+            android:layout_column="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Otros:"
+            android:layout_row="6"
+            android:layout_column="0" />
+        <EditText
+            android:layout_width="@dimen/ancho_EditText_Monto"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:background="@drawable/edit_text_border"
+            android:ems="10"
+            android:maxLength="11"
+            android:hint="0"
+            android:padding="2dp"
+            android:layout_margin="2dp"
+            android:id="@+id/txtMontoOtros"
+            android:layout_row="6"
+            android:layout_column="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TOTAL:"
+            android:layout_column="0"
+            android:textSize="20dp"
+            android:layout_row="7"
+            android:textStyle="bold" />
+        <EditText
+            android:layout_width="@dimen/ancho_EditText_Monto"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_border"
+            android:padding="2dp"
+            android:layout_margin="2dp"
+            android:inputType="numberDecimal"
+            android:textSize="24dp"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="0"
+            android:maxLength="15"
+            android:id="@+id/txtMontoTotal"
+            android:layout_row="7"
+            android:layout_column="1"
+            android:textStyle="bold" />
+
+
+    </GridLayout>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:id="@+id/llOperacionSim"
+        android:layout_below="@+id/GridDetGastoFteIgrDep"
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guardar"
+            android:layout_weight="1"
+            android:layout_marginRight="4dp"
+            android:drawableLeft="@android:drawable/ic_menu_save"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/cardview_light_background"
+            android:id="@+id/btnAceptar" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancelar"
+            android:layout_marginLeft="4dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/cardview_light_background"
+            android:layout_weight="1"
+            android:drawableLeft="@android:drawable/ic_menu_delete"
+            android:id="@+id/btnCancelar" />
+
+    </LinearLayout>
+
+</RelativeLayout>

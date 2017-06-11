@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:padding="0dp"
+        android:rowCount="7">
+
+        <TextView
+            android:id="@+id/texto_nombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombres: "
+            android:textStyle="bold"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/lblnombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:text="nombre"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_columnSpan="3" />
+
+        <TextView
+            android:id="@+id/lblTipodoc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:textStyle="bold"
+            android:text="Doc/N°:"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/lblNrodoc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:layout_column="1"
+            android:layout_row="1"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_columnSpan="3" />
+
+        <TextView
+            android:id="@+id/texto_FechaProceso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="2"
+            android:textStyle="bold"
+            android:text="Fec Proc:"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/lblFechaProc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="2"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_columnSpan="3" />
+
+      <!--  <TextView
+            android:id="@+id/texto_CalifSBS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="3"
+            android:textStyle="bold"
+            android:text="Calif. SBS:"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/lblCalifSBS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="3"
+            android:text=""
+            android:textSize="@dimen/ancho_text_elemntocalendario"
+            android:layout_columnSpan="3" />
+        -->
+
+
+        <TextView
+            android:id="@+id/lblCalifCmac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="4"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_columnSpan="3" />
+
+        <TextView
+            android:id="@+id/texto_DeudaSf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="4"
+            android:textStyle="bold"
+            android:text="Deu. total:"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/lblDeudaSf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="4"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+        <TextView
+            android:id="@+id/texto_NroBco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_row="4"
+            android:text=" Nro Bco:"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/lblNroBco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="3"
+            android:layout_row="4"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/texto_Riesgo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="5"
+            android:textStyle="bold"
+            android:text="T. Riesgo:"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/lblRiesgo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_columnSpan="3"
+            android:layout_row="5"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+    </GridLayout>
+
+</LinearLayout>
