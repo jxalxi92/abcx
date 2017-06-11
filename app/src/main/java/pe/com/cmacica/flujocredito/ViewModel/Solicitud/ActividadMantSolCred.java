@@ -1281,8 +1281,8 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         try {
             if (response.getBoolean("IsCorrect")) {
 
-                DatoPersonaSolicitudModel obj = gson.fromJson(response.getJSONArray("Data").toString(), DatoPersonaSolicitudModel.class);
-                
+                DatoPersonaSolicitudModel obj = gson.fromJson(response.getJSONObject("Data").toString(), DatoPersonaSolicitudModel.class);
+
             }else{
                 new AlertDialog.Builder(this)
                         .setIcon(android.R.drawable.ic_dialog_alert)
