@@ -10,6 +10,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.text.InputType;
 import android.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -29,6 +30,8 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -79,6 +82,8 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
     private ProductoModel ProductoSel;
     private ConstanteModel SectorSel;
     private ConstanteModel MonedaSel;
+    //CARDVIEW--------------------------------------------------------------------------------------
+    private CardView CarViewInstitucion;
 
     public ActividadMantSolCred() {
     }
@@ -171,9 +176,12 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         Fab_nuevo=(FloatingActionButton)findViewById(R.id.Fab_nuevo);
         chckAutoAsignado = (CheckBox) findViewById(R.id.chckAsignado);
         txt_Dni=(EditText) findViewById(R.id.txt_Dni);
+        CarViewInstitucion=(CardView)findViewById(R.id.CarViewInstitucion);
         // txtNombres.setInputType(InputType.TYPE_NULL);
         //txtTipoPersona.setInputType(InputType.TYPE_NULL);
 
+        CarViewInstitucion.setVisibility(View.INVISIBLE);
+        spnProyInmobilirio.setEnabled(false);
 
     }
 
@@ -183,9 +191,9 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         ProcesarTipoPeriodo();
         OnCagarProceso();
         OnCargarCampañas();
-        OnCargarProyectos();
+
         OnCargarAgenciasBnAge();
-        ProcesarSector();
+
 
     }
 
@@ -236,9 +244,65 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 ProductoSel = (ProductoModel) parent.getItemAtPosition(position);
+                switch (ProductoSel.getcCredProductos()) {
+                    case "301": //CrediSueldo
+                        CarViewInstitucion.setVisibility(View.VISIBLE);
+                        spnProyInmobilirio.setVisibility(View.INVISIBLE);
+                        chckAgropecuario.setVisibility(View.INVISIBLE);
+                        spnAgropecuario.setVisibility(View.INVISIBLE);
+                        spnProyecto.setVisibility(View.INVISIBLE);
+                        ProcesarSector();
+                        break;
+                    case "404"://MI VIVIENDA - TECHO PROPIO
+                    case "405"://HIPOTECARIO CAJA CASA
+                        CarViewInstitucion.setVisibility(View.INVISIBLE);
+                        spnProyInmobilirio.setVisibility(View.VISIBLE);
+                        chckAgropecuario.setVisibility(View.INVISIBLE);
+                        spnAgropecuario.setVisibility(View.INVISIBLE);
+                        spnProyInmobilirio.setEnabled(true);
+                        OnCargarProyectoInmobiliario();
+                        break;
+                    case "102"://COMERCIAL AGRICOLA
+                    case "202"://COMERCIAL AGRICOLA
+                        CarViewInstitucion.setVisibility(View.INVISIBLE);
+                        spnProyInmobilirio.setVisibility(View.INVISIBLE);
+                        chckAgropecuario.setChecked(true);
+                        OnCargarAgropecuario();
+                        spnProyecto.setVisibility(View.INVISIBLE);
+                        break;
+                    case "208"://ASOCIACIONES Y/O GRUPOS ORG
+                    case "309"://ASOCIACIONES Y/O GRUPOS ORG
+                        CarViewInstitucion.setVisibility(View.INVISIBLE);
+                        spnProyInmobilirio.setVisibility(View.INVISIBLE);
+                        chckAgropecuario.setVisibility(View.INVISIBLE);
+                        spnAgropecuario.setVisibility(View.INVISIBLE);
+                        spnProyecto.setVisibility(View.VISIBLE);
+                        spnProyInmobilirio.setEnabled(true);
+                        OnCargarProyectos();
+                        break;
+                    case "205":
+                    case "204":
+                    case "201":
+                    case "101":
+                        CarViewInstitucion.setVisibility(View.INVISIBLE);
+                        spnProyInmobilirio.setVisibility(View.INVISIBLE);
+                        chckAgropecuario.setVisibility(View.INVISIBLE);
+                        spnAgropecuario.setVisibility(View.VISIBLE);
+                        spnProyecto.setVisibility(View.INVISIBLE);
+                        chckAgropecuario.setChecked(false);
+                        chckAgropecuario.setEnabled(true);
+                        OnCargarAgropecuario();
+                    default:
+                        CarViewInstitucion.setVisibility(View.INVISIBLE);
+                        spnProyInmobilirio.setVisibility(View.INVISIBLE);
+                        chckAgropecuario.setVisibility(View.INVISIBLE);
+                        spnAgropecuario.setVisibility(View.INVISIBLE);
+                        spnProyecto.setVisibility(View.INVISIBLE);
+                }
                 OnCargarFrecPago();
-                OnCargarAgropecuario();
                 OnCargarDestino();
+        
+
             }
 
             @Override
