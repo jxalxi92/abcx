@@ -63,6 +63,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
     private int Perstipo;
     private double MontoSolicitado;
     private String NumeroDocumento;
+    DatoPersonaSolicitudModel Cliente;
 
  //VARIABLES CONTROLES------------------------------------------------------------------------------
     SearchView Search;
@@ -82,6 +83,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
     private ProductoModel ProductoSel;
     private ConstanteModel SectorSel;
     private ConstanteModel MonedaSel;
+    private ConstanteModel Condicion;
     //CARDVIEW--------------------------------------------------------------------------------------
     private CardView CarViewInstitucion;
 
@@ -135,7 +137,9 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
     public void onLoaderReset(Loader<Cursor> loader) {}
 
 
-//METODOS------------------------------------------------------------------------------------------
+    /*********************************************************************************************************************
+     **************************************************<  M E T O D O S  >*************************************************
+     **********************************************************************************************************************/
     public void showToolbar(String tittle, boolean upButton) {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -188,7 +192,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
     }
 
     private void InicializarControles() {
-        OnCargarLitaTipoCredito();
+        //OnCargarLitaTipoCredito();
         ProcesarListaMoneda();
         ProcesarTipoPeriodo();
         OnCagarProceso();
@@ -218,9 +222,9 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 {
                     OnVerificarEvaMensual();
                 }
-
-                OnCargarProducto();
-                OnCargarDestino();
+                //OnVerificarEvaMensual();
+                //OnCargarProducto();
+                //OnCargarDestino();
             }
 
             @Override
@@ -325,9 +329,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
             }
         });
 
-
-
-
         chckBancoNacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -408,6 +409,85 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         txtTipoPersona.setText("");
 
     }
+    private void ProcesarListaMoneda() {
+        try {
+
+
+            List<ConstanteModel> ListaMoneda = new ArrayList<ConstanteModel>();
+            ListaMoneda.add(new ConstanteModel(1011, 1, "SOLES"));
+            ListaMoneda.add(new ConstanteModel(1011, 2, "DÓLARES"));
+
+            ArrayAdapter<ConstanteModel> adpSpinnerMoneda = new ArrayAdapter<ConstanteModel>(
+                    this,
+                    android.R.layout.simple_spinner_item,
+                    ListaMoneda
+            );
+            adpSpinnerMoneda.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spnMoneda.setAdapter(adpSpinnerMoneda);
+
+
+        } catch (Exception e) {
+            Log.d(TAG, e.getMessage());
+            Toast.makeText(
+                    this,
+                    e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void ProcesarTipoPeriodo() {
+        try {
+
+            // Obtener atributo "estado"
+
+            List<ConstanteModel> ListaTipoPeriodo = new ArrayList<ConstanteModel>();
+            ListaTipoPeriodo.add(new ConstanteModel(1011, 0, "FECHA FIJA"));
+            ListaTipoPeriodo.add(new ConstanteModel(1011, 1, "PERIODO FIJO"));
+
+            ArrayAdapter<ConstanteModel> adpSpinnerTipoFrec = new ArrayAdapter<ConstanteModel>(
+                    this,
+                    android.R.layout.simple_spinner_item,
+                    ListaTipoPeriodo
+            );
+            adpSpinnerTipoFrec.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spnFrecPago.setAdapter(adpSpinnerTipoFrec);
+
+
+        } catch (Exception e) {
+            Log.d(TAG, e.getMessage());
+            Toast.makeText(
+                    this,
+                    e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void OnCargarConstantes(Cursor query) {
+
+
+        List<ConstanteModel> ListaConstanteEstadosSolictud = new ArrayList<>();
+
+        while (query.moveToNext()) {
+            ConstanteModel obj = UConsultas.ConverCursorToConstanteModel(query);
+            if (obj.getCodigoValor() == 6 || obj.getCodigoValor()==7 || obj.getCodigoValor()==8) {
+                ListaConstanteEstadosSolictud.add(obj);
+            } else {
+
+            }
+        }
+
+        ArrayAdapter<ConstanteModel> adpSpinnerEstadoSolicitud = new ArrayAdapter<ConstanteModel>(
+                this,
+                android.R.layout.simple_spinner_item,
+                ListaConstanteEstadosSolictud
+        );
+        adpSpinnerEstadoSolicitud.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnSolicitud.setAdapter(adpSpinnerEstadoSolicitud);
+
+
+    }
+
+    //region Procesos
     private void OnCagarProceso(){
         try {
 
@@ -472,7 +552,163 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     Toast.LENGTH_LONG).show();
         }
     }
+    //endregion
 
+    //region Tipo Creditos
+    private void OnCargarLitaTipoCredito() {
+        try {
+
+            String Url = String.format( SrvCmacIca.GET_PERSONA_TIPOCREDITO,Cliente.getDatoPersonal().getCodigoTipoDocumento());
+            VolleySingleton.
+                    getInstance(this).
+                    addToRequestQueue(
+                            new JsonObjectRequest(
+                                    Request.Method.GET,
+                                    Url,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            // Procesar la respuesta Json
+                                            ProcesarListaTipoCredito(response);
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Log.d(TAG, "Error Volley: " + error.toString());
+                                            // progressDialog.cancel();
+                                        }
+                                    }
+
+
+                            )
+                    );
+        } catch (Exception ex) {
+            Log.d(TAG, ex.getMessage());
+            Toast.makeText(
+                    this,
+                    ex.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+    private void ProcesarListaTipoCredito(JSONObject response) {
+        try {
+            // Obtener atributo "estado"
+            JSONArray ListaTipoCredito = response.getJSONArray("Data");
+
+            TipoCreditoModel[] ArrayTipoCredito = gson.fromJson(ListaTipoCredito.toString(), TipoCreditoModel[].class);
+
+            List<TipoCreditoModel>TipoCreditoList=new ArrayList<TipoCreditoModel>(Arrays.asList(ArrayTipoCredito));
+
+            TipoCreditoList.add(0,new TipoCreditoModel(0,"SELECCIONAR"));
+
+            ArrayAdapter<TipoCreditoModel> adpSpinnerTipoCredito = new ArrayAdapter<TipoCreditoModel>(
+                    this,
+                    android.R.layout.simple_spinner_item,
+                    TipoCreditoList
+            );
+            //adpSpinnerTipoCredito.
+            adpSpinnerTipoCredito.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            spnTipoCredito.setAdapter(adpSpinnerTipoCredito);
+
+
+        } catch (JSONException e) {
+            Log.d(TAG, e.getMessage());
+            Toast.makeText(
+                    this,
+                    e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        } catch (Exception ex) {
+            Log.d(TAG, ex.getMessage());
+            Toast.makeText(
+                    this,
+                    ex.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+    //endregion
+
+    //region CargarCondicion
+    private void OnCargarCondicion() {
+        try {
+            String Url = String.format(SrvCmacIca.GET_SEL_CONDICION_SOL, Cliente.getDatoPersonal().getCodigoPersona());
+            VolleySingleton.
+                    getInstance(this).
+                    addToRequestQueue(
+                            new JsonObjectRequest(
+                                    Request.Method.GET,
+                                    Url,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            // Procesar la respuesta Json
+                                            OnProcesarCondicion(response);
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Log.d(TAG, "Error Volley: " + error.toString());
+                                            // progressDialog.cancel();
+                                        }
+                                    }
+                            )
+                    );
+        } catch (Exception ex) {
+            Log.d(TAG, ex.getMessage());
+            Toast.makeText(
+                    this,
+                    ex.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+    private void OnProcesarCondicion(JSONObject response){
+        try {
+            if (response.getBoolean("IsCorrect")) {
+
+                String CondicionJson = response.getJSONObject("Data").toString();
+                Condicion = gson.fromJson(CondicionJson,ConstanteModel.class);
+                txtCondicion.setText(Condicion.toString());
+
+
+            }else{
+                new AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Aviso")
+                        .setMessage(response.getString("Message"))
+                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface arg0) {
+                                //ActividadLogin.this.finish();
+                            }})
+
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
+                            @Override
+                            public void onClick(DialogInterface dialog, int which){
+
+                            }
+                        })
+                        .show();
+            }
+
+        } catch (JSONException e) {
+            Log.d(TAG, e.getMessage());
+            Toast.makeText(
+                    this,
+                    e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        } catch (Exception ex) {
+            Log.d(TAG, ex.getMessage());
+            Toast.makeText(
+                    this,
+                    ex.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+    //endregion
+
+    //region Camapañas
     private void OnCargarCampañas(){
         try{
             String Url =String.format(SrvCmacIca.GET_CAMPAÑAS,UPreferencias.ObtenerCodAgencia(this));
@@ -536,7 +772,9 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     Toast.LENGTH_LONG).show();
         }
     }
+    //endregion
 
+    //region Agencia BN
     private void OnCargarAgenciasBnAge(){
 
         try{
@@ -601,17 +839,16 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     Toast.LENGTH_LONG).show();
         }
 }
+    //endregion
 
-    private void OnCargarProducto() {
+    //region Agropecuario
+    private void OnCargarAgropecuario(){
         try {
 
-            //progressDialog = ProgressDialog.show(getContext(),"Espere por favor","Generando calendario.");
-             if (TipoCreditoSel == null || TipoCreditoSel.getnTipoCreditos()==0  || UPreferencias.ObtenerCodAgencia(this)==null) {
-
+            if (ProductoSel == null) {
                 return;
             }
-            String Url =String.format(SrvCmacIca.GET_FILTER_PRODUCTO,UPreferencias.ObtenerCodAgencia(this)  , TipoCreditoSel.getnTipoCreditos());
-
+            String Url =String.format(SrvCmacIca.GET_AGROPECUARIOS,ProductoSel.getcCredProductos());
             VolleySingleton.
                     getInstance(this).
                     addToRequestQueue(
@@ -622,7 +859,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                                         @Override
                                         public void onResponse(JSONObject response) {
                                             // Procesar la respuesta Json
-                                            ProcesarProducto(response);
+                                            ProcesarAgropecuarios(response);
                                         }
                                     },
                                     new Response.ErrorListener() {
@@ -643,21 +880,90 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         }
     }
 
-    private void ProcesarProducto(JSONObject response) {
+    private void ProcesarAgropecuarios(JSONObject response){
+        try {
+
+            JSONArray ListaAgropecuarios = response.getJSONArray("Data");
+            ActividadesAgropecuariasModel[] ArrayAgropecuarios = gson.fromJson(ListaAgropecuarios.toString(), ActividadesAgropecuariasModel[].class);
+
+            ArrayAdapter<ActividadesAgropecuariasModel> AdpSpinnerAgropecuarios= new ArrayAdapter<ActividadesAgropecuariasModel>(
+                    this,
+                    android.R.layout.simple_spinner_item,
+                    Arrays.asList(ArrayAgropecuarios)
+            );
+
+            AdpSpinnerAgropecuarios.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spnAgropecuario.setAdapter(AdpSpinnerAgropecuarios);
+
+
+        } catch (JSONException e) {
+            Log.d(TAG, e.getMessage());
+            Toast.makeText(
+                    this,
+                    e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        } catch (Exception ex) {
+            Log.d(TAG, ex.getMessage());
+            Toast.makeText(
+                    this,
+                    ex.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+    //endregion
+
+    //region Destion
+    private void OnCargarDestino(){
+        try {
+            if (ProductoSel == null || TipoCreditoSel==null) {
+                return;}
+            String Url =String.format(SrvCmacIca.GET_DESTINOS,TipoCreditoSel.getnTipoCreditos(),ProductoSel.getcCredProductos());
+            VolleySingleton.
+                    getInstance(this).
+                    addToRequestQueue(
+                            new JsonObjectRequest(
+                                    Request.Method.GET,
+                                    Url,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            // Procesar la respuesta Json
+                                            ProcesarDestinos(response);
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Log.d(TAG, "Error Volley: " + error.toString());
+                                            // progressDialog.cancel();
+                                        }
+                                    }
+                            )
+                    );
+        } catch (Exception ex) {
+            Log.d(TAG, ex.getMessage());
+            Toast.makeText(
+                    this,
+                    ex.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void ProcesarDestinos(JSONObject response){
         try {
             // Obtener atributo "estado"
-            JSONArray ListaProducto = response.getJSONArray("Data");
-            ProductoModel[] ArrayTipoCredito = gson.fromJson(ListaProducto.toString(), ProductoModel[].class);
+            JSONArray ListaDestinos = response.getJSONArray("Data");
+            DestinosModel[] ArrayDestinos = gson.fromJson(ListaDestinos.toString(), DestinosModel[].class);
 
-            ArrayAdapter<ProductoModel> adpSpinnerProducto = new ArrayAdapter<ProductoModel>(
+            ArrayAdapter<DestinosModel> AdpSpinnerDestinos = new ArrayAdapter<DestinosModel>(
                     this,
                     android.R.layout.simple_spinner_item,
-                    Arrays.asList(ArrayTipoCredito)
+                    Arrays.asList(ArrayDestinos)
             );
-            //adpSpinnerTipoCredito.
-            adpSpinnerProducto.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-            spnProducto.setAdapter(adpSpinnerProducto);
+            AdpSpinnerDestinos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spnDestino.setAdapter(AdpSpinnerDestinos);
+
 
         } catch (JSONException e) {
             Log.d(TAG, e.getMessage());
@@ -673,11 +979,14 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     Toast.LENGTH_LONG).show();
         }
     }
+    //endregion
 
-    private void OnCargarProyectos(){
+    //region ProcesarProyectoInmobiliario
+    private void OnCargarProyectoInmobiliario(){
         try {
-
-            String Url =String.format(SrvCmacIca.GET_PROYECTOS);
+            if (ProductoSel == null ) {
+                return;}
+            String Url =String.format(SrvCmacIca.GET_PROYECTOS_INMOBILIARIOS,UPreferencias.ObtenerCodAgencia(this),ProductoSel.getcCredProductos());
             VolleySingleton.
                     getInstance(this).
                     addToRequestQueue(
@@ -688,7 +997,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                                         @Override
                                         public void onResponse(JSONObject response) {
                                             // Procesar la respuesta Json
-                                            ProcesarProyectos(response);
+                                            ProcesarProyectoInmobiliario(response);
                                         }
                                     },
                                     new Response.ErrorListener() {
@@ -708,94 +1017,20 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     Toast.LENGTH_LONG).show();
         }
     }
-
-    private void ProcesarProyectos(JSONObject response){
-        try {
-            JSONArray ListaProyectos = response.getJSONArray("Data");
-            PersonaDto[] ArrayProyectos = gson.fromJson(ListaProyectos.toString(), PersonaDto[].class);
-
-            ArrayAdapter<PersonaDto> adpSpinnerProyectos = new ArrayAdapter<PersonaDto>(
-                    this,
-                    android.R.layout.simple_spinner_item,
-                    Arrays.asList(ArrayProyectos)
-            );
-            //adpSpinnerTipoCredito.
-            adpSpinnerProyectos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-            spnProyecto.setAdapter(adpSpinnerProyectos);
-
-        } catch (JSONException e) {
-            Log.d(TAG, e.getMessage());
-            Toast.makeText(
-                    this,
-                    e.getMessage(),
-                    Toast.LENGTH_LONG).show();
-        } catch (Exception ex) {
-            Log.d(TAG, ex.getMessage());
-            Toast.makeText(
-                    this,
-                    ex.getMessage(),
-                    Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void OnCargarLitaTipoCredito() {
-        try {
-
-            String Url = SrvCmacIca.GET_ALL_TIPOCREDITO;
-            VolleySingleton.
-                    getInstance(this).
-                    addToRequestQueue(
-                            new JsonObjectRequest(
-                                    Request.Method.GET,
-                                    Url,
-                                    new Response.Listener<JSONObject>() {
-                                        @Override
-                                        public void onResponse(JSONObject response) {
-                                            // Procesar la respuesta Json
-                                            ProcesarListaTipoCredito(response);
-                                        }
-                                    },
-                                    new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.d(TAG, "Error Volley: " + error.toString());
-                                            // progressDialog.cancel();
-                                        }
-                                    }
-
-
-                            )
-                    );
-        } catch (Exception ex) {
-            Log.d(TAG, ex.getMessage());
-            Toast.makeText(
-                    this,
-                    ex.getMessage(),
-                    Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void ProcesarListaTipoCredito(JSONObject response) {
+    private void ProcesarProyectoInmobiliario(JSONObject response){
         try {
             // Obtener atributo "estado"
-            JSONArray ListaTipoCredito = response.getJSONArray("Data");
+            JSONArray ListaDestinos = response.getJSONArray("Data");
+            DestinosModel[] ArrayDestinos = gson.fromJson(ListaDestinos.toString(), DestinosModel[].class);
 
-            TipoCreditoModel[] ArrayTipoCredito = gson.fromJson(ListaTipoCredito.toString(), TipoCreditoModel[].class);
-
-          List<TipoCreditoModel>TipoCreditoList=new ArrayList<TipoCreditoModel>(Arrays.asList(ArrayTipoCredito));
-
-            TipoCreditoList.add(0,new TipoCreditoModel(0,"SELECCIONAR"));
-
-            ArrayAdapter<TipoCreditoModel> adpSpinnerTipoCredito = new ArrayAdapter<TipoCreditoModel>(
+            ArrayAdapter<DestinosModel> AdpSpinnerDestinos = new ArrayAdapter<DestinosModel>(
                     this,
                     android.R.layout.simple_spinner_item,
-                    TipoCreditoList
+                    Arrays.asList(ArrayDestinos)
             );
-            //adpSpinnerTipoCredito.
-            adpSpinnerTipoCredito.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-            spnTipoCredito.setAdapter(adpSpinnerTipoCredito);
+            AdpSpinnerDestinos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spnDestino.setAdapter(AdpSpinnerDestinos);
 
 
         } catch (JSONException e) {
@@ -812,41 +1047,17 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     Toast.LENGTH_LONG).show();
         }
     }
+    //endregion
 
-    private void ProcesarListaMoneda() {
-        try {
-
-
-            List<ConstanteModel> ListaMoneda = new ArrayList<ConstanteModel>();
-            ListaMoneda.add(new ConstanteModel(1011, 1, "SOLES"));
-            ListaMoneda.add(new ConstanteModel(1011, 2, "DÓLARES"));
-
-            ArrayAdapter<ConstanteModel> adpSpinnerMoneda = new ArrayAdapter<ConstanteModel>(
-                    this,
-                    android.R.layout.simple_spinner_item,
-                    ListaMoneda
-            );
-            adpSpinnerMoneda.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spnMoneda.setAdapter(adpSpinnerMoneda);
-
-
-        } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
-            Toast.makeText(
-                    this,
-                    e.getMessage(),
-                    Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void ProcesarTipoPeriodo() {
+    //region IntsConvenio
+    private void ProcesarSector(){
         try {
 
             // Obtener atributo "estado"
 
             List<ConstanteModel> ListaTipoPeriodo = new ArrayList<ConstanteModel>();
-            ListaTipoPeriodo.add(new ConstanteModel(1011, 0, "FECHA FIJA"));
-            ListaTipoPeriodo.add(new ConstanteModel(1011, 1, "PERIODO FIJO"));
+            ListaTipoPeriodo.add(new ConstanteModel(7011, 2, "PUBLICO"));
+            ListaTipoPeriodo.add(new ConstanteModel(7011, 3, "PRIVADO"));
 
             ArrayAdapter<ConstanteModel> adpSpinnerTipoFrec = new ArrayAdapter<ConstanteModel>(
                     this,
@@ -854,7 +1065,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     ListaTipoPeriodo
             );
             adpSpinnerTipoFrec.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spnFrecPago.setAdapter(adpSpinnerTipoFrec);
+            spnSector.setAdapter(adpSpinnerTipoFrec);
 
 
         } catch (Exception e) {
@@ -865,7 +1076,77 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     Toast.LENGTH_LONG).show();
         }
     }
+    private void OnCargarIntsConvenio(){
+        try {
 
+            if (Perstipo==0 || SectorSel==null)
+            {
+                return;
+            }
+            String Url =String.format(SrvCmacIca.GET_INTS_CONVENIO,Perstipo,SectorSel.getCodigoValor());
+            VolleySingleton.
+                    getInstance(this).
+                    addToRequestQueue(
+                            new JsonObjectRequest(
+                                    Request.Method.GET,
+                                    Url,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            // Procesar la respuesta Json
+                                            ProcesarIntsConvenio(response);
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Log.d(TAG, "Error Volley: " + error.toString());
+                                            // progressDialog.cancel();
+                                        }
+                                    }
+                            )
+                    );
+        } catch (Exception ex) {
+            Log.d(TAG, ex.getMessage());
+            Toast.makeText(
+                    this,
+                    ex.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+    private void ProcesarIntsConvenio(JSONObject response){
+        try {
+            // Obtener atributo "estado"
+            JSONArray ListaIntsConvenio = response.getJSONArray("Data");
+            PersonaBusqModel[] ArrayIntsConvenio = gson.fromJson(ListaIntsConvenio.toString(), PersonaBusqModel[].class);
+
+            ArrayAdapter<PersonaBusqModel> AdpSpinnerIntsConvenio = new ArrayAdapter<PersonaBusqModel>(
+                    this,
+                    android.R.layout.simple_spinner_item,
+                    Arrays.asList(ArrayIntsConvenio)
+            );
+
+            AdpSpinnerIntsConvenio.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spnIntSector.setAdapter(AdpSpinnerIntsConvenio);
+
+
+        } catch (JSONException e) {
+            Log.d(TAG, e.getMessage());
+            Toast.makeText(
+                    this,
+                    e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        } catch (Exception ex) {
+            Log.d(TAG, ex.getMessage());
+            Toast.makeText(
+                    this,
+                    ex.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+    //endregion
+
+    //region Frecuencia de Pago
     private void OnCargarFrecPago() {
 
         try {
@@ -936,39 +1217,88 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     Toast.LENGTH_LONG).show();
         }
     }
-
-    private void OnCargarConstantes(Cursor query) {
-
-
-        List<ConstanteModel> ListaConstanteEstadosSolictud = new ArrayList<>();
-
-        while (query.moveToNext()) {
-            ConstanteModel obj = UConsultas.ConverCursorToConstanteModel(query);
-            if (obj.getCodigoValor() == 6 || obj.getCodigoValor()==7 || obj.getCodigoValor()==8) {
-                ListaConstanteEstadosSolictud.add(obj);
-            } else {
-
-            }
-        }
-
-        ArrayAdapter<ConstanteModel> adpSpinnerEstadoSolicitud = new ArrayAdapter<ConstanteModel>(
-                this,
-                android.R.layout.simple_spinner_item,
-                ListaConstanteEstadosSolictud
-        );
-        adpSpinnerEstadoSolicitud.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnSolicitud.setAdapter(adpSpinnerEstadoSolicitud);
+    //endregion
 
 
-    }
 
-    private void OnCargarAgropecuario(){
+    //region Proyectos
+    private void OnCargarProyectos(){
         try {
 
-            if (ProductoSel == null) {
+            String Url =String.format(SrvCmacIca.GET_PROYECTOS);
+            VolleySingleton.
+                    getInstance(this).
+                    addToRequestQueue(
+                            new JsonObjectRequest(
+                                    Request.Method.GET,
+                                    Url,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            // Procesar la respuesta Json
+                                            ProcesarProyectos(response);
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Log.d(TAG, "Error Volley: " + error.toString());
+                                            // progressDialog.cancel();
+                                        }
+                                    }
+                            )
+                    );
+        } catch (Exception ex) {
+            Log.d(TAG, ex.getMessage());
+            Toast.makeText(
+                    this,
+                    ex.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void ProcesarProyectos(JSONObject response){
+        try {
+            JSONArray ListaProyectos = response.getJSONArray("Data");
+            PersonaDto[] ArrayProyectos = gson.fromJson(ListaProyectos.toString(), PersonaDto[].class);
+
+            ArrayAdapter<PersonaDto> adpSpinnerProyectos = new ArrayAdapter<PersonaDto>(
+                    this,
+                    android.R.layout.simple_spinner_item,
+                    Arrays.asList(ArrayProyectos)
+            );
+            //adpSpinnerTipoCredito.
+            adpSpinnerProyectos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            spnProyecto.setAdapter(adpSpinnerProyectos);
+
+        } catch (JSONException e) {
+            Log.d(TAG, e.getMessage());
+            Toast.makeText(
+                    this,
+                    e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        } catch (Exception ex) {
+            Log.d(TAG, ex.getMessage());
+            Toast.makeText(
+                    this,
+                    ex.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+    //endregion
+
+    //region Producto
+    private void OnCargarProducto() {
+        try {
+
+            //progressDialog = ProgressDialog.show(getContext(),"Espere por favor","Generando calendario.");
+            if (TipoCreditoSel == null || TipoCreditoSel.getnTipoCreditos()==0  || UPreferencias.ObtenerCodAgencia(this)==null) {
+
                 return;
             }
-            String Url =String.format(SrvCmacIca.GET_AGROPECUARIOS,ProductoSel.getcCredProductos());
+            String Url =String.format(SrvCmacIca.GET_FILTER_PRODUCTO,UPreferencias.ObtenerCodAgencia(this)  , TipoCreditoSel.getnTipoCreditos());
+
             VolleySingleton.
                     getInstance(this).
                     addToRequestQueue(
@@ -979,7 +1309,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                                         @Override
                                         public void onResponse(JSONObject response) {
                                             // Procesar la respuesta Json
-                                            ProcesarAgropecuarios(response);
+                                            ProcesarProducto(response);
                                         }
                                     },
                                     new Response.ErrorListener() {
@@ -1000,21 +1330,21 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         }
     }
 
-    private void ProcesarAgropecuarios(JSONObject response){
+    private void ProcesarProducto(JSONObject response) {
         try {
+            // Obtener atributo "estado"
+            JSONArray ListaProducto = response.getJSONArray("Data");
+            ProductoModel[] ArrayTipoCredito = gson.fromJson(ListaProducto.toString(), ProductoModel[].class);
 
-            JSONArray ListaAgropecuarios = response.getJSONArray("Data");
-            ActividadesAgropecuariasModel[] ArrayAgropecuarios = gson.fromJson(ListaAgropecuarios.toString(), ActividadesAgropecuariasModel[].class);
-
-            ArrayAdapter<ActividadesAgropecuariasModel> AdpSpinnerAgropecuarios= new ArrayAdapter<ActividadesAgropecuariasModel>(
+            ArrayAdapter<ProductoModel> adpSpinnerProducto = new ArrayAdapter<ProductoModel>(
                     this,
                     android.R.layout.simple_spinner_item,
-                    Arrays.asList(ArrayAgropecuarios)
+                    Arrays.asList(ArrayTipoCredito)
             );
+            //adpSpinnerTipoCredito.
+            adpSpinnerProducto.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-            AdpSpinnerAgropecuarios.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spnAgropecuario.setAdapter(AdpSpinnerAgropecuarios);
-
+            spnProducto.setAdapter(adpSpinnerProducto);
 
         } catch (JSONException e) {
             Log.d(TAG, e.getMessage());
@@ -1030,276 +1360,8 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     Toast.LENGTH_LONG).show();
         }
     }
+    //endregion
 
-    private void OnCargarDestino(){
-        try {
-            if (ProductoSel == null || TipoCreditoSel==null) {
-                return;}
-            String Url =String.format(SrvCmacIca.GET_DESTINOS,TipoCreditoSel.getnTipoCreditos(),ProductoSel.getcCredProductos());
-            VolleySingleton.
-                    getInstance(this).
-                    addToRequestQueue(
-                            new JsonObjectRequest(
-                                    Request.Method.GET,
-                                    Url,
-                                    new Response.Listener<JSONObject>() {
-                                        @Override
-                                        public void onResponse(JSONObject response) {
-                                            // Procesar la respuesta Json
-                                            ProcesarDestinos(response);
-                                        }
-                                    },
-                                    new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.d(TAG, "Error Volley: " + error.toString());
-                                            // progressDialog.cancel();
-                                        }
-                                    }
-                            )
-                    );
-        } catch (Exception ex) {
-            Log.d(TAG, ex.getMessage());
-            Toast.makeText(
-                    this,
-                    ex.getMessage(),
-                    Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void ProcesarDestinos(JSONObject response){
-        try {
-            // Obtener atributo "estado"
-            JSONArray ListaDestinos = response.getJSONArray("Data");
-            DestinosModel[] ArrayDestinos = gson.fromJson(ListaDestinos.toString(), DestinosModel[].class);
-
-            ArrayAdapter<DestinosModel> AdpSpinnerDestinos = new ArrayAdapter<DestinosModel>(
-                    this,
-                    android.R.layout.simple_spinner_item,
-                    Arrays.asList(ArrayDestinos)
-            );
-
-            AdpSpinnerDestinos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spnDestino.setAdapter(AdpSpinnerDestinos);
-
-
-        } catch (JSONException e) {
-            Log.d(TAG, e.getMessage());
-            Toast.makeText(
-                    this,
-                    e.getMessage(),
-                    Toast.LENGTH_LONG).show();
-        } catch (Exception ex) {
-            Log.d(TAG, ex.getMessage());
-            Toast.makeText(
-                    this,
-                    ex.getMessage(),
-                    Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void OnCargarProyectoInmobiliario(){
-        try {
-            if (ProductoSel == null ) {
-                return;}
-            String Url =String.format(SrvCmacIca.GET_PROYECTOS_INMOBILIARIOS,UPreferencias.ObtenerCodAgencia(this),ProductoSel.getcCredProductos());
-            VolleySingleton.
-                    getInstance(this).
-                    addToRequestQueue(
-                            new JsonObjectRequest(
-                                    Request.Method.GET,
-                                    Url,
-                                    new Response.Listener<JSONObject>() {
-                                        @Override
-                                        public void onResponse(JSONObject response) {
-                                            // Procesar la respuesta Json
-                                            ProcesarProyectoInmobiliario(response);
-                                        }
-                                    },
-                                    new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.d(TAG, "Error Volley: " + error.toString());
-                                            // progressDialog.cancel();
-                                        }
-                                    }
-                            )
-                    );
-        } catch (Exception ex) {
-            Log.d(TAG, ex.getMessage());
-            Toast.makeText(
-                    this,
-                    ex.getMessage(),
-                    Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void ProcesarProyectoInmobiliario(JSONObject response){
-        try {
-            // Obtener atributo "estado"
-            JSONArray ListaDestinos = response.getJSONArray("Data");
-            DestinosModel[] ArrayDestinos = gson.fromJson(ListaDestinos.toString(), DestinosModel[].class);
-
-            ArrayAdapter<DestinosModel> AdpSpinnerDestinos = new ArrayAdapter<DestinosModel>(
-                    this,
-                    android.R.layout.simple_spinner_item,
-                    Arrays.asList(ArrayDestinos)
-            );
-
-            AdpSpinnerDestinos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spnDestino.setAdapter(AdpSpinnerDestinos);
-
-
-        } catch (JSONException e) {
-            Log.d(TAG, e.getMessage());
-            Toast.makeText(
-                    this,
-                    e.getMessage(),
-                    Toast.LENGTH_LONG).show();
-        } catch (Exception ex) {
-            Log.d(TAG, ex.getMessage());
-            Toast.makeText(
-                    this,
-                    ex.getMessage(),
-                    Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void ProcesarSector(){
-        try {
-
-            // Obtener atributo "estado"
-
-            List<ConstanteModel> ListaTipoPeriodo = new ArrayList<ConstanteModel>();
-            ListaTipoPeriodo.add(new ConstanteModel(7011, 2, "PUBLICO"));
-            ListaTipoPeriodo.add(new ConstanteModel(7011, 3, "PRIVADO"));
-
-            ArrayAdapter<ConstanteModel> adpSpinnerTipoFrec = new ArrayAdapter<ConstanteModel>(
-                    this,
-                    android.R.layout.simple_spinner_item,
-                    ListaTipoPeriodo
-            );
-            adpSpinnerTipoFrec.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spnSector.setAdapter(adpSpinnerTipoFrec);
-
-
-        } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
-            Toast.makeText(
-                    this,
-                    e.getMessage(),
-                    Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void OnCargarIntsConvenio(){
-        try {
-
-            if (Perstipo==0 || SectorSel==null)
-            {
-                return;
-            }
-            String Url =String.format(SrvCmacIca.GET_INTS_CONVENIO,Perstipo,SectorSel.getCodigoValor());
-            VolleySingleton.
-                    getInstance(this).
-                    addToRequestQueue(
-                            new JsonObjectRequest(
-                                    Request.Method.GET,
-                                    Url,
-                                    new Response.Listener<JSONObject>() {
-                                        @Override
-                                        public void onResponse(JSONObject response) {
-                                            // Procesar la respuesta Json
-                                            ProcesarIntsConvenio(response);
-                                        }
-                                    },
-                                    new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.d(TAG, "Error Volley: " + error.toString());
-                                            // progressDialog.cancel();
-                                        }
-                                    }
-                            )
-                    );
-        } catch (Exception ex) {
-            Log.d(TAG, ex.getMessage());
-            Toast.makeText(
-                    this,
-                    ex.getMessage(),
-                    Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void ProcesarIntsConvenio(JSONObject response){
-        try {
-            // Obtener atributo "estado"
-            JSONArray ListaIntsConvenio = response.getJSONArray("Data");
-            PersonaBusqModel[] ArrayIntsConvenio = gson.fromJson(ListaIntsConvenio.toString(), PersonaBusqModel[].class);
-
-            ArrayAdapter<PersonaBusqModel> AdpSpinnerIntsConvenio = new ArrayAdapter<PersonaBusqModel>(
-                    this,
-                    android.R.layout.simple_spinner_item,
-                    Arrays.asList(ArrayIntsConvenio)
-            );
-
-            AdpSpinnerIntsConvenio.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spnIntSector.setAdapter(AdpSpinnerIntsConvenio);
-
-
-        } catch (JSONException e) {
-            Log.d(TAG, e.getMessage());
-            Toast.makeText(
-                    this,
-                    e.getMessage(),
-                    Toast.LENGTH_LONG).show();
-        } catch (Exception ex) {
-            Log.d(TAG, ex.getMessage());
-            Toast.makeText(
-                    this,
-                    ex.getMessage(),
-                    Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void OnBuscarPersona(String Dni){
-        try {
-            String Url = String.format(SrvCmacIca.GET_BUSQUEDA_PERSONA, Dni);
-            VolleySingleton.
-                    getInstance(this).
-                    addToRequestQueue(
-                            new JsonObjectRequest(
-                                    Request.Method.GET,
-                                    Url,
-                                    new Response.Listener<JSONObject>() {
-                                        @Override
-                                        public void onResponse(JSONObject response) {
-                                            // Procesar la respuesta Json
-                                            ProcesarBuscarPersona(response);
-                                        }
-                                    },
-                                    new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.d(TAG, "Error Volley: " + error.toString());
-                                            // progressDialog.cancel();
-                                        }
-                                    }
-                    )
-            );
-}
-   catch (Exception ex) {
-        Log.d(TAG, ex.getMessage());
-        Toast.makeText(
-                this,
-                ex.getMessage(),
-                Toast.LENGTH_LONG).show();
-    }
-    }
-
-    /*********************************************************************************************************************
-     **************************************************<  M E T O D O S  >*************************************************
-     **********************************************************************************************************************/
     //region SelDatoClienteSolCred
 
     private void OnSelDatoClienteSolCred(String Dni){
@@ -1341,18 +1403,23 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     Toast.LENGTH_LONG).show();
         }
     }
+
     private void OnProcesarDatoClienteSolCred(JSONObject response) {
         try {
             if (response.getBoolean("IsCorrect")) {
 
-                DatoPersonaSolicitudModel obj = gson.fromJson(response.getJSONObject("Data").toString(), DatoPersonaSolicitudModel.class);
+                Cliente = gson.fromJson(response.getJSONObject("Data").toString(), DatoPersonaSolicitudModel.class);
 
-                txtNombres.setText(obj.getDatoPersonal().getNombrePersona());
-                txtTipoPersona.setText(obj.getDatoPersonal().getTipoPersona());
-                Perstipo= obj.getDatoPersonal().getnPersPersoneria();
+                txtNombres.setText(Cliente.getDatoPersonal().getNombrePersona());
+                txtTipoPersona.setText(Cliente.getDatoPersonal().getTipoPersona());
+                Perstipo= Cliente.getDatoPersonal().getnPersPersoneria();
                 txt_Dni.setFocusable(false);
                 txtNombres.setFocusable(false);
                 txtTipoPersona.setFocusable(false);
+                //cargar los combos
+                OnCargarLitaTipoCredito();
+                OnCargarCondicion();
+
 
             }else{
                 new AlertDialog.Builder(this)
@@ -1384,59 +1451,18 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
     //endregion
 
-    private void  ProcesarBuscarPersona(JSONObject response){
-        try {
-            if (response.getBoolean("IsCorrect")){
-
-                JSONArray ListaPersona = response.getJSONArray("Data");
-                PersonaBusqModel[] ArrayPersona = gson.fromJson(ListaPersona.toString(), PersonaBusqModel[].class);
-
-                txtNombres.setText(ArrayPersona[0].getNombrePersona());
-                txtTipoPersona.setText(ArrayPersona[0].getTipoPersona());
-                Perstipo=ArrayPersona[0].getnPersPersoneria();
-                NumeroDocumento=ArrayPersona[0].getNumeroDocumento();
-                OnCargarIntsConvenio();
-                OnVerificarEvaMensual();
-
-            }else{
-                new AlertDialog.Builder(this)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Aviso")
-                        .setMessage(response.getString("Message"))
-                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                            @Override
-                            public void onDismiss(DialogInterface arg0) {
-                                //ActividadLogin.this.finish();
-                            }})
-                        //.setNegativeButton(android.R.string.cancel, null)//sin listener
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
-                            @Override
-                            public void onClick(DialogInterface dialog, int which){
-                                //Salir
-                                //ActividadLogin.this.finish();
-                                //txtPassword.setText("");
-                            }
-                        })
-                        .show();
-            }
-        } catch (JSONException e) {
-            Log.d(TAG, e.getMessage());
-            Toast.makeText(
-                    this,
-                    e.getMessage(),
-                    Toast.LENGTH_LONG).show();
-        }
-    }
 
     private void OnVerificarEvaMensual(){
 
         try {
 
-            if(NumeroDocumento==null )
-            {
-                return;
-            }
-            String Url =String.format(SrvCmacIca.GET_VERIF_EVA_MEN,NumeroDocumento);
+            String Url =String.format(SrvCmacIca.GET_VERIF_EVA_MEN,
+                    TipoCreditoSel.getnTipoCreditos(),
+                    Cliente.getDatoPersonal().getNumeroDocumento(),
+                    Cliente.getDatoPersonal().getCodigoTipoDocumento(),
+                    String.valueOf( MontoSolicitado),
+                    "false","false");
+
             VolleySingleton.
                     getInstance(this).
                     addToRequestQueue(
@@ -1467,80 +1493,20 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     Toast.LENGTH_LONG).show();
         }
     }
+
     private void ProcesarVerificarEvaMensual(JSONObject response){
         try {
 
             if (response.getBoolean("IsCorrect")){
 
-                JSONArray ListaVentas = response.getJSONArray("Data");
-                SolCredClasifModel[] ArrayVentas = gson.fromJson(ListaVentas.toString(), SolCredClasifModel[].class);
+                JSONObject ClasifJson = response.getJSONObject("Data");
 
-             if (ArrayVentas.length==0 && MontoSolicitado==0)
-             {
-                 new AlertDialog.Builder(this)
-                         .setIcon(android.R.drawable.ic_dialog_alert)
-                         .setTitle("Aviso")
-                         .setMessage(response.getString("El Cliente no posee información en los ultimos 6 meses,debe indicar el monto solicitado"))
-                         .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                             @Override
-                             public void onDismiss(DialogInterface arg0) {
-                                 //ActividadLogin.this.finish();
-                             }})
-                         //.setNegativeButton(android.R.string.cancel, null)//sin listener
-                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
-                             @Override
-                             public void onClick(DialogInterface dialog, int which){
-                                 //Salir
-                                 //ActividadLogin.this.finish();
-                                 //txtPassword.setText("");
-                             }
-                         })
-                         .show();
-             }
-             else
-             {
-                 new AlertDialog.Builder(this)
-                         .setIcon(android.R.drawable.ic_dialog_alert)
-                         .setTitle("Aviso")
-                         .setMessage(response.getString("Cargar el Fragmento Con los Datos A mostrar"))
-                         .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                             @Override
-                             public void onDismiss(DialogInterface arg0) {
-                                 //ActividadLogin.this.finish();
-                             }})
-                         //.setNegativeButton(android.R.string.cancel, null)//sin listener
-                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
-                             @Override
-                             public void onClick(DialogInterface dialog, int which){
-                                 //Salir
-                                 //ActividadLogin.this.finish();
-                                 //txtPassword.setText("");
-                             }
-                         })
-                         .show();
-             }
+                int tipocredito = ClasifJson.getInt("nTipoCredito") ;
 
+                //hacer que el combo cargue el tipocredito el que tenga el codigo nTipoCredito
 
-            }else{
-                new AlertDialog.Builder(this)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Aviso")
-                        .setMessage(response.getString("Message"))
-                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                            @Override
-                            public void onDismiss(DialogInterface arg0) {
-                                //ActividadLogin.this.finish();
-                            }})
-                        //.setNegativeButton(android.R.string.cancel, null)//sin listener
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
-                            @Override
-                            public void onClick(DialogInterface dialog, int which){
-                                //Salir
-                                //ActividadLogin.this.finish();
-                                //txtPassword.setText("");
-                            }
-                        })
-                        .show();
+                //Codigo Para Reclasificar
+
             }
         } catch (JSONException e) {
             Log.d(TAG, e.getMessage());

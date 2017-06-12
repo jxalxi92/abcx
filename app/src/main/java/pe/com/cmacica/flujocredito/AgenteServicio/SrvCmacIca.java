@@ -34,6 +34,7 @@ public class SrvCmacIca {
         public static final String POST_PLAN_PAGO = HOST_WEBAPI + "PlanPago/GetPlanPago";
     public static final String GET_ALL_AGENCIAS = HOST_WEBAPI+ "Agencia/GetAllAgencias";
     public static final String GET_ALL_TIPOCREDITO = HOST_WEBAPI + "TipoCreditos/SelTipoCreditos";
+    public static final String GET_PERSONA_TIPOCREDITO = HOST_WEBAPI + "TipoCreditos/ListaTipoCreditos?nTipoPersona=%s";
     public static final String GET_FILTER_PRODUCTO = HOST_WEBAPI +"CredProductos/SelCredProductos?cAgeCod=%s&nTipoCredito=%s";
     public static final String GET_FRECUENCIA_PAGO= HOST_WEBAPI + "CredProductos/GetFrecPagoPorProducto?cCredProducto=";
     //endregion
@@ -72,8 +73,9 @@ public class SrvCmacIca {
     public static final String GET_DESTINOS=HOST_WEBAPI+"Solicitud/ListaCreddestinos?nTipoCredito=%s&CodProducto=%s";
     public static final String GET_PROYECTOS_INMOBILIARIOS=HOST_WEBAPI+"Solicitud/ListarProyectosInmobiliarios?cCodAgencia=%s&cCodProducto=%s";
     public static final String GET_INTS_CONVENIO=HOST_WEBAPI+"Solicitud/ListaIntsConvenio?nPerstipo=%s&nTipoSector=%s";
-    public static final String GET_VERIF_EVA_MEN=HOST_WEBAPI+"Solicitud/VerificarEvaMensual?NumeroDocu=%s";
+    public static final String GET_VERIF_EVA_MEN=HOST_WEBAPI+"Solicitud/ReclasificarEval?pnTipoCred=%s&pCodigoPersona=%s&nTipoPersona=%s&nMonto=%s&pbLineaCredito=%s&bFlag=%s";
     public static final String GET_DATO_CLIENTE_SOL=HOST_WEBAPI+"Solicitud/SelDatoClienteSolCred?cDoiCliente=%s&cUserOpe=%s&cAgeOpe=%s";
+    public static final String GET_SEL_CONDICION_SOL=HOST_WEBAPI+"Solicitud/SelCondicionSolicitud?cCodCliente=%s";
 
     //endRegion-----------------------------------------------------------------------------------------------------
 

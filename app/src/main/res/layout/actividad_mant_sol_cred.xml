@@ -171,11 +171,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
+                        android:focusable="false"
                         android:layout_marginRight="16dp">
 
                         <EditText
                             android:id="@+id/txtCondicion"
                             android:layout_width="match_parent"
+                            android:focusable="false"
                             android:layout_height="wrap_content"
                             android:hint="Condición" />
                     </android.support.design.widget.TextInputLayout>
