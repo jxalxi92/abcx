@@ -8,11 +8,11 @@ import java.util.Date;
 
 public class RccTotalULTModel {
 
-    public Date getFec_Rep() {
+    public String getFec_Rep() {
         return Fec_Rep;
     }
 
-    public void setFec_Rep(Date fec_Rep) {
+    public void setFec_Rep(String fec_Rep) {
         Fec_Rep = fec_Rep;
     }
 
@@ -160,7 +160,7 @@ public class RccTotalULTModel {
         Result = result;
     }
 
-    private Date Fec_Rep ;
+    private String Fec_Rep ;
     private String Cod_Sbs ;
     private String Tip_Det ;
     private String Tip_Doc_Trib ;
@@ -169,7 +169,7 @@ public class RccTotalULTModel {
     private String Cod_Doc_Id ;
     private String Tip_Pers ;
 
-    public RccTotalULTModel(Date fec_Rep, String cod_Sbs, String tip_Det, String tip_Doc_Trib, String cod_Doc_Trib, String tip_Doc_Id, String cod_Doc_Id, String tip_Pers, String tip_Emp, int can_Ents, Double calif_0, Double calif_1, Double calif_2, Double calif_3, Double calif_4, String calif, int ncalif, Double nMonto, String result) {
+    public RccTotalULTModel(String fec_Rep, String cod_Sbs, String tip_Det, String tip_Doc_Trib, String cod_Doc_Trib, String tip_Doc_Id, String cod_Doc_Id, String tip_Pers, String tip_Emp, int can_Ents, Double calif_0, Double calif_1, Double calif_2, Double calif_3, Double calif_4, String calif, int ncalif, Double nMonto, String result) {
         Fec_Rep = fec_Rep;
         Cod_Sbs = cod_Sbs;
         Tip_Det = tip_Det;

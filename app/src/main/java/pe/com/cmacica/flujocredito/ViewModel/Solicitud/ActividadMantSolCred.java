@@ -180,6 +180,8 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         // txtNombres.setInputType(InputType.TYPE_NULL);
         //txtTipoPersona.setInputType(InputType.TYPE_NULL);
 
+        chckAgropecuario.setVisibility(View.INVISIBLE);
+        spnAgropecuario.setVisibility(View.INVISIBLE);
         CarViewInstitucion.setVisibility(View.INVISIBLE);
         spnProyInmobilirio.setEnabled(false);
 
@@ -190,7 +192,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         ProcesarListaMoneda();
         ProcesarTipoPeriodo();
         OnCagarProceso();
-        OnCargarCampañas();
+
 
         OnCargarAgenciasBnAge();
 
@@ -345,6 +347,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 if(chckCampañas.isChecked())
                 {
                     spnCampañas.setEnabled(true);
+                    OnCargarCampañas();
                 }
                 else
                 {
@@ -394,8 +397,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 onLimpiar();
                 txt_Dni.setFocusableInTouchMode(true);
                 txt_Dni.setFocusable(true);
-                txtNombres.setFocusable(true);
-                txtTipoPersona.setFocusable(true);
+
             }
         });
 
@@ -1344,6 +1346,13 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
             if (response.getBoolean("IsCorrect")) {
 
                 DatoPersonaSolicitudModel obj = gson.fromJson(response.getJSONObject("Data").toString(), DatoPersonaSolicitudModel.class);
+
+                txtNombres.setText(obj.getDatoPersonal().getNombrePersona());
+                txtTipoPersona.setText(obj.getDatoPersonal().getTipoPersona());
+                Perstipo= obj.getDatoPersonal().getnPersPersoneria();
+                txt_Dni.setFocusable(false);
+                txtNombres.setFocusable(false);
+                txtTipoPersona.setFocusable(false);
 
             }else{
                 new AlertDialog.Builder(this)
