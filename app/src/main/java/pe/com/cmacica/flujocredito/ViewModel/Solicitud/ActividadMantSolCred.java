@@ -84,6 +84,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
     private ConstanteModel SectorSel;
     private ConstanteModel MonedaSel;
     private ConstanteModel Condicion;
+    private CampañasModel CampañaSel;
     //CARDVIEW--------------------------------------------------------------------------------------
     private CardView CarViewInstitucion;
 
@@ -186,8 +187,10 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
         chckAgropecuario.setVisibility(View.INVISIBLE);
         spnAgropecuario.setVisibility(View.INVISIBLE);
+        chckCampañas.setEnabled(false);
         CarViewInstitucion.setVisibility(View.GONE);
         spnProyInmobilirio.setEnabled(false);
+        txtTea.setVisibility(View.GONE);
 
     }
 
@@ -222,9 +225,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 {
                     OnVerificarEvaMensual();
                 }
-                //OnVerificarEvaMensual();
-                //OnCargarProducto();
-                //OnCargarDestino();
+                OnCargarProducto();
             }
 
             @Override
@@ -305,6 +306,8 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                         spnAgropecuario.setVisibility(View.INVISIBLE);
                         spnProyecto.setVisibility(View.INVISIBLE);
                 }
+                chckCampañas.setChecked(false);
+                chckCampañas.setEnabled(true);
                 OnCargarFrecPago();
                 OnCargarDestino();
             }
@@ -321,6 +324,22 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
                 SectorSel = (ConstanteModel) parent.getItemAtPosition(position);
                 OnCargarIntsConvenio();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spnCampañas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CampañaSel=(CampañasModel) parent.getItemAtPosition(position);
+
+                if (CampañaSel.getIdCampana()==129)
+                {
+                        txtTea.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
