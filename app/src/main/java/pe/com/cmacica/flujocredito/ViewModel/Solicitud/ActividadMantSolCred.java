@@ -182,7 +182,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
         chckAgropecuario.setVisibility(View.INVISIBLE);
         spnAgropecuario.setVisibility(View.INVISIBLE);
-        CarViewInstitucion.setVisibility(View.INVISIBLE);
+        CarViewInstitucion.setVisibility(View.GONE);
         spnProyInmobilirio.setEnabled(false);
 
     }
@@ -257,7 +257,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                         break;
                     case "404"://MI VIVIENDA - TECHO PROPIO
                     case "405"://HIPOTECARIO CAJA CASA
-                        CarViewInstitucion.setVisibility(View.INVISIBLE);
+                        CarViewInstitucion.setVisibility(View.GONE);
                         spnProyInmobilirio.setVisibility(View.VISIBLE);
                         chckAgropecuario.setVisibility(View.INVISIBLE);
                         spnAgropecuario.setVisibility(View.INVISIBLE);
@@ -266,7 +266,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                         break;
                     case "102"://COMERCIAL AGRICOLA
                     case "202"://COMERCIAL AGRICOLA
-                        CarViewInstitucion.setVisibility(View.INVISIBLE);
+                        CarViewInstitucion.setVisibility(View.GONE);
                         spnProyInmobilirio.setVisibility(View.INVISIBLE);
                         chckAgropecuario.setChecked(true);
                         OnCargarAgropecuario();
@@ -274,7 +274,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                         break;
                     case "208"://ASOCIACIONES Y/O GRUPOS ORG
                     case "309"://ASOCIACIONES Y/O GRUPOS ORG
-                        CarViewInstitucion.setVisibility(View.INVISIBLE);
+                        CarViewInstitucion.setVisibility(View.GONE);
                         spnProyInmobilirio.setVisibility(View.INVISIBLE);
                         chckAgropecuario.setVisibility(View.INVISIBLE);
                         spnAgropecuario.setVisibility(View.INVISIBLE);
@@ -286,7 +286,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     case "204":
                     case "201":
                     case "101":
-                        CarViewInstitucion.setVisibility(View.INVISIBLE);
+                        CarViewInstitucion.setVisibility(View.GONE);
                         spnProyInmobilirio.setVisibility(View.INVISIBLE);
                         chckAgropecuario.setVisibility(View.INVISIBLE);
                         spnAgropecuario.setVisibility(View.VISIBLE);
@@ -295,7 +295,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                         chckAgropecuario.setEnabled(true);
                         OnCargarAgropecuario();
                     default:
-                        CarViewInstitucion.setVisibility(View.INVISIBLE);
+                        CarViewInstitucion.setVisibility(View.GONE);
                         spnProyInmobilirio.setVisibility(View.INVISIBLE);
                         chckAgropecuario.setVisibility(View.INVISIBLE);
                         spnAgropecuario.setVisibility(View.INVISIBLE);
