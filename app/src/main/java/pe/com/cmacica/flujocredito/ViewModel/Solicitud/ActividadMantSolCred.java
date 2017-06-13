@@ -224,8 +224,9 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 if (TipoCreditoSel.getnTipoCreditos()!=0)
                 {
                     OnVerificarEvaMensual();
+                    OnCargarProducto();
                 }
-                OnCargarProducto();
+
             }
 
             @Override
@@ -1238,8 +1239,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
     }
     //endregion
 
-
-
     //region Proyectos
     private void OnCargarProyectos(){
         try {
@@ -1523,9 +1522,55 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 int tipocredito = ClasifJson.getInt("nTipoCredito") ;
 
                 //hacer que el combo cargue el tipocredito el que tenga el codigo nTipoCredito
+                //((ArrayAdapter)spnTipoCredito.getAdapter()).getPosition()
 
-                //Codigo Para Reclasificar
+                for (int i = 0; i < spnTipoCredito.getAdapter().getCount(); i++) {
+                    if (((TipoCreditoModel) spnTipoCredito.getItemAtPosition(i)).getnTipoCreditos() == tipocredito) {
+                        spnTipoCredito.setSelection(i);
 
+                        break;
+                    }
+                }
+            }else{
+                if (response.getBoolean("IsContinue")){
+                    new AlertDialog.Builder(this)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle("Aviso")
+                            .setMessage(response.getString("Message"))
+                            .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface arg0) {
+                                    //ActividadLogin.this.finish();
+                                    spnTipoCredito.setSelection(0);
+                                }})
+
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
+                                @Override
+                                public void onClick(DialogInterface dialog, int which){
+
+                                }
+                            })
+                            .show();
+                }else {
+                    new AlertDialog.Builder(this)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle("Aviso")
+                            .setMessage(response.getString("Message"))
+                            .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface arg0) {
+                                    //ActividadLogin.this.finish();
+                                    spnTipoCredito.setSelection(0);
+                                }})
+
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
+                                @Override
+                                public void onClick(DialogInterface dialog, int which){
+
+                                }
+                            })
+                            .show();
+                }
             }
         } catch (JSONException e) {
             Log.d(TAG, e.getMessage());
