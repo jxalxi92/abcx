@@ -1,6 +1,5 @@
 package pe.com.cmacica.flujocredito.ViewModel.Digitacion;
 
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -19,8 +18,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-
 import pe.com.cmacica.flujocredito.R;
 import pe.com.cmacica.flujocredito.Repositorio.Adaptadores.Digitacion.AdaptadorPersonaFteIgr;
 import pe.com.cmacica.flujocredito.Repositorio.Mapeo.ContratoDbCmacIca;
