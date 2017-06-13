@@ -131,7 +131,7 @@
                     android:layout_alignStart="@+id/textView12"
                     android:layout_below="@+id/txt_persona"
                     android:layout_marginTop="30dp"
-                    android:text="Direccion" />
+                    android:text="Dirección:" />
 
                 <EditText
                     android:id="@+id/txt_direccion"
@@ -153,7 +153,7 @@
                     android:layout_alignStart="@+id/textView12"
                     android:layout_below="@+id/txt_direccion"
                     android:layout_marginTop="30dp"
-                    android:text="Referencia" />
+                    android:text="Referencia:" />
 
                 <EditText
                     android:id="@+id/txt_referencia"
@@ -193,7 +193,7 @@
                     android:layout_alignStart="@+id/textView15"
                     android:layout_below="@+id/textView15"
                     android:layout_marginTop="22dp"
-                    android:text="Grado Instruccion" />
+                    android:text="Grado Instrucción:" />
 
                 <Spinner
                     android:id="@+id/spn_grado"
@@ -211,7 +211,7 @@
                     android:layout_alignStart="@+id/textView16"
                     android:layout_below="@+id/textView16"
                     android:layout_marginTop="30dp"
-                    android:text="Telefono:" />
+                    android:text="Teléfono:" />
 
                 <EditText
                     android:id="@+id/txt_telefono"
@@ -253,7 +253,7 @@
                     android:layout_alignBaseline="@+id/txt_ocupacion"
                     android:layout_alignBottom="@+id/txt_ocupacion"
                     android:layout_alignStart="@+id/textView6"
-                    android:text="Ocupacion:" />
+                    android:text="Ocupación:" />
 
                 <EditText
                     android:id="@+id/txt_ocupacion"
@@ -274,7 +274,7 @@
                     android:layout_alignEnd="@+id/textView14"
                     android:layout_below="@+id/txt_ocupacion"
                     android:layout_marginTop="21dp"
-                    android:text="Nro Hijos" />
+                    android:text="Nro Hijos:" />
 
                 <EditText
                     android:id="@+id/txt_nrohijos"

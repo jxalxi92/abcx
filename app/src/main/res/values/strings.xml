@@ -58,7 +58,7 @@
     <string name="title_activity_actividad_hist_plan_pago">Historial de Pago</string>
     <string name="title_activity_actividad_mant_sol_cred">ActividadMantSolCred</string>
     <string name="RegistroSolicitud">Nueva Solicitud</string>
-    <string name="RegistroGestion">Registrar Gestion</string>
+    <string name="RegistroGestion">Registrar Gestión</string>
     <string name="title_activity_actividad_gestion_cobranza">ActividadGestionCobranza</string>
     <string name="title_activity_actividad_gestion_cobranza1">ActividadGestionCobranza1</string>
 
