@@ -205,7 +205,6 @@ public class fragmento_consultar_datos extends Fragment implements LoaderManager
         else
         {
             OnBuscarPersona(dni);
-
         }
     }
 
