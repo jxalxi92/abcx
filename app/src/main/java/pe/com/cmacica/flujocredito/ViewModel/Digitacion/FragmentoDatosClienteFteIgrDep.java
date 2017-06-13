@@ -201,11 +201,11 @@ public class FragmentoDatosClienteFteIgrDep extends Fragment  {
 
     private  List<ConstanteModel> ListaTipoPeriodo(){
         List<ConstanteModel> ListaTipoPeriodo = new ArrayList<ConstanteModel>();
-        ListaTipoPeriodo.add(new ConstanteModel(9078,1,"DIARIA"));
-        ListaTipoPeriodo.add(new ConstanteModel(9078,2,"SEMANAL"));
-        ListaTipoPeriodo.add(new ConstanteModel(9078,3,"QUINCENAL"));
-        ListaTipoPeriodo.add(new ConstanteModel(9078,4,"MENSUAL"));
-        ListaTipoPeriodo.add(new ConstanteModel(9078,5,"OTROS"));
+        ListaTipoPeriodo.add(new ConstanteModel(9078,1,"DIARIA",0));
+        ListaTipoPeriodo.add(new ConstanteModel(9078,2,"SEMANAL",0));
+        ListaTipoPeriodo.add(new ConstanteModel(9078,3,"QUINCENAL",0));
+        ListaTipoPeriodo.add(new ConstanteModel(9078,4,"MENSUAL",0));
+        ListaTipoPeriodo.add(new ConstanteModel(9078,5,"OTROS",0));
 
         return ListaTipoPeriodo;
     }

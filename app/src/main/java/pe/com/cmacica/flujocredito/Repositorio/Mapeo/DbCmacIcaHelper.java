@@ -199,7 +199,8 @@ public class DbCmacIcaHelper extends SQLiteOpenHelper {
 
                 ContratoDbCmacIca.ConstanteTable.nConsCod + " TEXT, "+
                 ContratoDbCmacIca.ConstanteTable.nConsValor + " TEXT, "+
-                ContratoDbCmacIca.ConstanteTable.cConsDescripcion+ " TEXT  " + //
+                ContratoDbCmacIca.ConstanteTable.cConsDescripcion+ " TEXT,  " +
+                ContratoDbCmacIca.ConstanteTable.nConsEquivalente+ " TEXT  " +//
                 " )";
 
         db.execSQL(cmd);

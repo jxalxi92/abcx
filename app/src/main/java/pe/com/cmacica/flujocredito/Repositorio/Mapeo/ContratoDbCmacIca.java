@@ -151,6 +151,7 @@ public class ContratoDbCmacIca {
         String nConsCod = "nConsCod";
         String nConsValor = "nConsValor";
         String cConsDescripcion = "cConsDescripcion";
+        String nConsEquivalente="nConsEquivalente";
 
 
     }

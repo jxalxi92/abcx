@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -76,6 +77,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
             spnProyecto, spnSolicitud;
     //CHECKBOX--------------------------------------------------------------------------------------
     private CheckBox chckAgropecuario, chckCampañas, chckBancoNacion, chckMicroSeguro, chckAutoAsignado;
+    private TextView lblProyectoImnmobiliario;
     private FloatingActionButton Fab_Buscar,Fab_nuevo;
 
     //region PROPIEDADES---------------------------------------------------------------------------------------
@@ -112,6 +114,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         spnBancoNacion.setEnabled(false);
         spnCampañas.setEnabled(false);
         spnAgropecuario.setEnabled(false);
+
 //EVENTOS DE CONTROLES------------------------------------------------------------------------------
         EventosControles();
     }
@@ -184,6 +187,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         CarViewInstitucion=(CardView)findViewById(R.id.CarViewInstitucion);
         // txtNombres.setInputType(InputType.TYPE_NULL);
         //txtTipoPersona.setInputType(InputType.TYPE_NULL);
+        lblProyectoImnmobiliario=(TextView)findViewById(R.id.lblProyectoImnmobiliario);
 
         chckAgropecuario.setVisibility(View.INVISIBLE);
         spnAgropecuario.setVisibility(View.INVISIBLE);
@@ -191,7 +195,8 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         CarViewInstitucion.setVisibility(View.GONE);
         spnProyInmobilirio.setEnabled(false);
         txtTea.setVisibility(View.GONE);
-
+        lblProyectoImnmobiliario.setVisibility(View.GONE);
+        spnProyInmobilirio.setVisibility(View.GONE);
     }
 
     private void InicializarControles() {
@@ -199,8 +204,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         ProcesarListaMoneda();
         ProcesarTipoPeriodo();
         OnCagarProceso();
-
-
         OnCargarAgenciasBnAge();
 
 
@@ -255,7 +258,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 switch (ProductoSel.getcCredProductos()) {
                     case "301": //CrediSueldo
                         CarViewInstitucion.setVisibility(View.VISIBLE);
-                        spnProyInmobilirio.setVisibility(View.INVISIBLE);
+                        spnProyInmobilirio.setVisibility(View.GONE);
                         chckAgropecuario.setVisibility(View.INVISIBLE);
                         spnAgropecuario.setVisibility(View.INVISIBLE);
                         spnProyecto.setVisibility(View.INVISIBLE);
@@ -264,7 +267,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     case "404"://MI VIVIENDA - TECHO PROPIO
                     case "405"://HIPOTECARIO CAJA CASA
                         CarViewInstitucion.setVisibility(View.GONE);
-                        spnProyInmobilirio.setVisibility(View.VISIBLE);
+                        spnProyInmobilirio.setVisibility(View.GONE);
                         chckAgropecuario.setVisibility(View.INVISIBLE);
                         spnAgropecuario.setVisibility(View.INVISIBLE);
                         spnProyInmobilirio.setEnabled(true);
@@ -273,7 +276,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     case "102"://COMERCIAL AGRICOLA
                     case "202"://COMERCIAL AGRICOLA
                         CarViewInstitucion.setVisibility(View.GONE);
-                        spnProyInmobilirio.setVisibility(View.INVISIBLE);
+                        spnProyInmobilirio.setVisibility(View.GONE);
                         chckAgropecuario.setChecked(true);
                         OnCargarAgropecuario();
                         spnProyecto.setVisibility(View.INVISIBLE);
@@ -281,7 +284,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     case "208"://ASOCIACIONES Y/O GRUPOS ORG
                     case "309"://ASOCIACIONES Y/O GRUPOS ORG
                         CarViewInstitucion.setVisibility(View.GONE);
-                        spnProyInmobilirio.setVisibility(View.INVISIBLE);
+                        spnProyInmobilirio.setVisibility(View.GONE);
                         chckAgropecuario.setVisibility(View.INVISIBLE);
                         spnAgropecuario.setVisibility(View.INVISIBLE);
                         spnProyecto.setVisibility(View.VISIBLE);
@@ -293,7 +296,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     case "201":
                     case "101":
                         CarViewInstitucion.setVisibility(View.GONE);
-                        spnProyInmobilirio.setVisibility(View.INVISIBLE);
+                        spnProyInmobilirio.setVisibility(View.GONE);
                         chckAgropecuario.setVisibility(View.INVISIBLE);
                         spnAgropecuario.setVisibility(View.VISIBLE);
                         spnProyecto.setVisibility(View.INVISIBLE);
@@ -302,7 +305,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                         OnCargarAgropecuario();
                     default:
                         CarViewInstitucion.setVisibility(View.GONE);
-                        spnProyInmobilirio.setVisibility(View.INVISIBLE);
+                        spnProyInmobilirio.setVisibility(View.GONE);
                         chckAgropecuario.setVisibility(View.INVISIBLE);
                         spnAgropecuario.setVisibility(View.INVISIBLE);
                         spnProyecto.setVisibility(View.INVISIBLE);
@@ -434,8 +437,8 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
 
             List<ConstanteModel> ListaMoneda = new ArrayList<ConstanteModel>();
-            ListaMoneda.add(new ConstanteModel(1011, 1, "SOLES"));
-            ListaMoneda.add(new ConstanteModel(1011, 2, "DÓLARES"));
+            ListaMoneda.add(new ConstanteModel(1011, 1, "SOLES",0));
+            ListaMoneda.add(new ConstanteModel(1011, 2, "DÓLARES",0));
 
             ArrayAdapter<ConstanteModel> adpSpinnerMoneda = new ArrayAdapter<ConstanteModel>(
                     this,
@@ -461,8 +464,8 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
             // Obtener atributo "estado"
 
             List<ConstanteModel> ListaTipoPeriodo = new ArrayList<ConstanteModel>();
-            ListaTipoPeriodo.add(new ConstanteModel(1011, 0, "FECHA FIJA"));
-            ListaTipoPeriodo.add(new ConstanteModel(1011, 1, "PERIODO FIJO"));
+            ListaTipoPeriodo.add(new ConstanteModel(1011, 0, "FECHA FIJA",0));
+            ListaTipoPeriodo.add(new ConstanteModel(1011, 1, "PERIODO FIJO",0));
 
             ArrayAdapter<ConstanteModel> adpSpinnerTipoFrec = new ArrayAdapter<ConstanteModel>(
                     this,
@@ -932,7 +935,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
     }
     //endregion
 
-    //region Destion
+    //region Destino
     private void OnCargarDestino(){
         try {
             if (ProductoSel == null || TipoCreditoSel==null) {
@@ -1076,8 +1079,8 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
             // Obtener atributo "estado"
 
             List<ConstanteModel> ListaTipoPeriodo = new ArrayList<ConstanteModel>();
-            ListaTipoPeriodo.add(new ConstanteModel(7011, 2, "PUBLICO"));
-            ListaTipoPeriodo.add(new ConstanteModel(7011, 3, "PRIVADO"));
+            ListaTipoPeriodo.add(new ConstanteModel(7011, 2, "PUBLICO",0));
+            ListaTipoPeriodo.add(new ConstanteModel(7011, 3, "PRIVADO",0));
 
             ArrayAdapter<ConstanteModel> adpSpinnerTipoFrec = new ArrayAdapter<ConstanteModel>(
                     this,
@@ -1542,6 +1545,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                                 public void onDismiss(DialogInterface arg0) {
                                     //ActividadLogin.this.finish();
                                     spnTipoCredito.setSelection(0);
+
                                 }})
 
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion

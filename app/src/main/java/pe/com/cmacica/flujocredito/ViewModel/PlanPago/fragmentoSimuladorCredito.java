@@ -472,8 +472,8 @@ public class fragmentoSimuladorCredito extends Fragment  {
             // Obtener atributo "estado"
 
             List<ConstanteModel> ListaMoneda = new ArrayList<ConstanteModel>();
-            ListaMoneda.add(new ConstanteModel(1011,1,"SOLES"));
-            ListaMoneda.add(new ConstanteModel(1011,2,"DÓLARES"));
+            ListaMoneda.add(new ConstanteModel(1011,1,"SOLES",0));
+            ListaMoneda.add(new ConstanteModel(1011,2,"DÓLARES",0));
 
             ArrayAdapter<ConstanteModel> adpSpinnerMoneda = new ArrayAdapter<ConstanteModel>(
                     getActivity(),
@@ -499,8 +499,8 @@ public class fragmentoSimuladorCredito extends Fragment  {
             // Obtener atributo "estado"
 
             List<ConstanteModel> ListaTipoPeriodo = new ArrayList<ConstanteModel>();
-            ListaTipoPeriodo.add(new ConstanteModel(1011,0,"FECHA FIJA"));
-            ListaTipoPeriodo.add(new ConstanteModel(1011,1,"PERIODO FIJO"));
+            ListaTipoPeriodo.add(new ConstanteModel(1011,0,"FECHA FIJA",0));
+            ListaTipoPeriodo.add(new ConstanteModel(1011,1,"PERIODO FIJO",0));
 
             ArrayAdapter<ConstanteModel> adpSpinnerTipoFrec = new ArrayAdapter<ConstanteModel>(
                     getActivity(),

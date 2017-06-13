@@ -6,6 +6,11 @@ package pe.com.cmacica.flujocredito.Model.Solicitud;
 
 public class SolCredClasifModel
 {
+
+    public SolCredClasifModel(){
+
+
+    }
     public SolCredClasifModel(int nTipoCredito, String cTipoCredito, double mes6, double mes5, double mes4, double mes3, double mes2, double mes1, double ventas1, double ventas2, int tipoPersona, int ultimoMesClasif, String fecha, String doi, double monto) {
         this.nTipoCredito = nTipoCredito;
         this.cTipoCredito = cTipoCredito;
@@ -24,35 +29,95 @@ public class SolCredClasifModel
         Monto = monto;
     }
 
-    private int nTipoCredito;
+    public int nTipoCredito;
 
-    private String cTipoCredito;
+    public String cTipoCredito;
 
-    private double Mes6 ;
+    public double Mes6 ;
 
-    private double Mes5 ;
+    public double Mes5 ;
 
-    private double Mes4 ;
+    public double Mes4 ;
 
-    private double Mes3 ;
+    public double Mes3 ;
 
-    private double Mes2;
+    public double Mes2;
 
-    private double Mes1;
+    public int getnTipoCredito() {
+        return nTipoCredito;
+    }
 
-    private double Ventas1 ;
+    public String getcTipoCredito() {
+        return cTipoCredito;
+    }
 
-    private double Ventas2 ;
+    public double getMes6() {
+        return Mes6;
+    }
 
-    private int TipoPersona ;
+    public double getMes5() {
+        return Mes5;
+    }
 
-    private int UltimoMesClasif ;
+    public double getMes4() {
+        return Mes4;
+    }
 
-    private  String Fecha;
+    public double getMes3() {
+        return Mes3;
+    }
 
-    private  String Doi;
+    public double getMes2() {
+        return Mes2;
+    }
 
-    private  double Monto ;
+    public double getMes1() {
+        return Mes1;
+    }
+
+    public double getVentas1() {
+        return Ventas1;
+    }
+
+    public double getVentas2() {
+        return Ventas2;
+    }
+
+    public int getTipoPersona() {
+        return TipoPersona;
+    }
+
+    public int getUltimoMesClasif() {
+        return UltimoMesClasif;
+    }
+
+    public String getFecha() {
+        return Fecha;
+    }
+
+    public String getDoi() {
+        return Doi;
+    }
+
+    public double getMonto() {
+        return Monto;
+    }
+
+    public double Mes1;
+
+    public double Ventas1 ;
+
+    public double Ventas2 ;
+
+    public int TipoPersona ;
+
+    public int UltimoMesClasif ;
+
+    public  String Fecha;
+
+    public  String Doi;
+
+    public  double Monto ;
 
     public void setnTipoCredito(int nTipoCredito) {
         this.nTipoCredito = nTipoCredito;

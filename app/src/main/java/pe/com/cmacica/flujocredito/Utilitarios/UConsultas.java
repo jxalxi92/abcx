@@ -176,7 +176,8 @@ public class UConsultas {
         ConstanteModel result = new ConstanteModel(
                 query.getInt(query.getColumnIndex( ContratoDbCmacIca.ConstanteTable.nConsCod)),
                 query.getInt(query.getColumnIndex( ContratoDbCmacIca.ConstanteTable.nConsValor)),
-                query.getString(query.getColumnIndex( ContratoDbCmacIca.ConstanteTable.cConsDescripcion))
+                query.getString(query.getColumnIndex( ContratoDbCmacIca.ConstanteTable.cConsDescripcion)),
+                query.getInt(query.getColumnIndex( ContratoDbCmacIca.ConstanteTable.nConsEquivalente))
 
         );
 
