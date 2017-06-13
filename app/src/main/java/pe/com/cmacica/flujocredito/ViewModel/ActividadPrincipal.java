@@ -5,23 +5,17 @@ import android.accounts.Account;
 import android.app.DatePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -36,19 +30,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.bumptech.glide.util.Util;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import pe.com.cmacica.flujocredito.AgenteServicio.SrvCmacIca;
-import pe.com.cmacica.flujocredito.AgenteServicio.VolleySingleton;
 import pe.com.cmacica.flujocredito.Model.Digitacion.DigitacionDto;
 import pe.com.cmacica.flujocredito.R;
 import pe.com.cmacica.flujocredito.Repositorio.Mapeo.ContratoDbCmacIca;
@@ -57,7 +38,6 @@ import pe.com.cmacica.flujocredito.Utilitarios.USeguridad;
 import pe.com.cmacica.flujocredito.ViewModel.Cobranza.FragmentoListaCobranza;
 import pe.com.cmacica.flujocredito.ViewModel.Digitacion.ActividadFteIgrDep;
 import pe.com.cmacica.flujocredito.ViewModel.Digitacion.ActividadFteIgrIndep;
-import pe.com.cmacica.flujocredito.ViewModel.Digitacion.FragmentoBalanceFteIgr;
 import pe.com.cmacica.flujocredito.ViewModel.Digitacion.FragmentoPersonaFteIgrDet;
 import pe.com.cmacica.flujocredito.ViewModel.Digitacion.FragmentoPersonaFteIngreso;
 import pe.com.cmacica.flujocredito.ViewModel.Digitacion.fragmentoInicio;
@@ -104,7 +84,6 @@ public class ActividadPrincipal extends AppCompatActivity implements
                 String mensaje = intent.getStringExtra("extra.mensaje");
                 OnEnviarBroadcast(mensaje);
             }
-
         };
 
         View header = navigationView.getHeaderView(0);
@@ -113,7 +92,6 @@ public class ActividadPrincipal extends AppCompatActivity implements
         //String user = UPreferencias.ObtenerUserLogeo(this);
         lblUserName.setText( UPreferencias.ObtenerNombreCompleto(this));
         lblemail.setText( UPreferencias.ObtenerAgenciaLogeo(this));
-
     }
 
     @Override
@@ -153,7 +131,6 @@ public class ActividadPrincipal extends AppCompatActivity implements
                         return true;
                     }
                 });
-
     }
 
     private void seleccionarItem(MenuItem itemDrawer) {
