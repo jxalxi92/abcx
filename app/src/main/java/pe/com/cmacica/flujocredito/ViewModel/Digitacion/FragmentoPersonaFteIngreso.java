@@ -2,7 +2,6 @@ package pe.com.cmacica.flujocredito.ViewModel.Digitacion;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -21,14 +20,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.gson.Gson;
 
 import pe.com.cmacica.flujocredito.R;
 import pe.com.cmacica.flujocredito.Repositorio.Adaptadores.Digitacion.AdaptadorPersonaFteIgr;
 import pe.com.cmacica.flujocredito.Repositorio.Mapeo.ContratoDbCmacIca;
 import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
 import pe.com.cmacica.flujocredito.Utilitarios.UService;
-import pe.com.cmacica.flujocredito.ViewModel.ActividadPrincipal;
+
 
 
 public class FragmentoPersonaFteIngreso extends Fragment //{
