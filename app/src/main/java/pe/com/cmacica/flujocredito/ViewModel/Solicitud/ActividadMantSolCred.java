@@ -99,7 +99,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_mant_sol_cred);
         showToolbar(getResources().getString(R.string.RegistroSolicitud), true);
-        getSupportLoaderManager().initLoader(0,null,this);
+
 
         /*mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
