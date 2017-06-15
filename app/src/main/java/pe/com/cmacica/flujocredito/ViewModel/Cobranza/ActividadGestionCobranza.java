@@ -1050,7 +1050,34 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
                     OnGuardarGestion();
                 }
                 break;
+            case android.R.id.home:
+                // app icon in action bar clicked; go home
 
+                new AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Aviso")
+                        .setMessage("Desea Regresar a la Ventana Anterior?")
+                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface arg0) {
+                                // ActividadLogin.this.finish();
+                            }})
+                        .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })//sin listener
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
+                            @Override
+                            public void onClick(DialogInterface dialog, int which){
+                                //Salir
+
+                                onBackPressed();
+                            }
+                        })
+                        .show();
+                break;
             default:
                 finish();
         }
