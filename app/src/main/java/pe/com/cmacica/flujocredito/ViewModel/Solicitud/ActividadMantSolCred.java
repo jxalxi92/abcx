@@ -67,7 +67,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
     private Gson gson = new Gson();
     private int Perstipo;
     private double MontoSolicitado;
-    private String NumeroDocumento;
+
     DatoPersonaSolicitudModel Cliente;
 
  //VARIABLES CONTROLES------------------------------------------------------------------------------
@@ -245,7 +245,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         ProcesarTipoPeriodo();
         OnCagarProceso();
         OnCargarAgenciasBnAge();
-
 
     }
 

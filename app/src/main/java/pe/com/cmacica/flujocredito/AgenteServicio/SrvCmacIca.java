@@ -78,8 +78,6 @@ public class SrvCmacIca {
     public static final String GET_SEL_CONDICION_SOL=HOST_WEBAPI+"Solicitud/SelCondicionSolicitud?cCodCliente=%s";
     public static final String POST_INGRESO_VENTAS=HOST_WEBAPI+"Solicitud/InsEndeuPersonaSol";
 
-
-
     //endRegion-----------------------------------------------------------------------------------------------------
 
     //Region COBRANZAS---------------------------------------------------------------------------------------------
