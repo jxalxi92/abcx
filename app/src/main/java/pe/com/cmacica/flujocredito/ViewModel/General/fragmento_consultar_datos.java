@@ -76,11 +76,14 @@ public class fragmento_consultar_datos extends Fragment implements LoaderManager
 //VALIDACIONES-------------------------------------------------------------------------------------
         txtDniR.setInputType(InputType.TYPE_NULL);
         txtPersona.setInputType(InputType.TYPE_NULL);
+        txtDniR.setEnabled(false);
+        txtPersona.setFocusable(false);
         fabGuardar.setEnabled(false);
 
 //ACCIONES DE CONTROLES---------------------------------------------------------------------------
         spn_estado_civil.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
+
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 EstadoSel = (ConstanteModel) parent.getItemAtPosition(position);
             }
