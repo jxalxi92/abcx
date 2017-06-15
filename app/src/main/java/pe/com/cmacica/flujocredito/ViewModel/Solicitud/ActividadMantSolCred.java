@@ -399,7 +399,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 Dni=txt_Dni.getText().toString();
                 if (txt_Dni.length()==0 || txt_Dni.length()<8)
                 {
-                    Snackbar.make(findViewById(R.id.actividadGestionCobranza),
+                    Snackbar.make(findViewById(R.id.llOperacionSim),
                             "Numero de Documento Incorrecto",
                             Snackbar.LENGTH_LONG).show();
                     onLimpiar();
