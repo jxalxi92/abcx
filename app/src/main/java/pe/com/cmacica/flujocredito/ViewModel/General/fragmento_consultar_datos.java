@@ -73,19 +73,24 @@ public class fragmento_consultar_datos extends Fragment implements LoaderManager
 //ASIGNACION DE CONTROLES--------------------------------------------------------------------------
         AsignarControles();
 
+
 //VALIDACIONES-------------------------------------------------------------------------------------
         txtDniR.setInputType(InputType.TYPE_NULL);
         txtPersona.setInputType(InputType.TYPE_NULL);
-        txtDniR.setEnabled(false);
+        txtDniR.setFocusable(false);
         txtPersona.setFocusable(false);
         fabGuardar.setEnabled(false);
+
+
 
 //ACCIONES DE CONTROLES---------------------------------------------------------------------------
         spn_estado_civil.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                 EstadoSel = (ConstanteModel) parent.getItemAtPosition(position);
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -130,16 +135,22 @@ public class fragmento_consultar_datos extends Fragment implements LoaderManager
                String Ocupacion=txtOcupacion.getText().toString();
                String NroHijos=txtnrohijos.getText().toString();
 
+                if (EstadoSel==null || GradoSel==null)
+                {
+                    Snackbar.make(view, "Sincronize Datos en Mennu->Ajustes->Constantes->Sincronizar", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    return;
+                }
                 if (Direccion.equals("") || Referencia.equals("") || Telefono.equals("") || Email.equals("") ||
                         Ocupacion.equals("") || NroHijos.equals("") )
                 {
                     Snackbar.make(view, "No deje Campos Vacíos", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
-                else
-                {
-                    OnGuardar(per);
-                    Inicializar();
+
+                else {
+                            OnGuardar(per);
+                            Inicializar();
                 }
             }
         });

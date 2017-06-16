@@ -150,11 +150,11 @@ public class ConstanteProgressIntentService extends IntentService
     @Override
     public void onDestroy() {
 
-        Toast.makeText(this, "Sincronización Completo de Cosntantes", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Sincronización Completa de Cosntantes", Toast.LENGTH_SHORT).show();
         // Emisión para avisar que se terminó el servicio
         Intent localIntent = new Intent(Constantes.ACTION_PROGRESS_EXIT);
         LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
 
-        Log.d(TAG, "Sincronización Completo.");
+        Log.d(TAG, "Sincronización Completa.");
     }
 }
