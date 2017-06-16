@@ -103,7 +103,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_mant_sol_cred);
         showToolbar(getResources().getString(R.string.RegistroSolicitud), true);
-
+        getSupportLoaderManager().initLoader(0,null,this);
 
         /*mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -383,6 +383,10 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 {
                         txtTea.setVisibility(View.VISIBLE);
                 }
+                else
+                {
+                    txtTea.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -526,7 +530,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
     private void OnCargarConstantes(Cursor query) {
 
-
         List<ConstanteModel> ListaConstanteEstadosSolictud = new ArrayList<>();
 
         while (query.moveToNext()) {
@@ -620,7 +623,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
     private void OnCargarLitaTipoCredito() {
         try {
 
-            String Url = String.format( SrvCmacIca.GET_PERSONA_TIPOCREDITO,Cliente.getDatoPersonal().getCodigoTipoDocumento());
+            String Url = String.format( SrvCmacIca.GET_PERSONA_TIPOCREDITO,Cliente.getDatoPersonal().getnPersPersoneria());
             VolleySingleton.
                     getInstance(this).
                     addToRequestQueue(
