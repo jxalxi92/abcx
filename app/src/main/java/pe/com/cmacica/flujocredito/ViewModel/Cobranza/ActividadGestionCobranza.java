@@ -75,7 +75,7 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
     private TextView lblFecha;
     private Gson gson = new Gson();
     private ProgressDialog progressDialog;
-
+    private FloatingActionButton fab_guardar;
     private static String CodCliente;
     private static String Documento;
 
@@ -124,6 +124,7 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
 
         txtMonto = (EditText) findViewById(R.id.txtMonto);
         lblFecha = (TextView) findViewById(R.id.lblFecha);
+        fab_guardar=(FloatingActionButton) findViewById(R.id.fab_guardar);
         lblFecha.setText(UGeneral.obtenerTiempoCorto());
 
         lblFecha.setEnabled(false);
@@ -258,6 +259,33 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
             }
         });
 
+        fab_guardar.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        double Monto;
+                        Monto =Double.parseDouble(txtMonto.getText().toString());
+                        if(ResultadoSel.getResCod()==57)
+                        {
+                            if (Monto>0){
+
+                                OnGuardarGestion();
+                            }
+                            else
+                            {
+                                Snackbar.make(findViewById(R.id.actividadGestionCobranza),
+                                        "Ingrese Monto",
+                                        Snackbar.LENGTH_LONG).show();
+                            }
+
+                        }
+                        else
+                        {
+                            OnGuardarGestion();
+                        }
+                    }
+                }
+        );
     }
 
     private void showToolbar(String tittle, boolean upButton) {
@@ -986,7 +1014,7 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
 
        try {if (response.getBoolean("IsCorrect")) {
 
-              Snackbar.make(findViewById(R.id.actividadGestionCobranza), "Se Guardo Correctamente los Datos", Snackbar.LENGTH_LONG)
+              Snackbar.make(findViewById(R.id.actividadGestionCobranza), "Se Guardó Correctamente los Datos", Snackbar.LENGTH_LONG)
                      .setAction("Action", null).show();
            finish();
             }
@@ -1029,26 +1057,7 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
         switch (id) {
             case R.id.Guardar:
 
-                double Monto;
-                Monto =Double.parseDouble(txtMonto.getText().toString());
-                if(ResultadoSel.getResCod()==57)
-                {
-                    if (Monto>0){
 
-                        OnGuardarGestion();
-                    }
-                    else
-                    {
-                        Snackbar.make(findViewById(R.id.actividadGestionCobranza),
-                                "Ingrese Monto",
-                                Snackbar.LENGTH_LONG).show();
-                    }
-
-                }
-                else
-                {
-                    OnGuardarGestion();
-                }
                 break;
             case android.R.id.home:
                 // app icon in action bar clicked; go home
@@ -1087,7 +1096,7 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.menu_guardar, menu);
+      //  getMenuInflater().inflate(R.menu.menu_guardar, menu);
 
         // Verificación de visibilidad acción eliminar
         // if (uriContacto != null) {

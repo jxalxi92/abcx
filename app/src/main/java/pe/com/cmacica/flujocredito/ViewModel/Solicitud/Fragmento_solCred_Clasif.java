@@ -91,7 +91,6 @@ public class Fragmento_solCred_Clasif extends AppCompatDialogFragment  implement
         btnGuardar=(Button) Vista.findViewById(R.id.btnGuardar);
         getActivity().getSupportLoaderManager().restartLoader(1, null, this);
 
-
         spn_Periodo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -111,7 +110,6 @@ public class Fragmento_solCred_Clasif extends AppCompatDialogFragment  implement
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
@@ -123,7 +121,6 @@ public class Fragmento_solCred_Clasif extends AppCompatDialogFragment  implement
             });
         return  Vista;
     }
-
 
     private void OnCargarConstantes(Cursor query) {
 
@@ -146,7 +143,6 @@ public class Fragmento_solCred_Clasif extends AppCompatDialogFragment  implement
         );
         adpSpinnerEstadoSolicitud.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spn_Periodo.setAdapter(adpSpinnerEstadoSolicitud);
-
 
     }
     private void OnGuardar(){

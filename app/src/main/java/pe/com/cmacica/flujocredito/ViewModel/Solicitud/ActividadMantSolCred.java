@@ -443,7 +443,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 if (txt_Dni.length()==0 || txt_Dni.length()<8)
                 {
                     Snackbar.make(findViewById(R.id.llOperacionSim),
-                            "Numero de Documento Incorrecto",
+                            "Número de Documento Incorrecto",
                             Snackbar.LENGTH_LONG).show();
                     onLimpiar();
                 }

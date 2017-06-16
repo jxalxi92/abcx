@@ -133,7 +133,7 @@ public class fragmento_consultar_datos extends Fragment implements LoaderManager
                 if (Direccion.equals("") || Referencia.equals("") || Telefono.equals("") || Email.equals("") ||
                         Ocupacion.equals("") || NroHijos.equals("") )
                 {
-                    Snackbar.make(view, "No deje Campos Vacios", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "No deje Campos Vacíos", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
                 else
@@ -385,7 +385,7 @@ public class fragmento_consultar_datos extends Fragment implements LoaderManager
         try {
             if (response.getBoolean("IsCorrect")) {
 
-                Snackbar.make(view, "Se Guardo Correctamente los Datos", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Se Guardó Correctamente los Datos", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         }
