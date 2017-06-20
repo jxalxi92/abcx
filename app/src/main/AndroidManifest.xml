@@ -140,10 +140,6 @@
             android:name=".ViewModel.Cobranza.ActividadGestionCobranza"
             android:label="@string/title_activity_actividad_gestion_cobranza"
             android:theme="@style/Theme.FlujoCredito" />
-        <activity
-            android:name=".ViewModel.Solicitud.Actividad_Visor_Sbs"
-            android:label="@string/title_activity_actividad__visor__sbs"
-            android:theme="@style/Theme.FlujoCredito"></activity>
     </application>
 
 </manifest>

@@ -264,14 +264,17 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 if (txtMonto.getText().toString().equals("")){
                     MontoSolicitado=0;
 
+
                 }else{
                     MontoSolicitado=Double.parseDouble(txtMonto.getText().toString());
                 }
 
                 if (TipoCreditoSel.getnTipoCreditos()!=0)
                 {
-                    OnVerificarEvaMensual();
                     OnCargarProducto();
+
+                    OnVerificarEvaMensual();
+
                 }
 
             }
@@ -485,8 +488,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         });
 
 
-
-
     }
     private void onLimpiar(){
         txt_Dni.setText("");
@@ -496,7 +497,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
     }
     private void ProcesarListaMoneda() {
         try {
-
 
             List<ConstanteModel> ListaMoneda = new ArrayList<ConstanteModel>();
             ListaMoneda.add(new ConstanteModel(1011, 1, "SOLES",0));
@@ -1608,6 +1608,10 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                                     //ActividadLogin.this.finish();
                                     spnTipoCredito.setSelection(0);
 
+                                    FragmentManager manager=getSupportFragmentManager();
+                                    Fragmento_solCred_Clasif frag=new Fragmento_solCred_Clasif();
+                                    frag.Monto(MontoSolicitado);
+                                    frag.show(manager,"Ventas");
                                 }})
 
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion

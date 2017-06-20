@@ -235,7 +235,7 @@ public class fragmento_consultar_datos extends Fragment implements LoaderManager
     txtEmail=(EditText) view.findViewById(R.id.txt_email);
     txtOcupacion=(EditText) view.findViewById(R.id.txt_ocupacion);
     txtnrohijos=(EditText) view.findViewById(R.id.txt_nrohijos);
-    spn_estado_civil=(Spinner) view.findViewById(R.id.spn_estado_civil);
+
     spn_grado=(Spinner) view.findViewById(R.id.spn_grado);
     fabGuardar=(FloatingActionButton)view.findViewById(R.id.fab_guardar);
 }

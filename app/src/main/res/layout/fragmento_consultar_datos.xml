@@ -169,6 +169,27 @@
                     android:textSize="14sp" />
 
 
+                <EditText
+                    android:id="@+id/txt_EstadoCivil"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/Txt_GradoInstruccion"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textSize="14sp"
+                    android:layout_alignEnd="@+id/Txt_GradoInstruccion" />
+
+                <EditText
+                    android:id="@+id/Txt_GradoInstruccion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/textView16"
+                    android:layout_alignBottom="@+id/textView16"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textSize="14sp"
+                    android:layout_alignEnd="@+id/txt_referencia" />
+
                 <TextView
                     android:id="@+id/textView15"
                     android:layout_width="wrap_content"
@@ -178,14 +199,6 @@
                     android:layout_marginTop="24dp"
                     android:text="Estado Civil:" />
 
-                <Spinner
-                    android:id="@+id/spn_estado_civil"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/textView16"
-                    android:layout_alignEnd="@+id/spn_grado"
-                    android:layout_alignStart="@+id/spn_grado" />
-
                 <TextView
                     android:id="@+id/textView16"
                     android:layout_width="wrap_content"
@@ -194,15 +207,6 @@
                     android:layout_below="@+id/textView15"
                     android:layout_marginTop="22dp"
                     android:text="Grado Instrucción:" />
-
-                <Spinner
-                    android:id="@+id/spn_grado"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/textView16"
-                    android:layout_alignEnd="@+id/txt_persona"
-                    android:layout_marginStart="22dp"
-                    android:layout_toEndOf="@+id/textView16" />
 
                 <TextView
                     android:id="@+id/textView19"

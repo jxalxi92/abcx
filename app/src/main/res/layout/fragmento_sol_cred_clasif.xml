@@ -55,19 +55,8 @@ a
         android:id="@+id/lbl_Ventas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="0" />
-
-    <TextView
-        android:id="@+id/textView32"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Condicion" />
-
-    <TextView
-        android:id="@+id/lbl_Condicion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="0"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/button"

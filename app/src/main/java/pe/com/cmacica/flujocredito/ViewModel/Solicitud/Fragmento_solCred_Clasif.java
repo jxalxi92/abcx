@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -59,7 +60,7 @@ import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Fragmento_solCred_Clasif extends AppCompatDialogFragment  implements LoaderManager.LoaderCallbacks<Cursor>{
+public class Fragmento_solCred_Clasif extends DialogFragment implements LoaderManager.LoaderCallbacks<Cursor>{
     private static final String TAG = Fragmento_solCred_Clasif.class.getSimpleName();
     private Gson gson = new Gson();
     private View Vista;
@@ -74,7 +75,9 @@ public class Fragmento_solCred_Clasif extends AppCompatDialogFragment  implement
     private ConstanteModel ConstanteSel;
 
     private Double Monto,VentasAnuales;
+    private Double MontoSolicitado;
     private ProgressDialog progressDialog ;
+
     public Fragmento_solCred_Clasif() {
         // Required empty public constructor
     }
@@ -83,13 +86,14 @@ public class Fragmento_solCred_Clasif extends AppCompatDialogFragment  implement
     public View  onCreateView(LayoutInflater inflater, ViewGroup container,
                                      Bundle savedInstanceState)  {
 
-        Vista=inflater.inflate(R.layout.fragmento_sol_cred_clasif, container, false);
+        Vista=inflater.inflate(R.layout.fragmento_sol_cred_clasif,null);
         spn_Periodo = (Spinner) Vista.findViewById(R.id.spn_Periodo);
         txt_Monto = (EditText) Vista.findViewById(R.id.txt_Monto);
         lbl_Ventas = (TextView) Vista.findViewById(R.id.lbl_Ventas);
-        lbl_Condicion = (TextView) Vista.findViewById(R.id.lbl_Condicion);
+       // lbl_Condicion = (TextView) Vista.findViewById(R.id.lbl_Condicion);
         btnGuardar=(Button) Vista.findViewById(R.id.btnGuardar);
         getActivity().getSupportLoaderManager().restartLoader(1, null, this);
+        txt_Monto.setText(String.valueOf(MontoSolicitado));
 
         spn_Periodo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -121,30 +125,34 @@ public class Fragmento_solCred_Clasif extends AppCompatDialogFragment  implement
             });
         return  Vista;
     }
+    public void Monto(double Monto)
+    {
+        MontoSolicitado=Monto;
+
+    }
 
     private void OnCargarConstantes(Cursor query) {
 
 
-        List<ConstanteModel> ListaConstanteEstadosSolictud = new ArrayList<>();
+        List<ConstanteModel> ListaConstantePeriodo = new ArrayList<>();
 
         while (query.moveToNext()) {
             ConstanteModel obj = UConsultas.ConverCursorToConstanteModel(query);
-            if (obj.getCodigoValor() == 6 || obj.getCodigoValor()==7 || obj.getCodigoValor()==8) {
-                ListaConstanteEstadosSolictud.add(obj);
-            } else {
-
+            if (obj.getCodigoValor() !=9045) {
+                ListaConstantePeriodo.add(obj);
             }
         }
 
         ArrayAdapter<ConstanteModel> adpSpinnerEstadoSolicitud = new ArrayAdapter<ConstanteModel>(
                 getActivity(),
                 android.R.layout.simple_spinner_item,
-                ListaConstanteEstadosSolictud
+                ListaConstantePeriodo
         );
         adpSpinnerEstadoSolicitud.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spn_Periodo.setAdapter(adpSpinnerEstadoSolicitud);
 
     }
+
     private void OnGuardar(){
         Gson gsonpojo = new GsonBuilder().create();
         SolCredClasifModel SolCredClasif=new SolCredClasifModel();
@@ -174,8 +182,9 @@ public class Fragmento_solCred_Clasif extends AppCompatDialogFragment  implement
                 }
                 , cabeceras);
     }
-    private void ProcesarGuardar(JSONObject response)
-    {
+
+    private void ProcesarGuardar(JSONObject response) {
+
         try {
             if (response.getBoolean("IsCorrect")) {
 
