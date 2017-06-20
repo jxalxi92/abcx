@@ -1,9 +1,8 @@
 package pe.com.cmacica.flujocredito.ViewModel.Solicitud;
 
-import android.app.Activity;
-import android.content.Context;
+
+
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
@@ -38,7 +37,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -59,11 +57,9 @@ import pe.com.cmacica.flujocredito.Model.Solicitud.CredProcesosModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.TipoCreditoModel;
 import pe.com.cmacica.flujocredito.R;
 import pe.com.cmacica.flujocredito.Repositorio.Mapeo.ContratoDbCmacIca;
-import pe.com.cmacica.flujocredito.Utilitarios.Constantes;
 import pe.com.cmacica.flujocredito.Utilitarios.UConsultas;
 import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
-import pe.com.cmacica.flujocredito.ViewModel.Cobranza.ActividadGestionCobranza;
-import pe.com.cmacica.flujocredito.ViewModel.Digitacion.FragmentoFteIngreso;
+
 
 
 public  class ActividadMantSolCred extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
@@ -245,6 +241,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         txtTea.setVisibility(View.GONE);
         lblProyectoImnmobiliario.setVisibility(View.GONE);
         spnProyInmobilirio.setVisibility(View.GONE);
+        btn_Consultar.setEnabled(false);
     }
 
     private void InicializarControles() {
@@ -472,7 +469,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 onLimpiar();
                 txt_Dni.setFocusableInTouchMode(true);
                 txt_Dni.setFocusable(true);
-
+                btn_Consultar.setEnabled(false);
             }
         });
 
@@ -480,10 +477,10 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
             @Override
             public void onClick(View view) {
 
-              // Actividad_Visor_Sbs.createInstance(Cliente)
-
-        ;
-
+                FragmentManager manager=getSupportFragmentManager();
+                FragmentoVisorSbs frag=new FragmentoVisorSbs();
+                frag.Datos(Cliente);
+                frag.show(manager,"RCC");
             }
         });
 
@@ -1501,6 +1498,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 txt_Dni.setFocusable(false);
                 txtNombres.setFocusable(false);
                 txtTipoPersona.setFocusable(false);
+                btn_Consultar.setEnabled(true);
                 //cargar los combos
                 OnCargarLitaTipoCredito();
                 OnCargarCondicion();
