@@ -1,11 +1,14 @@
 package pe.com.cmacica.flujocredito.ViewModel.Solicitud;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -14,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.text.InputType;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -51,14 +55,15 @@ import pe.com.cmacica.flujocredito.Model.Solicitud.DestinosModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.ProductoModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.CampañasModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.CredProcesosModel;
-import pe.com.cmacica.flujocredito.Model.Solicitud.SolCredClasifModel;
+
 import pe.com.cmacica.flujocredito.Model.Solicitud.TipoCreditoModel;
 import pe.com.cmacica.flujocredito.R;
 import pe.com.cmacica.flujocredito.Repositorio.Mapeo.ContratoDbCmacIca;
+import pe.com.cmacica.flujocredito.Utilitarios.Constantes;
 import pe.com.cmacica.flujocredito.Utilitarios.UConsultas;
 import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
-import pe.com.cmacica.flujocredito.ViewModel.ActividadPrincipal;
-import pe.com.cmacica.flujocredito.ViewModel.Seguridad.ActividadLogin;
+import pe.com.cmacica.flujocredito.ViewModel.Cobranza.ActividadGestionCobranza;
+import pe.com.cmacica.flujocredito.ViewModel.Digitacion.FragmentoFteIngreso;
 
 
 public  class ActividadMantSolCred extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
@@ -82,7 +87,9 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
     //CHECKBOX--------------------------------------------------------------------------------------
     private CheckBox chckAgropecuario, chckCampañas, chckBancoNacion, chckMicroSeguro, chckAutoAsignado;
     private TextView lblProyectoImnmobiliario;
+
     private FloatingActionButton Fab_Buscar,Fab_nuevo;
+    private Button btn_Consultar;
 
     //region PROPIEDADES---------------------------------------------------------------------------------------
     private TipoCreditoModel TipoCreditoSel;
@@ -93,6 +100,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
     private CampañasModel CampañaSel;
     //CARDVIEW--------------------------------------------------------------------------------------
     private CardView CarViewInstitucion;
+
 
     public ActividadMantSolCred() {
     }
@@ -228,7 +236,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         // txtNombres.setInputType(InputType.TYPE_NULL);
         //txtTipoPersona.setInputType(InputType.TYPE_NULL);
         lblProyectoImnmobiliario=(TextView)findViewById(R.id.lblProyectoImnmobiliario);
-
+        btn_Consultar=(Button) findViewById(R.id.btn_Consultar);
         chckAgropecuario.setVisibility(View.INVISIBLE);
         spnAgropecuario.setVisibility(View.INVISIBLE);
         chckCampañas.setEnabled(false);
@@ -449,7 +457,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 }
                 else
                 {
-                    //OnBuscarPersona(Dni);
+
                     OnSelDatoClienteSolCred(Dni);
                     //txt_Dni.setEnabled(false);
 
@@ -467,6 +475,20 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
             }
         });
+
+       btn_Consultar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+              // Actividad_Visor_Sbs.createInstance(Cliente)
+
+        ;
+
+            }
+        });
+
+
+
 
     }
     private void onLimpiar(){

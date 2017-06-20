@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="pe.com.cmacica.flujocredito.ViewModel.Solicitud.Actividad_Visor_Sbs"
+    tools:showIn="@layout/actividad_visor_sbs">
+
+    tools:context="pe.com.cmacica.flujocredito.ViewModel.Solicitud.Actividad_Visor_Sbs">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.FlujoCredito.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/Theme.FlujoCredito.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        >
+
+        <TextView
+            android:id="@+id/textView30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CENTRAL DE RIESGO" />
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/lblTituloFteIgr"
+            android:layout_marginBottom="@dimen/padding_between"
+            android:background="@color/ColorSentinel" />
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Calificacion Sbs" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:columnCount="5"
+            android:rowCount="2">
+
+            <TextView
+                android:id="@+id/textView35"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_row="0"
+                android:text="0"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/lbl_Mes0"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_marginLeft="30dp"
+                android:layout_row="1"
+                android:text=""
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/textView36"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_marginTop="10dp"
+                android:layout_row="0"
+
+                android:text="1"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/lbl_Mes1"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_row="1"
+
+                android:text=""
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/textView37"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_marginTop="10dp"
+                android:layout_row="0"
+
+                android:text="2"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/lbl_Mes2"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_row="1"
+
+                android:text=""
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/textView38"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_column="3"
+                android:layout_marginTop="10dp"
+                android:layout_row="0"
+
+                android:text="3"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/lbl_Mes3"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_column="3"
+                android:layout_row="1"
+
+                android:text=""
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/textView39"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_column="4"
+                android:layout_marginTop="10dp"
+                android:layout_row="0"
+
+                android:text="4"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/lbl_Mes4"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_column="4"
+                android:layout_row="1"
+
+                android:text=""
+                android:textAlignment="center" />
+
+        </GridLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Sin Calificacion" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="39dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:hint="Saldo  Cap" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="59dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Num Ent" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Resultado" />
+        </android.support.design.widget.TextInputLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
+

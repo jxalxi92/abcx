@@ -124,7 +124,7 @@
                             android:hint="Tipo Persona" />
 
                         <Button
-                            android:id="@+id/button4"
+                            android:id="@+id/btn_Consultar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
