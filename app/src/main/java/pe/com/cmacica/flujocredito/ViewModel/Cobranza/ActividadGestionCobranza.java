@@ -204,7 +204,7 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
                     lblFecha.setEnabled(true);
                     txtMonto.setEnabled(true);
                     Reg.datoParametro = "C";
-                    Reg.dFecCompromiso = lblFecha.getText().toString();
+
                 } else {
                     lblFecha.setEnabled(false);
                     txtMonto.setEnabled(false);
@@ -979,7 +979,7 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
         Reg.nMontoCuota = DetalleGestionSel.getValorCuota();
         Reg.DiasAtraso = DetalleGestionSel.getDiasAtraso();
         Reg.nMontoPactado = Double.parseDouble(txtMonto.getText().toString());
-
+        Reg.dFecCompromiso = lblFecha.getText().toString();
         Reg.Usuario = UPreferencias.ObtenerUserLogeo(this);
         Reg.CodigoAnalista = DetalleGestionSel.getAnalista();
         Reg.nIdResultado = ResultadoSel.getResCod();

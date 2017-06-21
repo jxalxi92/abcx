@@ -68,7 +68,7 @@ public class Fragmento_solCred_Clasif extends DialogFragment implements LoaderMa
     private EditText txt_Monto;
     private TextView lbl_Ventas;
     private TextView lbl_Condicion;
-    private Button btnGuardar;
+    private Button btnAceptar;
 
     private ProductoModel ProductoSel;
     private DatoPersonaSolicitudModel Cliente;
@@ -91,7 +91,7 @@ public class Fragmento_solCred_Clasif extends DialogFragment implements LoaderMa
         txt_Monto = (EditText) Vista.findViewById(R.id.txt_Monto);
         lbl_Ventas = (TextView) Vista.findViewById(R.id.lbl_Ventas);
        // lbl_Condicion = (TextView) Vista.findViewById(R.id.lbl_Condicion);
-        btnGuardar=(Button) Vista.findViewById(R.id.btnGuardar);
+        btnAceptar=(Button) Vista.findViewById(R.id.btnAceptar);
         getActivity().getSupportLoaderManager().restartLoader(1, null, this);
         txt_Monto.setText(String.valueOf(MontoSolicitado));
 
@@ -109,7 +109,6 @@ public class Fragmento_solCred_Clasif extends DialogFragment implements LoaderMa
                    VentasAnuales=ConstanteSel.getEquivalente()*Monto;
                    lbl_Ventas.setText(String.valueOf(VentasAnuales));
                }
-
             }
 
             @Override
@@ -117,7 +116,7 @@ public class Fragmento_solCred_Clasif extends DialogFragment implements LoaderMa
             }
         });
 
-        btnGuardar.setOnClickListener(new View.OnClickListener() {
+        btnAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 OnGuardar();
