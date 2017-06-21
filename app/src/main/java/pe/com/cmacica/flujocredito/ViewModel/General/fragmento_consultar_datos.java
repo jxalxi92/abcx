@@ -107,12 +107,6 @@ public class fragmento_consultar_datos extends Fragment {
                String Ocupacion=txtOcupacion.getText().toString();
                String NroHijos=txtnrohijos.getText().toString();
 
-                if (EstadoSel==null || GradoSel==null)
-                {
-                    Snackbar.make(view, "Sincronize Datos en Mennu->Ajustes->Constantes->Sincronizar", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                    return;
-                }
                 if (Direccion.equals("") || Referencia.equals("") || Telefono.equals("") || Email.equals("") ||
                         Ocupacion.equals("") || NroHijos.equals("") )
                 {
@@ -127,8 +121,6 @@ public class fragmento_consultar_datos extends Fragment {
             }
         });
 
-
-
         return view;
     }
 
@@ -140,6 +132,8 @@ public class fragmento_consultar_datos extends Fragment {
         txtDniR.setText("");
         txtPersona.setText("");
         txtDirecion.setText("");
+        TxtGradoInstruccion.setText("");
+        txtEstadoCivil.setText("");
         txtReferencia.setText("");
         txtTelefono.setText("");
         txtEmail.setText("");
@@ -238,6 +232,8 @@ public class fragmento_consultar_datos extends Fragment {
                  per.nacDptoCod=js.getString("nacDptoCod");
                  per.nacProvCod=js.getString("nacProvCod");
                  per.nacDistCod=js.getString("nacDistCod");
+                 per.gradoInstruccionCod=js.getInt("gradoInstruccionCod");
+                 per.estadoCivilCod=js.getInt("estadoCivilCod");
                  per.domicDistDes=js.getString("domicDistDes");
                  per.domicProvDes=js.getString("domicProvDes");
                  per.domicDptoDes=js.getString("domicDptoDes");
@@ -287,8 +283,7 @@ public class fragmento_consultar_datos extends Fragment {
         Per.email=txtEmail.getText().toString();
         Per.ocupacion=txtOcupacion.getText().toString().toUpperCase();
         Per.nPersNatHijos= Integer.parseInt(txtnrohijos.getText().toString());
-        Per.estadoCivilCod=EstadoSel.getCodigoValor();
-        Per.gradoInstruccionCod=GradoSel.getCodigoValor();
+
 
         String json = gsonpojo.toJson(per);
         HashMap<String, String> cabeceras = new HashMap<>();
