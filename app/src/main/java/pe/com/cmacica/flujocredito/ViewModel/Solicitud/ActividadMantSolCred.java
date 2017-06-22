@@ -1610,7 +1610,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
                                     FragmentManager manager=getSupportFragmentManager();
                                     Fragmento_solCred_Clasif frag=new Fragmento_solCred_Clasif();
-                                    frag.Monto(MontoSolicitado);
+                                    frag.Datos(MontoSolicitado,Cliente);
                                     frag.show(manager,"Ventas");
                                 }})
 

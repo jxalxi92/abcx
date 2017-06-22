@@ -68,10 +68,10 @@ public class Fragmento_solCred_Clasif extends DialogFragment implements LoaderMa
     private EditText txt_Monto;
     private TextView lbl_Ventas;
     private TextView lbl_Condicion;
-    private Button btnAceptar;
+    private Button btnAceptar,btnProcesar;
 
     private ProductoModel ProductoSel;
-    private DatoPersonaSolicitudModel Cliente;
+    private DatoPersonaSolicitudModel Cliente_L;
     private ConstanteModel ConstanteSel;
 
     private Double Monto,VentasAnuales;
@@ -92,6 +92,7 @@ public class Fragmento_solCred_Clasif extends DialogFragment implements LoaderMa
         lbl_Ventas = (TextView) Vista.findViewById(R.id.lbl_Ventas);
        // lbl_Condicion = (TextView) Vista.findViewById(R.id.lbl_Condicion);
         btnAceptar=(Button) Vista.findViewById(R.id.btnAceptar);
+        btnProcesar=(Button) Vista.findViewById(R.id.btnProcesar);
         getActivity().getSupportLoaderManager().restartLoader(1, null, this);
         txt_Monto.setText(String.valueOf(MontoSolicitado));
 
@@ -116,19 +117,56 @@ public class Fragmento_solCred_Clasif extends DialogFragment implements LoaderMa
             }
         });
 
+        btnProcesar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new AlertDialog.Builder(getActivity())
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Aviso")
+                        .setMessage("Desea Regresar a la Ventana Anterior?")
+                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface arg0) {
+                                // ActividadLogin.this.finish();
+                            }})
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })//sin listener
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
+                            @Override
+                            public void onClick(DialogInterface dialog, int which){
+                                //Salir
+
+                                OnGuardar();
+                                btnProcesar.setEnabled(false);
+                            }
+                        })
+                        .show();
+
+
+
+            }
+            });
+
         btnAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OnGuardar();
+                dismiss();
             }
-            });
+        });
+
         return  Vista;
     }
-    public void Monto(double Monto)
+    public void Datos(double Monto,DatoPersonaSolicitudModel Cliente)
     {
         MontoSolicitado=Monto;
-
+        Cliente_L=Cliente;
     }
+
 
     private void OnCargarConstantes(Cursor query) {
 
@@ -157,7 +195,7 @@ public class Fragmento_solCred_Clasif extends DialogFragment implements LoaderMa
         SolCredClasifModel SolCredClasif=new SolCredClasifModel();
 
         SolCredClasif.Fecha= UGeneral.obtenerTiempoCorto();
-        SolCredClasif.Doi=Cliente.getDatoPersonal().getCodigoPersona();
+        SolCredClasif.Doi=Cliente_L.getDatoPersonal().getNumeroDocumento();
         SolCredClasif.Monto=Monto;
         SolCredClasif.Ventas1=VentasAnuales;
 
