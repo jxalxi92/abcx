@@ -77,6 +77,7 @@ public class SrvCmacIca {
     public static final String GET_DATO_CLIENTE_SOL=HOST_WEBAPI+"Solicitud/SelDatoClienteSolCred?cDoiCliente=%s&cUserOpe=%s&cAgeOpe=%s";
     public static final String GET_SEL_CONDICION_SOL=HOST_WEBAPI+"Solicitud/SelCondicionSolicitud?cCodCliente=%s";
     public static final String POST_INGRESO_VENTAS=HOST_WEBAPI+"Solicitud/InsEndeuPersonaSol";
+    public static final String POST_REGISTRO_SOLICITUD=HOST_WEBAPI+"Solicitud/EjecutarSolicitudCreditoMovil";
 
     //endRegion-----------------------------------------------------------------------------------------------------
 

@@ -302,15 +302,15 @@
                     android:id="@+id/fab_guardar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/txt_ocupacion"
+                    android:layout_below="@+id/txt_nrohijos"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
+                    android:layout_marginTop="15dp"
                     android:clickable="true"
                     app:backgroundTint="@color/colorPrimary"
                     app:fabSize="normal"
-                    app:srcCompat="@android:drawable/ic_input_add"
-                    android:layout_below="@+id/txt_nrohijos"
-                    android:layout_alignEnd="@+id/txt_ocupacion"
-                    android:layout_marginTop="15dp" />
+                    app:srcCompat="@android:drawable/ic_menu_save" />
 
 
             </RelativeLayout>

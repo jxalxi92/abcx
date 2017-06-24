@@ -2,6 +2,7 @@ package pe.com.cmacica.flujocredito.ViewModel.Solicitud;
 
 
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.database.Cursor;
@@ -33,16 +34,24 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+
+import pe.com.cmacica.flujocredito.AgenteServicio.RESTService;
 import pe.com.cmacica.flujocredito.AgenteServicio.SrvCmacIca;
 import pe.com.cmacica.flujocredito.AgenteServicio.VolleySingleton;
 import pe.com.cmacica.flujocredito.Model.General.ConstanteModel;
+import pe.com.cmacica.flujocredito.Model.Solicitud.ColocSolicitudEstadoModel;
+import pe.com.cmacica.flujocredito.Model.Solicitud.ColocSolicitudModel;
+import pe.com.cmacica.flujocredito.Model.Solicitud.ColocSolicitudPersonaModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.DatoPersonaSolicitudModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.FrecuenciaPagoModel;
 import pe.com.cmacica.flujocredito.Model.General.PersonaBusqModel;
@@ -70,6 +79,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
     private double MontoSolicitado;
 
     DatoPersonaSolicitudModel Cliente;
+    private ProgressDialog progressDialog;
 
  //VARIABLES CONTROLES------------------------------------------------------------------------------
     SearchView Search;
@@ -82,10 +92,11 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
             spnProyecto, spnSolicitud;
     //CHECKBOX--------------------------------------------------------------------------------------
     private CheckBox chckAgropecuario, chckCampañas, chckBancoNacion, chckMicroSeguro, chckAutoAsignado;
-    private TextView lblProyectoImnmobiliario;
+    private TextView lblProyectoImnmobiliario,lblProyecto;
 
-    private FloatingActionButton Fab_Buscar,Fab_nuevo;
+    private FloatingActionButton Fab_Buscar,Fab_nuevo,fab_guardar;
     private Button btn_Consultar;
+
 
     //region PROPIEDADES---------------------------------------------------------------------------------------
     private TipoCreditoModel TipoCreditoSel;
@@ -93,7 +104,13 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
     private ConstanteModel SectorSel;
     private ConstanteModel MonedaSel;
     private ConstanteModel Condicion;
+    private ConstanteModel CondicionSolSel;
+    private CredProcesosModel ProcesoSel;
     private CampañasModel CampañaSel;
+    private FrecuenciaPagoModel FrecPagoSel;
+    private DestinosModel DestinoSel;
+    private ColocAgenciaBNModel AgenciaBnSel;
+    private PersonaBusqModel IntsConvenioSel;
     //CARDVIEW--------------------------------------------------------------------------------------
     private CardView CarViewInstitucion;
 
@@ -122,7 +139,25 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         spnBancoNacion.setEnabled(false);
         spnCampañas.setEnabled(false);
         spnAgropecuario.setEnabled(false);
+        chckAgropecuario.setEnabled(false);
+        chckAgropecuario.setVisibility(View.INVISIBLE);
+        spnAgropecuario.setVisibility(View.INVISIBLE);
+        chckCampañas.setEnabled(false);
+        CarViewInstitucion.setVisibility(View.GONE);
+        spnProyInmobilirio.setEnabled(false);
+        txtTea.setVisibility(View.GONE);
+        lblProyecto.setVisibility(View.GONE);
+        lblProyectoImnmobiliario.setVisibility(View.GONE);
+        spnProyInmobilirio.setVisibility(View.GONE);
+        btn_Consultar.setEnabled(false);
+        fab_guardar.setEnabled(false);
+        txtDias.setFocusable(false);
+        chckMicroSeguro.setEnabled(false);
 
+        chckBancoNacion.setEnabled(false);
+        spnBancoNacion.setEnabled(false);
+        chckAutoAsignado.setChecked(true);
+        chckAutoAsignado.setEnabled(false);
 //EVENTOS DE CONTROLES------------------------------------------------------------------------------
         EventosControles();
     }
@@ -229,28 +264,18 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         chckAutoAsignado = (CheckBox) findViewById(R.id.chckAsignado);
         txt_Dni=(EditText) findViewById(R.id.txt_Dni);
         CarViewInstitucion=(CardView)findViewById(R.id.CarViewInstitucion);
-        // txtNombres.setInputType(InputType.TYPE_NULL);
-        //txtTipoPersona.setInputType(InputType.TYPE_NULL);
+        lblProyecto=(TextView)findViewById(R.id.lblProyecto);
         lblProyectoImnmobiliario=(TextView)findViewById(R.id.lblProyectoImnmobiliario);
         btn_Consultar=(Button) findViewById(R.id.btn_Consultar);
-        chckAgropecuario.setVisibility(View.INVISIBLE);
-        spnAgropecuario.setVisibility(View.INVISIBLE);
-        chckCampañas.setEnabled(false);
-        CarViewInstitucion.setVisibility(View.GONE);
-        spnProyInmobilirio.setEnabled(false);
-        txtTea.setVisibility(View.GONE);
-        lblProyectoImnmobiliario.setVisibility(View.GONE);
-        spnProyInmobilirio.setVisibility(View.GONE);
-        btn_Consultar.setEnabled(false);
+        fab_guardar=(FloatingActionButton)findViewById(R.id.fab_guardar);
+
     }
 
     private void InicializarControles() {
         //OnCargarLitaTipoCredito();
         ProcesarListaMoneda();
-        ProcesarTipoPeriodo();
         OnCagarProceso();
         OnCargarAgenciasBnAge();
-
     }
 
     private void EventosControles(){
@@ -263,20 +288,14 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 double MontoSoles;
                 if (txtMonto.getText().toString().equals("")){
                     MontoSolicitado=0;
-
-
                 }else{
                     MontoSolicitado=Double.parseDouble(txtMonto.getText().toString());
                 }
-
                 if (TipoCreditoSel.getnTipoCreditos()!=0)
                 {
                     OnCargarProducto();
-
                     OnVerificarEvaMensual();
-
                 }
-
             }
 
             @Override
@@ -296,7 +315,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
             }
         });
-
         spnProducto.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -324,8 +342,11 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     case "202"://COMERCIAL AGRICOLA
                         CarViewInstitucion.setVisibility(View.GONE);
                         spnProyInmobilirio.setVisibility(View.GONE);
+                        spnProyecto.setVisibility(View.INVISIBLE);
                         chckAgropecuario.setChecked(true);
                         OnCargarAgropecuario();
+                        chckAgropecuario.setVisibility(View.VISIBLE);
+                        spnAgropecuario.setVisibility(View.VISIBLE);
                         spnProyecto.setVisibility(View.INVISIBLE);
                         break;
                     case "208"://ASOCIACIONES Y/O GRUPOS ORG
@@ -334,22 +355,24 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                         spnProyInmobilirio.setVisibility(View.GONE);
                         chckAgropecuario.setVisibility(View.INVISIBLE);
                         spnAgropecuario.setVisibility(View.INVISIBLE);
+                        lblProyecto.setVisibility(View.VISIBLE);
                         spnProyecto.setVisibility(View.VISIBLE);
                         spnProyInmobilirio.setEnabled(true);
                         OnCargarProyectos();
                         break;
-                    case "205":
-                    case "204":
-                    case "201":
-                    case "101":
+                    case "205": //0kms
+                    case "204": //EL Facilito
+                    case "201": //CrediE,presa
+                    case "101": //Comercial Empresarial
                         CarViewInstitucion.setVisibility(View.GONE);
                         spnProyInmobilirio.setVisibility(View.GONE);
-                        chckAgropecuario.setVisibility(View.INVISIBLE);
+                        chckAgropecuario.setVisibility(View.VISIBLE);
                         spnAgropecuario.setVisibility(View.VISIBLE);
                         spnProyecto.setVisibility(View.INVISIBLE);
+                        OnCargarAgropecuario();
                         chckAgropecuario.setChecked(false);
                         chckAgropecuario.setEnabled(true);
-                        OnCargarAgropecuario();
+
                     default:
                         CarViewInstitucion.setVisibility(View.GONE);
                         spnProyInmobilirio.setVisibility(View.GONE);
@@ -395,6 +418,80 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 {
                     txtTea.setVisibility(View.GONE);
                 }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spnFrecPago.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                FrecPagoSel=(FrecuenciaPagoModel) parent.getItemAtPosition(position);
+
+                 txtDias.setText(String.valueOf(FrecPagoSel.getnDias()));
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spnProceso.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ProcesoSel=(CredProcesosModel) parent.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spnSolicitud.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CondicionSolSel=(ConstanteModel) parent.getItemAtPosition(position);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spnDestino.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                DestinoSel=(DestinosModel) parent.getItemAtPosition(position);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spnBancoNacion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                AgenciaBnSel=(ColocAgenciaBNModel) parent.getItemAtPosition(position);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spnIntSector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                IntsConvenioSel   = (PersonaBusqModel) parent.getItemAtPosition(position);
+
             }
 
             @Override
@@ -457,12 +554,9 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 }
                 else
                 {
-
                     OnSelDatoClienteSolCred(Dni);
                     //txt_Dni.setEnabled(false);
-
                 }
-
             }
         });
         Fab_nuevo.setOnClickListener(new View.OnClickListener() {
@@ -487,7 +581,17 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
             }
         });
 
+        fab_guardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                if (ValidarGuardar())
+                {
+                    GuardarSolicitud();
+
+                }
+            }
+        });
     }
     private void onLimpiar(){
         txt_Dni.setText("");
@@ -495,6 +599,150 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         txtTipoPersona.setText("");
 
     }
+    private Boolean ValidarGuardar()
+    {
+        if (txtMonto.getText().length()==0)
+        {
+            Mensaje("Ingreso Monto");
+            return false;
+        }
+        if (txtNroCuotas.getText().length()==0)
+        {
+            Mensaje("Ingrese Número de Cuotas");
+            return false;
+        }
+        if (CondicionSolSel==null)
+        {
+            Mensaje("No se Cargado los Estados de Solicitud \n " +
+                    "Por Favor Sincronize Constantes: \n"
+                    +"Ajustes->Constantes->Sincronizar");
+            return false;
+        }
+        return true;
+    }
+    private void Mensaje(String Mensaje)
+    {
+        Snackbar.make(findViewById(R.id.llOperacionSim),
+                Mensaje,
+                Snackbar.LENGTH_LONG).show();
+    }
+
+    private void GuardarSolicitud(){
+
+        Gson gsonpojo = new GsonBuilder().create();
+
+        ColocSolicitudModel ColocSol=new ColocSolicitudModel();
+        ColocSol.nAplicacion=2;
+        ColocSol.nCaptado=2;
+        ColocSol.nCuotas=Integer.parseInt(txtNroCuotas.getText().toString());
+        ColocSol.nFrecPago=FrecPagoSel.getnCodCredFrecPago();
+        ColocSol.nDiasFrecuencia=FrecPagoSel.getnDias();
+        ColocSol.nCondicion=Condicion.getCodigoValor();
+        ColocSol.nCondicion2=ProcesoSel.getnCodCredProceso();
+        ColocSol.nEstado=4;
+        ColocSol.nCalSBS=Cliente.getUltimoRcc().getNcalif();
+        ColocSol.nMontoSBS=Cliente.getUltimoRcc().getnMonto();
+        ColocSol.nNumEntSBS=Cliente.getUltimoRcc().getCan_Ents();
+        ColocSol.dFechaSBS=Cliente.getUltimoRcc().getFec_Rep();
+        ColocSol.nEstadoSBS=1;
+        ColocSol.nDestino=DestinoSel.getnCodDestino();
+
+        if(chckCampañas.isChecked())
+        {
+            ColocSol.IdCampana=CampañaSel.getIdCampana();
+        }
+        if (chckBancoNacion.isChecked())
+        {
+          ColocSol.cCodAgeBN = AgenciaBnSel.getcCodAgeBN();
+            ColocSol.cRFA="CORF";
+        }
+        if(IntsConvenioSel!=null)
+        {
+            ColocSol.cPersCodInst = IntsConvenioSel.getCodigoPersona();
+            ColocSol.cCodModular = txtCodModular.getText().toString();
+        }
+        ColocSol.nSubProducto=Integer.parseInt( ProductoSel.getcCredProductos());
+        ColocSol.sCalif0 = Cliente.getUltimoRcc().getCalif_0().toString();
+        ColocSol.sCalif1 = Cliente.getUltimoRcc().getCalif_1().toString();
+        ColocSol.sCalif2 = Cliente.getUltimoRcc().getCalif_2().toString();
+        ColocSol.sCalif3 = Cliente.getUltimoRcc().getCalif_3().toString();
+        ColocSol.sCalif4 = Cliente.getUltimoRcc().getCalif_4().toString();
+        ColocSol.cPersCodCaptado =UPreferencias.ObtenerCodigoPersonaLogeo(this);
+        ColocSol.nTipoCredito = TipoCreditoSel.getnTipoCreditos();
+
+        ColocSolicitudEstadoModel solEst = new ColocSolicitudEstadoModel();
+
+        solEst.nEstado = 4;
+        solEst.nMonto =Double.parseDouble(txtMonto.getText().toString());
+        solEst.cMotivo = "";
+        solEst.cObservacion = "";
+
+        if (chckAutoAsignado.isChecked())
+        {
+            solEst.nReasigna = 1;
+            solEst.cPersCodAnalista = UPreferencias.ObtenerCodigoPersonaLogeo(this);
+        }
+
+        ColocSolicitudPersonaModel solPer = new ColocSolicitudPersonaModel();
+
+            solPer.cPersCod = Cliente.getDatoPersonal().getCodigoPersona();
+            solPer.nPrdPersRelac = 20;
+            solPer.nTipoPersona = Cliente.getDatoPersonal().getCodigoTipoDocumento();
+
+        ColocSol.bMicroseguro =chckMicroSeguro.isChecked() ;
+        ColocSol.CodigoMoneda = MonedaSel.getCodigoValor();
+
+        List<ColocSolicitudEstadoModel> ListEst=new ArrayList<ColocSolicitudEstadoModel>();
+        List<ColocSolicitudPersonaModel> ListPer=new ArrayList<ColocSolicitudPersonaModel>();
+        ListEst.add(solEst);
+        ListPer.add(solPer);
+        ColocSol.EstadoSolicitud =ListEst;
+        ColocSol.PersonasSolicitud=ListPer;
+        ColocSol.UsuarioOperacion = UPreferencias.ObtenerUserLogeo(this);
+        ColocSol.CodigoAgenciaOperacion = UPreferencias.ObtenerCodAgencia(this);
+
+        String json = gsonpojo.toJson(ColocSol);
+        HashMap<String, String> cabeceras = new HashMap<>();
+
+        new RESTService(this).post(SrvCmacIca.POST_REGISTRO_SOLICITUD, json,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        ProcesarGuardar(response);
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "Error Volley: " + error.toString());
+                        progressDialog.cancel();
+                        // errorservice(error);
+                    }
+                }
+                , cabeceras);
+
+    }
+    private void ProcesarGuardar(JSONObject response){
+
+        try {
+            if (response.getBoolean("IsCorrect")) {
+            Snackbar.make(findViewById(R.id.llOperacionSim), "Se Guardó Correctamente los Datos", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            finish();
+            }
+        }
+        catch (JSONException e) {
+            Log.d(TAG, e.getMessage());
+            Toast.makeText(
+                    this,
+                    e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+
     private void ProcesarListaMoneda() {
         try {
 
@@ -520,32 +768,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         }
     }
 
-    private void ProcesarTipoPeriodo() {
-        try {
 
-            // Obtener atributo "estado"
-
-            List<ConstanteModel> ListaTipoPeriodo = new ArrayList<ConstanteModel>();
-            ListaTipoPeriodo.add(new ConstanteModel(1011, 0, "FECHA FIJA",0));
-            ListaTipoPeriodo.add(new ConstanteModel(1011, 1, "PERIODO FIJO",0));
-
-            ArrayAdapter<ConstanteModel> adpSpinnerTipoFrec = new ArrayAdapter<ConstanteModel>(
-                    this,
-                    android.R.layout.simple_spinner_item,
-                    ListaTipoPeriodo
-            );
-            adpSpinnerTipoFrec.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spnFrecPago.setAdapter(adpSpinnerTipoFrec);
-
-
-        } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
-            Toast.makeText(
-                    this,
-                    e.getMessage(),
-                    Toast.LENGTH_LONG).show();
-        }
-    }
 
     private void OnCargarConstantes(Cursor query) {
 
@@ -559,7 +782,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
             }
         }
-
         ArrayAdapter<ConstanteModel> adpSpinnerEstadoSolicitud = new ArrayAdapter<ConstanteModel>(
                 this,
                 android.R.layout.simple_spinner_item,
@@ -567,8 +789,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         );
         adpSpinnerEstadoSolicitud.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnSolicitud.setAdapter(adpSpinnerEstadoSolicitud);
-
-
     }
 
     //region Procesos
@@ -663,8 +883,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                                             // progressDialog.cancel();
                                         }
                                     }
-
-
                             )
                     );
         } catch (Exception ex) {
@@ -686,6 +904,13 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
             TipoCreditoList.add(0,new TipoCreditoModel(0,"SELECCIONAR"));
 
+            for (int i=1; i <= TipoCreditoList.size(); i++)
+            {
+                if (TipoCreditoList.get(i).getnTipoCreditos()==4)
+                {
+                    TipoCreditoList.remove(i);
+                }
+            }
             ArrayAdapter<TipoCreditoModel> adpSpinnerTipoCredito = new ArrayAdapter<TipoCreditoModel>(
                     this,
                     android.R.layout.simple_spinner_item,
@@ -908,6 +1133,12 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
             adpSpinnerAgenciasBnAge.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             spnBancoNacion.setAdapter(adpSpinnerAgenciasBnAge);
+
+            if (Arrays.asList(ArrayAgenciasBnAge).size()>0)
+            {
+                chckBancoNacion.setEnabled(true);
+                spnBancoNacion.setEnabled(true);
+            }
 
         } catch (JSONException e) {
             Log.d(TAG, e.getMessage());
@@ -1502,7 +1733,8 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 //cargar los combos
                 OnCargarLitaTipoCredito();
                 OnCargarCondicion();
-
+                fab_guardar.setEnabled(true);
+                chckMicroSeguro.setChecked(Cliente.getbMicroSeguroActivo());
 
             }else{
                 new AlertDialog.Builder(this)
@@ -1534,7 +1766,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
     //endregion
 
-
+    //region EvaluacionMensual
     private void OnVerificarEvaMensual(){
 
         try {
@@ -1588,13 +1820,16 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
                 //hacer que el combo cargue el tipocredito el que tenga el codigo nTipoCredito
                 //((ArrayAdapter)spnTipoCredito.getAdapter()).getPosition()
+                if (TipoCreditoSel.getnTipoCreditos()!=3)
+                {
+                    for (int i = 0; i < spnTipoCredito.getAdapter().getCount(); i++) {
+                        if (((TipoCreditoModel) spnTipoCredito.getItemAtPosition(i)).getnTipoCreditos() == tipocredito) {
+                            spnTipoCredito.setSelection(i);
 
-                for (int i = 0; i < spnTipoCredito.getAdapter().getCount(); i++) {
-                    if (((TipoCreditoModel) spnTipoCredito.getItemAtPosition(i)).getnTipoCreditos() == tipocredito) {
-                        spnTipoCredito.setSelection(i);
+                            break;
+                        }
+                }
 
-                        break;
-                    }
                 }
             }else{
                 if (response.getBoolean("IsContinue")){
@@ -1650,8 +1885,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     Toast.LENGTH_LONG).show();
         }
     }
-
-
+   //endregion
 
     }
 

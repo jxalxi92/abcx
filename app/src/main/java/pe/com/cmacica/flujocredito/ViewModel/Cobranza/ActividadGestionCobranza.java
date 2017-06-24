@@ -1015,9 +1015,9 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
 
        try {if (response.getBoolean("IsCorrect")) {
 
-              Snackbar.make(findViewById(R.id.actividadGestionCobranza), "Se Guardó Correctamente los Datos", Snackbar.LENGTH_LONG)
+              Snackbar.make(findViewById(R.id.llOperacionSim), "Se Guardó Correctamente los Datos", Snackbar.LENGTH_LONG)
                      .setAction("Action", null).show();
-           finish();
+      finish();
             }
         }
        catch (JSONException e) {
