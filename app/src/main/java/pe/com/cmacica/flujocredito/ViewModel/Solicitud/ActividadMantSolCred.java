@@ -721,7 +721,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     }
                 }
                 , cabeceras);
-
     }
     private void ProcesarGuardar(JSONObject response){
 
@@ -740,8 +739,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     Toast.LENGTH_LONG).show();
         }
     }
-
-
 
     private void ProcesarListaMoneda() {
         try {
@@ -767,8 +764,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     Toast.LENGTH_LONG).show();
         }
     }
-
-
 
     private void OnCargarConstantes(Cursor query) {
 
