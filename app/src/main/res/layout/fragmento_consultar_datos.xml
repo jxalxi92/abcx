@@ -291,12 +291,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:ems="10"
-                    android:inputType="numberSigned"
-                    android:textSize="14sp"
                     android:layout_alignBaseline="@+id/textView10"
                     android:layout_alignBottom="@+id/textView10"
-                    android:layout_alignStart="@+id/txt_ocupacion" />
+                    android:layout_alignStart="@+id/txt_ocupacion"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:textSize="14sp" />
 
                 <android.support.design.widget.FloatingActionButton
                     android:id="@+id/fab_guardar"

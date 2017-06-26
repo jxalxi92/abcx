@@ -1,7 +1,5 @@
 package pe.com.cmacica.flujocredito.ViewModel.Solicitud;
 
-
-
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -69,8 +67,6 @@ import pe.com.cmacica.flujocredito.Repositorio.Mapeo.ContratoDbCmacIca;
 import pe.com.cmacica.flujocredito.Utilitarios.UConsultas;
 import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
 
-
-
 public  class ActividadMantSolCred extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
     private static final String TAG = ActividadMantSolCred.class.getSimpleName();
@@ -96,7 +92,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
     private FloatingActionButton Fab_Buscar,Fab_nuevo,fab_guardar;
     private Button btn_Consultar;
-
 
     //region PROPIEDADES---------------------------------------------------------------------------------------
     private TipoCreditoModel TipoCreditoSel;
@@ -171,10 +166,8 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 ,
                 new String[]{"9068"} ,
                 null);
-
         return cursor;
     }
-
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         OnCargarConstantes(data);
@@ -182,7 +175,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {}
-
 
     /*********************************************************************************************************************
      **************************************************<  M E T O D O S  >*************************************************
@@ -268,7 +260,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         lblProyectoImnmobiliario=(TextView)findViewById(R.id.lblProyectoImnmobiliario);
         btn_Consultar=(Button) findViewById(R.id.btn_Consultar);
         fab_guardar=(FloatingActionButton)findViewById(R.id.fab_guardar);
-
     }
 
     private void InicializarControles() {
@@ -597,7 +588,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         txt_Dni.setText("");
         txtNombres.setText("");
         txtTipoPersona.setText("");
-
     }
     private Boolean ValidarGuardar()
     {
@@ -626,7 +616,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 Mensaje,
                 Snackbar.LENGTH_LONG).show();
     }
-
     private void GuardarSolicitud(){
 
         Gson gsonpojo = new GsonBuilder().create();
@@ -640,6 +629,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         ColocSol.nCondicion=Condicion.getCodigoValor();
         ColocSol.nCondicion2=ProcesoSel.getnCodCredProceso();
         ColocSol.nEstado=4;
+        ColocSol.nMonto=Double.parseDouble(txtMonto.getText().toString());
         ColocSol.nCalSBS=Cliente.getUltimoRcc().getNcalif();
         ColocSol.nMontoSBS=Cliente.getUltimoRcc().getnMonto();
         ColocSol.nNumEntSBS=Cliente.getUltimoRcc().getCan_Ents();

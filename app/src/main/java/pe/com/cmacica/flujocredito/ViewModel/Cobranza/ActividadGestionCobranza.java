@@ -85,7 +85,6 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
     RegistroGestionModel Reg = new RegistroGestionModel();
 
     public static void createInstance(Activity activity, String pCodigoCliente, String pDocumento) {
-
         CodCliente = pCodigoCliente;
         Documento = pDocumento;
         Intent intent = getLaunchIntent(activity);
@@ -94,11 +93,8 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
 
     public static Intent getLaunchIntent(Context context) {
         Intent intent = new Intent(context, ActividadGestionCobranza.class);
-
-
         return intent;
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -277,7 +273,6 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
                                         "Ingrese Monto",
                                         Snackbar.LENGTH_LONG).show();
                             }
-
                         }
                         else
                         {
@@ -326,7 +321,6 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
     private void ProcesarGestor(JSONObject response) {
         try {
 
-
             if (response.getBoolean("Data")) {
 
                 Parametro = 2;
@@ -345,9 +339,7 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
                 OnCargarEstGestion();
                 OnCargarTipoGestion(Parametro);
                 OnCargarDetalleGestion();
-
             }
-
         } catch (JSONException e) {
             Log.d(TAG, e.getMessage());
             Toast.makeText(
@@ -396,7 +388,6 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
                         android.R.layout.simple_spinner_item,
                         Arrays.asList(ArrayTipoContacto)
                 );
-
                 adpSpinnerTipoContacto.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spn_TipoContacto.setAdapter(adpSpinnerTipoContacto);
             } else {
@@ -433,7 +424,7 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
 
     private void OnCargarPersonaTelefono() {
 
-        String url = String.format(SrvCmacIca.GET_PERSONA_TELEFONO, UPreferencias.ObtenerCodigoPersonaLogeo(this));
+        String url = String.format(SrvCmacIca.GET_PERSONA_TELEFONO, CodCliente);
         VolleySingleton.
                 getInstance(this).
                 addToRequestQueue(
@@ -816,7 +807,6 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
             if (TipoContactoSel == null || TipoGestionSel == null) {
                 return;
             }
-
             String Url = String.format(SrvCmacIca.GET_RESULTADOMK, TipoContactoSel.getTipoContacto(), TipoGestionSel.getCodigo());
             VolleySingleton.
                     getInstance(this).
@@ -1009,7 +999,6 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
                     }
                 }
                 , cabeceras);
-
     }
     private void ProcesarGuardar(JSONObject response){
 
