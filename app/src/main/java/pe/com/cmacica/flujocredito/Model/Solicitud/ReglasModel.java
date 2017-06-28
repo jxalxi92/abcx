@@ -74,6 +74,12 @@ public class ReglasModel {
 
     public String cUserRegistro;
 
+    public boolean bAplicaRegla;
+
+    public boolean bAprueba ;
+
+    public String cMensaje;
+
     public List<GruposEvaluacionModel> GruposEvaluacion;
 
 }

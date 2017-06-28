@@ -581,7 +581,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 if (ValidarGuardar())
                 {
                     ValidarMotor();
-                    GuardarSolicitud();
+
 
                 }
             }
@@ -627,10 +627,10 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         Reg.cPersIdNro = Cliente.getDatoPersonal().getNumeroDocumento();
         Reg.cCredProducto = ProductoSel.getcCredProductos();
         Reg.nMoneda = String.valueOf(MonedaSel.getCodigoValor());
+        Reg.nMonto=txtMonto.getText().toString();
         Reg.cAgeCod = UPreferencias.ObtenerCodAgencia(this);
-        if (chckBancoNacion.isChecked()) {
-            Reg.nDesemBN = AgenciaBnSel.getcCodAgeBN();
-        }
+        Reg.nDesemBN=chckBancoNacion.isChecked() ? String.valueOf(AgenciaBnSel.getcCodAgeBN()) : "0";
+
         Reg.nColocCondicion = String.valueOf(Condicion.getCodigoValor());
         Reg.nColocCondicion2 = String.valueOf(ProcesoSel.getnCodCredProceso());
         Reg.nCodDestino = String.valueOf(DestinoSel.getnCodDestino());
@@ -643,7 +643,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
         GruposEvaluacionModel GrupoEva=new GruposEvaluacionModel();
         List<GruposEvaluacionModel> ListGrupo=new ArrayList<GruposEvaluacionModel>();
-        GrupoEva.nIdGrupo="2";
+        GrupoEva.nIdGrupo="6";
         ListGrupo.add(GrupoEva);
         Reg.GruposEvaluacion=ListGrupo;
         Reg.cUser=UPreferencias.ObtenerUserLogeo(this);
@@ -671,7 +671,72 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
     }
     private void ProcesarValidarMotor(JSONObject response)
     {
+        try {
 
+
+            if (response.getBoolean("IsCorrect")) {
+
+                String Mensaje="";
+                ReglasModel[] ArrayReglas = gson.fromJson(response.getJSONArray("Data").toString(), ReglasModel[].class);
+                List<ReglasModel>ReglasList=new ArrayList<ReglasModel>(Arrays.asList(ArrayReglas));
+
+                for (int i=0;i<=ReglasList.size()-1;i++)
+                {
+                    if (ReglasList.get(i).bAplicaRegla==true && ReglasList.get(i).bAprueba==false )
+                    {
+                         Mensaje+=ReglasList.get(i).cMensaje+ "\n";
+                    }
+                }
+                if (Mensaje.equals("")){
+                    GuardarSolicitud();
+                }
+                else
+                {
+                    new AlertDialog.Builder(this)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle("Aviso")
+                            .setMessage(Mensaje)
+                            .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface arg0) {
+                                    //ActividadLogin.this.finish();
+                                }})
+
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
+                                @Override
+                                public void onClick(DialogInterface dialog, int which){
+
+                                }
+                            })
+                            .show();
+
+                }
+            }else{
+                new AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Aviso")
+                        .setMessage(response.getString("Message"))
+                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface arg0) {
+                                //ActividadLogin.this.finish();
+                            }})
+
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
+                            @Override
+                            public void onClick(DialogInterface dialog, int which){
+
+                            }
+                        })
+                        .show();
+            }
+        } catch (JSONException e) {
+            Log.d(TAG, e.getMessage());
+            Toast.makeText(
+                    this,
+                    e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
     }
     private void GuardarSolicitud(){
 
@@ -773,9 +838,23 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
         try {
             if (response.getBoolean("IsCorrect")) {
-            Snackbar.make(findViewById(R.id.llOperacionSim), "Se Guardó Correctamente los Datos", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-            finish();
+                new AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Aviso")
+                        .setMessage(response.getString("Message"))
+                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface arg0) {
+                                //ActividadLogin.this.finish();
+                            }})
+
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
+                            @Override
+                            public void onClick(DialogInterface dialog, int which){
+                                finish();
+                            }
+                        })
+                        .show();
             }
         }
         catch (JSONException e) {
