@@ -57,10 +57,12 @@ import pe.com.cmacica.flujocredito.Model.General.PersonaDto;
 import pe.com.cmacica.flujocredito.Model.Solicitud.ActividadesAgropecuariasModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.ColocAgenciaBNModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.DestinosModel;
+import pe.com.cmacica.flujocredito.Model.Solicitud.GruposEvaluacionModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.ProductoModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.CampañasModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.CredProcesosModel;
 
+import pe.com.cmacica.flujocredito.Model.Solicitud.ReglasModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.TipoCreditoModel;
 import pe.com.cmacica.flujocredito.R;
 import pe.com.cmacica.flujocredito.Repositorio.Mapeo.ContratoDbCmacIca;
@@ -578,6 +580,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
                 if (ValidarGuardar())
                 {
+                    ValidarMotor();
                     GuardarSolicitud();
 
                 }
@@ -615,6 +618,60 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         Snackbar.make(findViewById(R.id.llOperacionSim),
                 Mensaje,
                 Snackbar.LENGTH_LONG).show();
+    }
+    private void ValidarMotor() {
+        Gson gsonpojo = new GsonBuilder().create();
+        ReglasModel Reg = new ReglasModel();
+
+        Reg.cPersCodTitular = Cliente.getDatoPersonal().getCodigoPersona();
+        Reg.cPersIdNro = Cliente.getDatoPersonal().getNumeroDocumento();
+        Reg.cCredProducto = ProductoSel.getcCredProductos();
+        Reg.nMoneda = String.valueOf(MonedaSel.getCodigoValor());
+        Reg.cAgeCod = UPreferencias.ObtenerCodAgencia(this);
+        if (chckBancoNacion.isChecked()) {
+            Reg.nDesemBN = AgenciaBnSel.getcCodAgeBN();
+        }
+        Reg.nColocCondicion = String.valueOf(Condicion.getCodigoValor());
+        Reg.nColocCondicion2 = String.valueOf(ProcesoSel.getnCodCredProceso());
+        Reg.nCodDestino = String.valueOf(DestinoSel.getnCodDestino());
+        Reg.nTipoCredito = String.valueOf(TipoCreditoSel.getnTipoCreditos());
+        Reg.nSubTipoCredito = ProductoSel.getcCredProductos().substring(3, 3);
+        Reg.nIdCampana=String.valueOf(CampañaSel.getIdCampana());
+        Reg.nCuotas=txtNroCuotas.getText().toString();
+        Reg.CodSbsTit=Cliente.getUltimoRcc().getCod_Sbs();
+        Reg.bAplicaMicroseguro=chckMicroSeguro.isChecked() ? 1: 0 ;
+
+        GruposEvaluacionModel GrupoEva=new GruposEvaluacionModel();
+        List<GruposEvaluacionModel> ListGrupo=new ArrayList<GruposEvaluacionModel>();
+        GrupoEva.nIdGrupo="2";
+        ListGrupo.add(GrupoEva);
+        Reg.GruposEvaluacion=ListGrupo;
+        Reg.cUser=UPreferencias.ObtenerUserLogeo(this);
+
+        String json = gsonpojo.toJson(Reg);
+        HashMap<String, String> cabeceras = new HashMap<>();
+
+        new RESTService(this).post(SrvCmacIca.POST_MOTOR_EVA, json,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        ProcesarValidarMotor(response);
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "Error Volley: " + error.toString());
+                        progressDialog.cancel();
+                        // errorservice(error);
+                    }
+                }
+                , cabeceras);
+    }
+    private void ProcesarValidarMotor(JSONObject response)
+    {
+
     }
     private void GuardarSolicitud(){
 
