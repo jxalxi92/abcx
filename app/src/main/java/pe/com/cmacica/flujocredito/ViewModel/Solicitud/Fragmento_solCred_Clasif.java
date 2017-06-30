@@ -171,23 +171,22 @@ public class Fragmento_solCred_Clasif extends DialogFragment implements LoaderMa
     private void OnCargarConstantes(Cursor query) {
 
 
-        List<ConstanteModel> ListaConstantePeriodo = new ArrayList<>();
+        List<ConstanteModel> ListaConstantePeriodo = new ArrayList<ConstanteModel>();
+        ListaConstantePeriodo.add(new ConstanteModel(9045,1,"TRIMESTRAL",4));
+        ListaConstantePeriodo.add(new ConstanteModel(9045,2,"SEMESTRAL",2));
+        ListaConstantePeriodo.add(new ConstanteModel(9045,3,"ANUAL",1));
+        ListaConstantePeriodo.add(new ConstanteModel(9045,4,"MENSUAL",12));
+        ListaConstantePeriodo.add(new ConstanteModel(9045,5,"QUINCENAL",25));
+        ListaConstantePeriodo.add(new ConstanteModel(9045,6,"SEMANAL",52));
+        ListaConstantePeriodo.add(new ConstanteModel(9045,7,"DIARIO",365));
 
-        while (query.moveToNext()) {
-            ConstanteModel obj = UConsultas.ConverCursorToConstanteModel(query);
-            if (obj.getCodigoValor() !=9045) {
-                ListaConstantePeriodo.add(obj);
-            }
-        }
-
-        ArrayAdapter<ConstanteModel> adpSpinnerEstadoSolicitud = new ArrayAdapter<ConstanteModel>(
+        ArrayAdapter<ConstanteModel> adpSpinnerPeriodo = new ArrayAdapter<ConstanteModel>(
                 getActivity(),
                 android.R.layout.simple_spinner_item,
                 ListaConstantePeriodo
         );
-        adpSpinnerEstadoSolicitud.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spn_Periodo.setAdapter(adpSpinnerEstadoSolicitud);
-
+        adpSpinnerPeriodo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spn_Periodo.setAdapter(adpSpinnerPeriodo);
     }
 
     private void OnGuardar(){

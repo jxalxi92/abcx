@@ -150,11 +150,10 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         fab_guardar.setEnabled(false);
         txtDias.setFocusable(false);
         chckMicroSeguro.setEnabled(false);
-
         chckBancoNacion.setEnabled(false);
         spnBancoNacion.setEnabled(false);
-        chckAutoAsignado.setChecked(true);
         chckAutoAsignado.setEnabled(false);
+
 //EVENTOS DE CONTROLES------------------------------------------------------------------------------
         EventosControles();
     }
@@ -265,7 +264,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
     }
 
     private void InicializarControles() {
-        //OnCargarLitaTipoCredito();
+
         ProcesarListaMoneda();
         OnCagarProceso();
         OnCargarAgenciasBnAge();
@@ -288,6 +287,8 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 {
                     OnCargarProducto();
                     OnVerificarEvaMensual();
+
+
                 }
             }
 
@@ -448,6 +449,21 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 CondicionSolSel=(ConstanteModel) parent.getItemAtPosition(position);
 
+                if (CondicionSolSel !=null)
+                {
+                    if (CondicionSolSel.getCodigoValor()==1)
+                    {
+
+                        chckAutoAsignado.setVisibility(view.INVISIBLE);
+                        chckAutoAsignado.setChecked(false);
+                    }
+                    else
+                    {
+                        chckAutoAsignado.setVisibility(View.VISIBLE);
+                        chckAutoAsignado.setChecked(true);
+
+                    }
+                }
             }
 
             @Override
@@ -492,6 +508,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
             }
         });
+
 
         chckBancoNacion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -636,7 +653,8 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         Reg.nCodDestino = String.valueOf(DestinoSel.getnCodDestino());
         Reg.nTipoCredito = String.valueOf(TipoCreditoSel.getnTipoCreditos());
         Reg.nSubTipoCredito = ProductoSel.getcCredProductos().substring(3, 3);
-        Reg.nIdCampana=String.valueOf(CampañaSel.getIdCampana());
+        Reg.nIdCampana=CampañaSel !=null ? String.valueOf(CampañaSel.getIdCampana()) : "0";
+        ;
         Reg.nCuotas=txtNroCuotas.getText().toString();
         Reg.CodSbsTit=Cliente.getUltimoRcc().getCod_Sbs();
         Reg.bAplicaMicroseguro=chckMicroSeguro.isChecked() ? 1: 0 ;
@@ -673,7 +691,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
     {
         try {
 
-
             if (response.getBoolean("IsCorrect")) {
 
                 String Mensaje="";
@@ -709,7 +726,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                                 }
                             })
                             .show();
-
                 }
             }else{
                 new AlertDialog.Builder(this)
@@ -750,7 +766,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         ColocSol.nDiasFrecuencia=FrecPagoSel.getnDias();
         ColocSol.nCondicion=Condicion.getCodigoValor();
         ColocSol.nCondicion2=ProcesoSel.getnCodCredProceso();
-        ColocSol.nEstado=4;
+        ColocSol.nEstado=CondicionSolSel.getCodigoValor();
         ColocSol.nMonto=Double.parseDouble(txtMonto.getText().toString());
         ColocSol.nCalSBS=Cliente.getUltimoRcc().getNcalif();
         ColocSol.nMontoSBS=Cliente.getUltimoRcc().getnMonto();
@@ -784,7 +800,8 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
         ColocSolicitudEstadoModel solEst = new ColocSolicitudEstadoModel();
 
-        solEst.nEstado = 4;
+
+        solEst.nEstado = CondicionSolSel.getCodigoValor();
         solEst.nMonto =Double.parseDouble(txtMonto.getText().toString());
         solEst.cMotivo = "";
         solEst.cObservacion = "";
@@ -893,16 +910,11 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
     private void OnCargarConstantes(Cursor query) {
 
-        List<ConstanteModel> ListaConstanteEstadosSolictud = new ArrayList<>();
+        List<ConstanteModel> ListaConstanteEstadosSolictud = new ArrayList<ConstanteModel>();
+        ListaConstanteEstadosSolictud.add(new ConstanteModel(9068,1,"PRECALIFICA",0));
+        ListaConstanteEstadosSolictud.add(new ConstanteModel(9068,6,"CALIFICA",0));
+        ListaConstanteEstadosSolictud.add(new ConstanteModel(9068,7,"NO CALIFICA",0));
 
-        while (query.moveToNext()) {
-            ConstanteModel obj = UConsultas.ConverCursorToConstanteModel(query);
-            if (obj.getCodigoValor() == 6 || obj.getCodigoValor()==7 || obj.getCodigoValor()==8) {
-                ListaConstanteEstadosSolictud.add(obj);
-            } else {
-
-            }
-        }
         ArrayAdapter<ConstanteModel> adpSpinnerEstadoSolicitud = new ArrayAdapter<ConstanteModel>(
                 this,
                 android.R.layout.simple_spinner_item,
@@ -1891,36 +1903,46 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
     private void OnVerificarEvaMensual(){
 
         try {
+             if (MontoSolicitado==0)
+             {
+                 Snackbar.make(findViewById(R.id.llOperacionSim),
+                         "Ingrese Monto",
+                         Snackbar.LENGTH_LONG).show();
+                 spnTipoCredito.setSelection(0);
+             }
+             else
+             {
+                 String Url =String.format(SrvCmacIca.GET_VERIF_EVA_MEN,
+                         TipoCreditoSel.getnTipoCreditos(),
+                         Cliente.getDatoPersonal().getNumeroDocumento(),
+                         Cliente.getDatoPersonal().getCodigoTipoDocumento(),
+                         String.valueOf( MontoSolicitado),
+                         "false","false");
 
-            String Url =String.format(SrvCmacIca.GET_VERIF_EVA_MEN,
-                    TipoCreditoSel.getnTipoCreditos(),
-                    Cliente.getDatoPersonal().getNumeroDocumento(),
-                    Cliente.getDatoPersonal().getCodigoTipoDocumento(),
-                    String.valueOf( MontoSolicitado),
-                    "false","false");
+                 VolleySingleton.
+                         getInstance(this).
+                         addToRequestQueue(
+                                 new JsonObjectRequest(
+                                         Request.Method.GET,
+                                         Url,
+                                         new Response.Listener<JSONObject>() {
+                                             @Override
+                                             public void onResponse(JSONObject response) {
+                                                 // Procesar la respuesta Json
+                                                 ProcesarVerificarEvaMensual(response);
+                                             }
+                                         },
+                                         new Response.ErrorListener() {
+                                             @Override
+                                             public void onErrorResponse(VolleyError error) {
+                                                 Log.d(TAG, "Error Volley: " + error.toString());
+                                                 // progressDialog.cancel();
+                                             }
+                                         }
+                                 )
+                         );
+             }
 
-            VolleySingleton.
-                    getInstance(this).
-                    addToRequestQueue(
-                            new JsonObjectRequest(
-                                    Request.Method.GET,
-                                    Url,
-                                    new Response.Listener<JSONObject>() {
-                                        @Override
-                                        public void onResponse(JSONObject response) {
-                                            // Procesar la respuesta Json
-                                            ProcesarVerificarEvaMensual(response);
-                                        }
-                                    },
-                                    new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.d(TAG, "Error Volley: " + error.toString());
-                                            // progressDialog.cancel();
-                                        }
-                                    }
-                            )
-                    );
         } catch (Exception ex) {
             Log.d(TAG, ex.getMessage());
             Toast.makeText(
@@ -1963,7 +1985,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                                 public void onDismiss(DialogInterface arg0) {
                                     //ActividadLogin.this.finish();
                                     spnTipoCredito.setSelection(0);
-
                                     FragmentManager manager=getSupportFragmentManager();
                                     Fragmento_solCred_Clasif frag=new Fragmento_solCred_Clasif();
                                     frag.Datos(MontoSolicitado,Cliente);
