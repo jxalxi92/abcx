@@ -12,8 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -21,15 +24,21 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Arrays;
 import java.util.HashMap;
 
 import pe.com.cmacica.flujocredito.AgenteServicio.RESTService;
 import pe.com.cmacica.flujocredito.AgenteServicio.SrvCmacIca;
 import pe.com.cmacica.flujocredito.AgenteServicio.VolleySingleton;
 import pe.com.cmacica.flujocredito.Model.General.ConstanteModel;
+import pe.com.cmacica.flujocredito.Model.General.OcupacionModel;
 import pe.com.cmacica.flujocredito.Model.General.PersonaModel;
+import pe.com.cmacica.flujocredito.Model.Solicitud.CredProcesosModel;
 import pe.com.cmacica.flujocredito.R;
 
 import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
@@ -41,16 +50,16 @@ public class fragmento_consultar_datos extends Fragment {
     private View view;
     private Button btnBuscar;
     private Button btnNuevo;
-    private EditText txtDniR,txtPersona,txtDirecion,txtReferencia,txtTelefono,txtEmail,txtOcupacion,txtnrohijos,
+    private EditText txtDniR,txtPersona,txtDirecion,txtReferencia,txtTelefono,txtEmail,txtnrohijos,
             txtEstadoCivil,TxtGradoInstruccion;
-
+    private Spinner spnOcupacion;
     private OnFragmentInteractionListener mListener;
     private ProgressDialog progressDialog ;
     PersonaModel per=new PersonaModel();
-    private ConstanteModel EstadoSel;
-    private ConstanteModel GradoSel;
-    private FloatingActionButton fabGuardar;
+    private OcupacionModel OcupacionSel;
 
+    private FloatingActionButton fabGuardar;
+    private Gson gson = new Gson();
     public fragmento_consultar_datos() {
         // Required empty public constructor
     }
@@ -77,8 +86,19 @@ public class fragmento_consultar_datos extends Fragment {
 
 
 //ACCIONES DE CONTROLES---------------------------------------------------------------------------
+        OnCargarOcupacion();
+        spnOcupacion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                OcupacionSel = (OcupacionModel) parent.getItemAtPosition(position);
 
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         btnBuscar.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -104,11 +124,10 @@ public class fragmento_consultar_datos extends Fragment {
                String Referencia=txtReferencia.getText().toString();
                String Telefono=txtTelefono.getText().toString();
                String Email=txtEmail.getText().toString();
-               String Ocupacion=txtOcupacion.getText().toString();
                String NroHijos=txtnrohijos.getText().toString();
 
                 if (Direccion.equals("") || Referencia.equals("") || Telefono.equals("") || Email.equals("") ||
-                        Ocupacion.equals("") || NroHijos.equals("") )
+                         NroHijos.equals("") )
                 {
                     Snackbar.make(view, "No deje Campos Vacíos", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
@@ -137,7 +156,6 @@ public class fragmento_consultar_datos extends Fragment {
         txtReferencia.setText("");
         txtTelefono.setText("");
         txtEmail.setText("");
-        txtOcupacion.setText("");
         txtnrohijos.setText("");
     }
 
@@ -174,15 +192,71 @@ public class fragmento_consultar_datos extends Fragment {
     txtReferencia=(EditText) view.findViewById(R.id.txt_referencia);
     txtTelefono=(EditText) view.findViewById(R.id.txt_telefono);
     txtEmail=(EditText) view.findViewById(R.id.txt_email);
-    txtOcupacion=(EditText) view.findViewById(R.id.txt_ocupacion);
+
     txtnrohijos=(EditText) view.findViewById(R.id.txt_nrohijos);
     txtEstadoCivil=(EditText) view.findViewById(R.id.txtEstadoCivil);
     TxtGradoInstruccion=(EditText) view.findViewById(R.id.TxtGradoInstruccion);
-
+    spnOcupacion=(Spinner) view.findViewById(R.id.spnOcupacion);
 
     fabGuardar=(FloatingActionButton)view.findViewById(R.id.fab_guardar);
 }
 
+    private void OnCargarOcupacion(){
+
+        String url = String.format(SrvCmacIca.GET_OCUPACION);
+        VolleySingleton.
+                getInstance(getActivity()).
+                addToRequestQueue(
+                        new JsonObjectRequest(
+                                Request.Method.GET,
+                                url,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        //Procesar la respuesta Json
+                                        ProcesarOcupacion(response);                                    }
+                                },
+                                new Response.ErrorListener() {
+
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        progressDialog.cancel();
+                                        Log.d(TAG, "Error Volley: " + error.toString());
+                                    }
+                                }
+                        )
+                );
+    }
+    private void ProcesarOcupacion(JSONObject response)
+    {
+        try {
+            JSONArray ListaOcupacion = response.getJSONArray("Data");
+            OcupacionModel[] ArrayOcupacion = gson.fromJson(ListaOcupacion.toString(), OcupacionModel[].class);
+
+            ArrayAdapter<OcupacionModel> adpSpinnerOcupacion = new ArrayAdapter<OcupacionModel>(
+                    getActivity(),
+                    android.R.layout.simple_spinner_item,
+                    Arrays.asList(ArrayOcupacion)
+            );
+            //adpSpinnerTipoCredito.
+            adpSpinnerOcupacion.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            spnOcupacion.setAdapter(adpSpinnerOcupacion);
+
+        } catch (JSONException e) {
+            Log.d(TAG, e.getMessage());
+            Toast.makeText(
+                    getActivity(),
+                    e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        } catch (Exception ex) {
+            Log.d(TAG, ex.getMessage());
+            Toast.makeText(
+                    getActivity(),
+                    ex.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
     private void OnBuscarPersona(String Dni){
 
         String url = String.format(SrvCmacIca.GET_OBTENERPERSONA,Dni);
@@ -281,7 +355,7 @@ public class fragmento_consultar_datos extends Fragment {
         Per.referencia=txtReferencia.getText().toString().toUpperCase();
         Per.telefono=txtTelefono.getText().toString();
         Per.email=txtEmail.getText().toString();
-        Per.ocupacion=txtOcupacion.getText().toString().toUpperCase();
+        Per.ocupacion=OcupacionSel.getcDescripcion();
         Per.nPersNatHijos= Integer.parseInt(txtnrohijos.getText().toString());
 
 
