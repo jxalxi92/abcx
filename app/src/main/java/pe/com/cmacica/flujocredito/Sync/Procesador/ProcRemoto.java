@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import pe.com.cmacica.flujocredito.Model.Digitacion.DigitacionDto;
 import pe.com.cmacica.flujocredito.Model.Digitacion.PersFteIngresoDto;
 import pe.com.cmacica.flujocredito.Repositorio.Mapeo.ContratoDbCmacIca;
 import pe.com.cmacica.flujocredito.Utilitarios.UConsultas;

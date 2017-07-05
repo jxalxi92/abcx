@@ -12,13 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import pe.com.cmacica.flujocredito.Base.IActualizaPersonaFteIngreso;
 import pe.com.cmacica.flujocredito.Base.ItemClickListener;
 import pe.com.cmacica.flujocredito.Model.General.PersonaDto;
 import pe.com.cmacica.flujocredito.R;
 import pe.com.cmacica.flujocredito.Repositorio.Mapeo.ContratoDbCmacIca;
 import pe.com.cmacica.flujocredito.Utilitarios.UConsultas;
-import pe.com.cmacica.flujocredito.ViewModel.ActividadPrincipal;
 import pe.com.cmacica.flujocredito.ViewModel.General.ActividadBusquedaPersona;
 
 /**

@@ -5,9 +5,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -22,24 +20,16 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import pe.com.cmacica.flujocredito.Base.ActualizaMontoFteIgrIndp;
 import pe.com.cmacica.flujocredito.Model.Digitacion.PersFIGastoDetDto;
 import pe.com.cmacica.flujocredito.R;
 import pe.com.cmacica.flujocredito.Repositorio.Mapeo.ContratoDbCmacIca;
-import pe.com.cmacica.flujocredito.Utilitarios.NumberTextWatcher;
 import pe.com.cmacica.flujocredito.Utilitarios.UConsultas;
 import pe.com.cmacica.flujocredito.Utilitarios.UGeneral;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class FragmentoActivoFijoDet extends DialogFragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = FragmentoActivoFijoDet.class.getSimpleName();

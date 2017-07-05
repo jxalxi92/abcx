@@ -66,7 +66,6 @@ import pe.com.cmacica.flujocredito.Model.Solicitud.ReglasModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.TipoCreditoModel;
 import pe.com.cmacica.flujocredito.R;
 import pe.com.cmacica.flujocredito.Repositorio.Mapeo.ContratoDbCmacIca;
-import pe.com.cmacica.flujocredito.Utilitarios.UConsultas;
 import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
 
 public  class ActividadMantSolCred extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
@@ -616,6 +615,11 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
             Mensaje("Ingreso Monto");
             return false;
         }
+        if (TipoCreditoSel.getnTipoCreditos()==0)
+        {
+            Mensaje("Seleccione Tipo de Credito");
+            return false;
+        }
         if (txtNroCuotas.getText().length()==0)
         {
             Mensaje("Ingrese Número de Cuotas");
@@ -654,7 +658,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         Reg.nTipoCredito = String.valueOf(TipoCreditoSel.getnTipoCreditos());
         Reg.nSubTipoCredito = ProductoSel.getcCredProductos().substring(3, 3);
         Reg.nIdCampana=CampañaSel !=null ? String.valueOf(CampañaSel.getIdCampana()) : "0";
-        ;
+
         Reg.nCuotas=txtNroCuotas.getText().toString();
         Reg.CodSbsTit=Cliente.getUltimoRcc().getCod_Sbs();
         Reg.bAplicaMicroseguro=chckMicroSeguro.isChecked() ? 1: 0 ;

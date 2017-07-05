@@ -13,6 +13,7 @@ import pe.com.cmacica.flujocredito.Model.Cobranza.ClienteCobranzaModel;
 import pe.com.cmacica.flujocredito.R;
 import pe.com.cmacica.flujocredito.ViewModel.Cobranza.ActividadGestionCobranza;
 
+
 /**
  * Created by faqf on 05/06/2017.
  */
@@ -64,7 +65,6 @@ public class AdaptadorClienteCobranza extends RecyclerView.Adapter<AdaptadorClie
         holder.lblDocumento.setText(ListaClienteCobranza.get(position).getDocumento());
         holder.lblNombre.setText(ListaClienteCobranza.get(position).getNombres());
         holder.lblDireccion.setText(ListaClienteCobranza.get(position).getDireccion());
-
     }
 
     @Override

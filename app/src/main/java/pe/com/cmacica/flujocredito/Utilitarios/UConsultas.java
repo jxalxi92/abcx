@@ -5,9 +5,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
-import org.json.JSONArray;
-
 import java.util.List;
 import java.util.Map;
 

@@ -23,7 +23,7 @@ import pe.com.cmacica.flujocredito.AgenteServicio.SrvCmacIca;
 import pe.com.cmacica.flujocredito.Repositorio.Mapeo.ContratoDbCmacIca;
 import pe.com.cmacica.flujocredito.Utilitarios.Constantes;
 import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
-import pe.com.cmacica.flujocredito.ViewModel.General.ActividadBusquedaPersona;
+
 
 /**
  * Created by Jhcc on 12/10/2016.

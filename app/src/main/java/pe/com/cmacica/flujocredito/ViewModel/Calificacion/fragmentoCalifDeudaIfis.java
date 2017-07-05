@@ -37,7 +37,7 @@ public class fragmentoCalifDeudaIfis extends DialogFragment {
     private RecyclerView recyclerView;
     private Gson gson = new Gson();
     private AdaptadorDeudaIfis adaptador;
-    private LinearLayoutManager layoutManager;
+
     private Context context;
     public fragmentoCalifDeudaIfis() {
         // Required empty public constructor

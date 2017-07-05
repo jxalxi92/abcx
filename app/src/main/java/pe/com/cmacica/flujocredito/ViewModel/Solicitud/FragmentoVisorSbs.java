@@ -2,7 +2,6 @@ package pe.com.cmacica.flujocredito.ViewModel.Solicitud;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,6 @@ import android.widget.TextView;
 import pe.com.cmacica.flujocredito.Model.Solicitud.DatoPersonaSolicitudModel;
 import pe.com.cmacica.flujocredito.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FragmentoVisorSbs extends DialogFragment {
 
     private  View view;

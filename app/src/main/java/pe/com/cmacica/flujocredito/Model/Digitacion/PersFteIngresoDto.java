@@ -1,7 +1,5 @@
 package pe.com.cmacica.flujocredito.Model.Digitacion;
 
-import java.security.PublicKey;
-import java.util.Date;
 
 /**
  * Created by jhcc on 08/08/2016.

@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -32,9 +31,7 @@ import pe.com.cmacica.flujocredito.Repositorio.Mapeo.ContratoDbCmacIca;
 import pe.com.cmacica.flujocredito.Utilitarios.UConsultas;
 import pe.com.cmacica.flujocredito.Utilitarios.UGeneral;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class FragmentoInventarioDet extends DialogFragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = FragmentoInventarioDet.class.getSimpleName();

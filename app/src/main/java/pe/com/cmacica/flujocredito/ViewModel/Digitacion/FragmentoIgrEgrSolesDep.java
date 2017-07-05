@@ -1,15 +1,12 @@
 package pe.com.cmacica.flujocredito.ViewModel.Digitacion;
 
 
-import android.content.ContentResolver;
+
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;

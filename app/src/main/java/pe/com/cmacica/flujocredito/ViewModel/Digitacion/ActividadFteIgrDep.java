@@ -4,38 +4,20 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.DatePicker;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import pe.com.cmacica.flujocredito.AgenteServicio.SrvCmacIca;
-import pe.com.cmacica.flujocredito.AgenteServicio.VolleySingleton;
 import pe.com.cmacica.flujocredito.Base.IActualizaPersonaFteIngreso;
 import pe.com.cmacica.flujocredito.Model.Digitacion.DigitacionDto;
 import pe.com.cmacica.flujocredito.Model.General.PersonaDto;
 import pe.com.cmacica.flujocredito.R;
 import pe.com.cmacica.flujocredito.Utilitarios.Constantes;
-import pe.com.cmacica.flujocredito.ViewModel.PlanPago.fragmentoSimuladorCredito;
+
 
 public class ActividadFteIgrDep extends AppCompatActivity implements
         FragmentoDetGastoFteIngDep.OnMontoGasto,

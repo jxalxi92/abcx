@@ -1,9 +1,6 @@
 package pe.com.cmacica.flujocredito.Model.Calificacion;
 
-import java.util.Date;
 
-import pe.com.cmacica.flujocredito.R;
-import pe.com.cmacica.flujocredito.Utilitarios.UGeneral;
 
 /**
  * Created by jhcc on 15/11/2016.

@@ -1,7 +1,5 @@
 package pe.com.cmacica.flujocredito.Model.Simulador;
 
-import java.util.Date;
-
 /**
  * Created by Jhcc on 26/10/2016.
  */

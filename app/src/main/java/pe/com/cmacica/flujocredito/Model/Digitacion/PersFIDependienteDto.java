@@ -2,8 +2,6 @@ package pe.com.cmacica.flujocredito.Model.Digitacion;
 
 import java.util.List;
 
-import pe.com.cmacica.flujocredito.Repositorio.Mapeo.ContratoDbCmacIca;
-
 /**
  * Created by jhcc on 08/08/2016.
  */

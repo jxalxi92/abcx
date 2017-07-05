@@ -35,10 +35,8 @@ import java.util.HashMap;
 import pe.com.cmacica.flujocredito.AgenteServicio.RESTService;
 import pe.com.cmacica.flujocredito.AgenteServicio.SrvCmacIca;
 import pe.com.cmacica.flujocredito.AgenteServicio.VolleySingleton;
-import pe.com.cmacica.flujocredito.Model.General.ConstanteModel;
 import pe.com.cmacica.flujocredito.Model.General.OcupacionModel;
 import pe.com.cmacica.flujocredito.Model.General.PersonaModel;
-import pe.com.cmacica.flujocredito.Model.Solicitud.CredProcesosModel;
 import pe.com.cmacica.flujocredito.R;
 
 import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;

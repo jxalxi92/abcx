@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +12,10 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.util.Util;
-
-import org.w3c.dom.Text;
-
 import pe.com.cmacica.flujocredito.Model.Digitacion.DigitacionDto;
 import pe.com.cmacica.flujocredito.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class FragmentoPersonaFteIgrDet extends DialogFragment {
 
 

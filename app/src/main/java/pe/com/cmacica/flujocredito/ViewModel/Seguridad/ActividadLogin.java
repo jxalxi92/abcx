@@ -2,31 +2,23 @@ package pe.com.cmacica.flujocredito.ViewModel.Seguridad;
 
 import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -36,13 +28,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import pe.com.cmacica.flujocredito.AgenteServicio.RESTService;
-import pe.com.cmacica.flujocredito.AgenteServicio.VolleySingleton;
 import pe.com.cmacica.flujocredito.Model.ResultOpe;
 import pe.com.cmacica.flujocredito.Model.Seguridad.DeviceModel;
 import pe.com.cmacica.flujocredito.Model.Seguridad.UsuarioModel;
 import pe.com.cmacica.flujocredito.R;
 import pe.com.cmacica.flujocredito.AgenteServicio.SrvCmacIca;
-import pe.com.cmacica.flujocredito.Utilitarios.Constantes;
 import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
 import pe.com.cmacica.flujocredito.Utilitarios.UService;
 import pe.com.cmacica.flujocredito.ViewModel.ActividadPrincipal;
@@ -55,14 +45,13 @@ public class ActividadLogin extends AppCompatActivity   {
     /**
      * Id to identity READ_CONTACTS permission request.
      */
-    private static final int REQUEST_READ_CONTACTS = 0;
+
     private static final String TAG = ActividadLogin.class.getSimpleName();
 
     //region controles.
     private EditText txtUser;
     private EditText txtPassword;
-    private View mProgressView;
-    private View mLoginFormView;
+
     private Button btnLogin;
     private String IMEIM="";
     private int NroIntentos = 0;

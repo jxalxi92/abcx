@@ -9,8 +9,6 @@ import android.os.Build;
 import android.provider.BaseColumns;
 import android.util.Log;
 
-import pe.com.cmacica.flujocredito.ViewModel.General.fragmento_consultar_datos;
-
 /**
  * Created by jhcc on 03/08/2016.
  */

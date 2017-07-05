@@ -2,10 +2,6 @@ package pe.com.cmacica.flujocredito.Repositorio.Mapeo;
 
 import android.net.Uri;
 import android.provider.BaseColumns;
-import android.text.StaticLayout;
-
-import java.util.Date;
-import java.util.Stack;
 import java.util.UUID;
 
 /**

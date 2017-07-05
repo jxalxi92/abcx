@@ -1,6 +1,5 @@
 package pe.com.cmacica.flujocredito.Model.Calificacion;
 
-import java.util.Date;
 
 /**
  * Created by faqf on 11/06/2017.

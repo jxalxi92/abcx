@@ -35,7 +35,7 @@ import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
 public class FragmentoListaCobranza extends Fragment {
 
     private static final String TAG = FragmentoListaCobranza.class.getSimpleName();
-    private View vista;
+
     private ProgressDialog progressDialog ;
     private Gson gson = new Gson();
 

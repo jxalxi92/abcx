@@ -140,6 +140,10 @@
             android:name=".ViewModel.Cobranza.ActividadGestionCobranza"
             android:label="@string/title_activity_actividad_gestion_cobranza"
             android:theme="@style/Theme.FlujoCredito" />
+        <activity
+            android:name=".ViewModel.GeoReferenciacion.MostrarLatitudLongitud"
+            android:label="@string/title_activity_mostrar_latitud_longitud"
+            android:theme="@style/Theme.FlujoCredito"></activity>
     </application>
 
 </manifest>

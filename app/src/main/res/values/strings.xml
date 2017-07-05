@@ -65,4 +65,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_actividad__visor__sbs">Actividad_Visor_Sbs</string>
+    <string name="title_activity_mostrar_latitud_longitud">MostrarLatitudLongitud</string>
 </resources>

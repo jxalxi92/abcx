@@ -1,7 +1,6 @@
 package pe.com.cmacica.flujocredito.Repositorio.Adaptadores.Calificacion;
 
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,7 @@ import java.util.List;
 
 import pe.com.cmacica.flujocredito.Model.Calificacion.HistPlanPagoModel;
 import pe.com.cmacica.flujocredito.R;
-import pe.com.cmacica.flujocredito.Utilitarios.UGeneral;
+
 
 /**
  * Created by jhcc on 15/11/2016.

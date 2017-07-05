@@ -1,19 +1,17 @@
 package pe.com.cmacica.flujocredito.ViewModel.Solicitud;
 
 
-import android.app.Dialog;
+
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatDialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,52 +23,34 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
 import pe.com.cmacica.flujocredito.AgenteServicio.RESTService;
 import pe.com.cmacica.flujocredito.AgenteServicio.SrvCmacIca;
-import pe.com.cmacica.flujocredito.AgenteServicio.VolleySingleton;
 import pe.com.cmacica.flujocredito.Model.General.ConstanteModel;
-import pe.com.cmacica.flujocredito.Model.General.PersonaModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.DatoPersonaSolicitudModel;
-import pe.com.cmacica.flujocredito.Model.Solicitud.FrecuenciaPagoModel;
-import pe.com.cmacica.flujocredito.Model.Solicitud.ProductoModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.SolCredClasifModel;
 import pe.com.cmacica.flujocredito.R;
 import pe.com.cmacica.flujocredito.Repositorio.Mapeo.ContratoDbCmacIca;
-import pe.com.cmacica.flujocredito.Utilitarios.UConsultas;
 import pe.com.cmacica.flujocredito.Utilitarios.UGeneral;
-import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class Fragmento_solCred_Clasif extends DialogFragment implements LoaderManager.LoaderCallbacks<Cursor>{
     private static final String TAG = Fragmento_solCred_Clasif.class.getSimpleName();
-    private Gson gson = new Gson();
     private View Vista;
     private Spinner spn_Periodo;
     private EditText txt_Monto;
     private TextView lbl_Ventas;
-    private TextView lbl_Condicion;
+
     private Button btnAceptar,btnProcesar;
 
-    private ProductoModel ProductoSel;
+
     private DatoPersonaSolicitudModel Cliente_L;
     private ConstanteModel ConstanteSel;
 

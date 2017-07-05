@@ -1,25 +1,13 @@
 package pe.com.cmacica.flujocredito.Utilitarios;
 
 import android.util.Log;
-
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
-import com.google.gson.JsonSyntaxException;
-
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.concurrent.TimeUnit;
 
-
-import pe.com.cmacica.flujocredito.Model.ResultOpe;
 
 /**
  * Created by jhcc on 31/08/2016.

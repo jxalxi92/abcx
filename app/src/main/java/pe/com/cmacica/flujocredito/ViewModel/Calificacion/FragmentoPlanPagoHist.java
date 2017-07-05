@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,20 +21,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.Arrays;
 import java.util.List;
-
 import pe.com.cmacica.flujocredito.AgenteServicio.SrvCmacIca;
 import pe.com.cmacica.flujocredito.AgenteServicio.VolleySingleton;
 import pe.com.cmacica.flujocredito.Model.Calificacion.HistPlanPagoModel;
@@ -43,11 +38,8 @@ import pe.com.cmacica.flujocredito.R;
 import pe.com.cmacica.flujocredito.Repositorio.Adaptadores.Calificacion.AdptadorPlanPagoHist;
 import pe.com.cmacica.flujocredito.Utilitarios.DecoracionLineaDivisoria;
 import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
-import pe.com.cmacica.flujocredito.ViewModel.Seguridad.ActividadLogin;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class FragmentoPlanPagoHist extends DialogFragment {
 
     private static final String TAG = ActividadHistPlanPago.class.getSimpleName();

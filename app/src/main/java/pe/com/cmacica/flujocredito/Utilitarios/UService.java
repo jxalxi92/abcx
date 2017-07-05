@@ -1,11 +1,8 @@
 package pe.com.cmacica.flujocredito.Utilitarios;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.ConnectivityManager;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
-
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;

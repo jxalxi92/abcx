@@ -3,49 +3,24 @@ package pe.com.cmacica.flujocredito.ViewModel.General;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.SearchManager;
-import android.content.ContentResolver;
-import android.content.ContentValues;
+
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-
-import pe.com.cmacica.flujocredito.AgenteServicio.RESTService;
-import pe.com.cmacica.flujocredito.AgenteServicio.SrvCmacIca;
-import pe.com.cmacica.flujocredito.Base.ActualizaMontoFteIgrIndp;
-import pe.com.cmacica.flujocredito.Base.IActualizaPersonaFteIngreso;
-import pe.com.cmacica.flujocredito.Model.Digitacion.DigitacionDto;
 import pe.com.cmacica.flujocredito.R;
 import pe.com.cmacica.flujocredito.Repositorio.Adaptadores.General.AdaptadorPersona;
 import pe.com.cmacica.flujocredito.Repositorio.Mapeo.ContratoDbCmacIca;
 import pe.com.cmacica.flujocredito.Repositorio.Mapeo.DbCmacIcaHelper;
-import pe.com.cmacica.flujocredito.Utilitarios.Constantes;
 import pe.com.cmacica.flujocredito.Utilitarios.DecoracionLineaDivisoria;
-import pe.com.cmacica.flujocredito.ViewModel.Digitacion.ActividadFteIgrDep;
+
 
 public class ActividadBusquedaPersona extends AppCompatActivity{
 

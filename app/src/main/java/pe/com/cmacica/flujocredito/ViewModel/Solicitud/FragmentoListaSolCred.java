@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import pe.com.cmacica.flujocredito.R;
-import pe.com.cmacica.flujocredito.ViewModel.ActividadPrincipal;
+
 
 /**
  * A simple {@link Fragment} subclass.
