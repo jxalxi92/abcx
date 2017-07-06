@@ -107,6 +107,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
     private DestinosModel DestinoSel;
     private ColocAgenciaBNModel AgenciaBnSel;
     private PersonaBusqModel IntsConvenioSel;
+    private ActividadesAgropecuariasModel AgropecuarioSel;
     //CARDVIEW--------------------------------------------------------------------------------------
     private CardView CarViewInstitucion;
 
@@ -313,7 +314,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 ProductoSel = (ProductoModel) parent.getItemAtPosition(position);
-                switch (ProductoSel.getcCredProductos()) {
+                switch (ProductoSel.getcCredProductos().substring(0,3)) {
                     case "301": //CrediSueldo
                         CarViewInstitucion.setVisibility(View.VISIBLE);
                         spnProyInmobilirio.setVisibility(View.GONE);
@@ -336,7 +337,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                         CarViewInstitucion.setVisibility(View.GONE);
                         spnProyInmobilirio.setVisibility(View.GONE);
                         spnProyecto.setVisibility(View.INVISIBLE);
-                        chckAgropecuario.setChecked(true);
+                        chckAgropecuario.setChecked(false);
                         OnCargarAgropecuario();
                         chckAgropecuario.setVisibility(View.VISIBLE);
                         spnAgropecuario.setVisibility(View.VISIBLE);
@@ -403,7 +404,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 CampañaSel=(CampañasModel) parent.getItemAtPosition(position);
 
-                if (CampañaSel.getIdCampana()==129)
+                if (CampañaSel.getIdCampana()==129 || CampañaSel.getIdCampana()==134)
                 {
                         txtTea.setVisibility(View.VISIBLE);
                 }
@@ -495,7 +496,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
             }
         });
-
         spnIntSector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -508,7 +508,17 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
             }
         });
+        spnAgropecuario.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                AgropecuarioSel=(ActividadesAgropecuariasModel) parent.getItemAtPosition(position);
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         chckBancoNacion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -600,8 +610,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 if (ValidarGuardar())
                 {
                     ValidarMotor();
-
-
                 }
             }
         });
@@ -611,8 +619,9 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         txtNombres.setText("");
         txtTipoPersona.setText("");
     }
-    private Boolean ValidarGuardar()
-    {
+
+    private Boolean ValidarGuardar() {
+
         if (txtMonto.getText().length()==0)
         {
             Mensaje("Ingreso Monto");
@@ -643,8 +652,8 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
         return true;
     }
-    private void Mensaje(String Mensaje)
-    {
+    private void Mensaje(String Mensaje){
+
         Snackbar.make(findViewById(R.id.llOperacionSim),
                 Mensaje,
                 Snackbar.LENGTH_LONG).show();
@@ -655,7 +664,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
         Reg.cPersCodTitular = Cliente.getDatoPersonal().getCodigoPersona();
         Reg.cPersIdNro = Cliente.getDatoPersonal().getNumeroDocumento();
-        Reg.cCredProducto = ProductoSel.getcCredProductos();
+        Reg.cCredProducto = ProductoSel.getcCredProductos().substring(0,3);
         Reg.nMoneda = String.valueOf(MonedaSel.getCodigoValor());
         Reg.nMonto=txtMonto.getText().toString();
         Reg.cAgeCod = UPreferencias.ObtenerCodAgencia(this);
@@ -700,12 +709,9 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 }
                 , cabeceras);
     }
-    private void ProcesarValidarMotor(JSONObject response)
-    {
+    private void ProcesarValidarMotor(JSONObject response)  {
         try {
-
             if (response.getBoolean("IsCorrect")) {
-
                 String Mensaje="";
                 ReglasModel[] ArrayReglas = gson.fromJson(response.getJSONArray("Data").toString(), ReglasModel[].class);
                 List<ReglasModel>ReglasList=new ArrayList<ReglasModel>(Arrays.asList(ArrayReglas));
@@ -772,7 +778,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         Gson gsonpojo = new GsonBuilder().create();
 
         ColocSolicitudModel ColocSol=new ColocSolicitudModel();
-        ColocSol.nAplicacion=2;
+        ColocSol.nAplicacion=4;
         ColocSol.nCaptado=2;
         ColocSol.nCuotas=Integer.parseInt(txtNroCuotas.getText().toString());
         ColocSol.nFrecPago=FrecPagoSel.getnCodCredFrecPago();
@@ -802,6 +808,11 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
             ColocSol.cPersCodInst = IntsConvenioSel.getCodigoPersona();
             ColocSol.cCodModular = txtCodModular.getText().toString();
         }
+        if (AgropecuarioSel !=null)
+        {
+          ColocSol.nCodActividadAgropecuaria=AgropecuarioSel.getnCodActividad();
+        }
+
         ColocSol.nSubProducto=Integer.parseInt( ProductoSel.getcCredProductos());
         ColocSol.sCalif0 = Cliente.getUltimoRcc().getCalif_0().toString();
         ColocSol.sCalif1 = Cliente.getUltimoRcc().getCalif_1().toString();
@@ -1309,7 +1320,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
             if (ProductoSel == null) {
                 return;
             }
-            String Url =String.format(SrvCmacIca.GET_AGROPECUARIOS,ProductoSel.getcCredProductos());
+            String Url =String.format(SrvCmacIca.GET_AGROPECUARIOS,ProductoSel.getcCredProductos().substring(0,3));
             VolleySingleton.
                     getInstance(this).
                     addToRequestQueue(
@@ -1378,7 +1389,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         try {
             if (ProductoSel == null || TipoCreditoSel==null) {
                 return;}
-            String Url =String.format(SrvCmacIca.GET_DESTINOS,TipoCreditoSel.getnTipoCreditos(),ProductoSel.getcCredProductos());
+            String Url =String.format(SrvCmacIca.GET_DESTINOS,TipoCreditoSel.getnTipoCreditos(),ProductoSel.getcCredProductos().substring(0,3));
             VolleySingleton.
                     getInstance(this).
                     addToRequestQueue(
@@ -1447,7 +1458,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         try {
             if (ProductoSel == null ) {
                 return;}
-            String Url =String.format(SrvCmacIca.GET_PROYECTOS_INMOBILIARIOS,UPreferencias.ObtenerCodAgencia(this),ProductoSel.getcCredProductos());
+            String Url =String.format(SrvCmacIca.GET_PROYECTOS_INMOBILIARIOS,UPreferencias.ObtenerCodAgencia(this),ProductoSel.getcCredProductos().substring(0,3));
             VolleySingleton.
                     getInstance(this).
                     addToRequestQueue(
@@ -1616,7 +1627,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 return;
             }
 
-            String Url = SrvCmacIca.GET_FRECUENCIA_PAGO + ProductoSel.getcCredProductos();
+            String Url = SrvCmacIca.GET_FRECUENCIA_PAGO + ProductoSel.getcCredProductos().substring(0,3);
             VolleySingleton.
                     getInstance(this).
                     addToRequestQueue(
@@ -1756,7 +1767,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
                 return;
             }
-            String Url =String.format(SrvCmacIca.GET_FILTER_PRODUCTO,UPreferencias.ObtenerCodAgencia(this)  , TipoCreditoSel.getnTipoCreditos());
+            String Url =String.format(SrvCmacIca.GET_CREDPRODUCTOS,UPreferencias.ObtenerCodAgencia(this)  , TipoCreditoSel.getnTipoCreditos());
 
             VolleySingleton.
                     getInstance(this).
@@ -1902,7 +1913,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                             })
                             .show();
                 }
-
 
             }else{
                 new AlertDialog.Builder(this)

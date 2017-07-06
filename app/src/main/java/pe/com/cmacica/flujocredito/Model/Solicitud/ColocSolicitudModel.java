@@ -94,6 +94,7 @@ public class ColocSolicitudModel {
     public int nTipoPerCliente;
 
     public int nAplicacion;
+    public int nCodActividadAgropecuaria;
     public List<ColocSolicitudEstadoModel> EstadoSolicitud;
     public List<ColocSolicitudPersonaModel> PersonasSolicitud;
 

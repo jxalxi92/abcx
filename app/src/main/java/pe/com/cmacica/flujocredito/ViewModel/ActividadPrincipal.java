@@ -44,6 +44,7 @@ import pe.com.cmacica.flujocredito.ViewModel.Digitacion.fragmentoInicio;
 import pe.com.cmacica.flujocredito.ViewModel.General.ActividadConfiguracion;
 import pe.com.cmacica.flujocredito.ViewModel.General.fragmento_consultar_datos;
 import pe.com.cmacica.flujocredito.ViewModel.PlanPago.fragmentoSimuladorCredito;
+import pe.com.cmacica.flujocredito.ViewModel.Recuperaciones.fragmentoListaRecuperaciones;
 import pe.com.cmacica.flujocredito.ViewModel.Solicitud.FragmentoListaSolCred;
 
 
@@ -176,6 +177,12 @@ public class ActividadPrincipal extends AppCompatActivity implements
                 // Setear título actual
                 setTitle(itemDrawer.getTitle());
                 break;
+        /*    case R.id.nav_Recuperaciones:
+                fragmentoGenerico = new fragmentoListaRecuperaciones(); //
+                TagGrament = fragmentoListaRecuperaciones.class.getSimpleName();
+                // Setear título actual
+                setTitle(itemDrawer.getTitle());
+                break;*/
 
             case R.id.item_Ajustes:
                 this.startActivityForResult(
@@ -359,7 +366,7 @@ public class ActividadPrincipal extends AppCompatActivity implements
             }
 
         }catch (Exception e){
-            Log.d("Eviar Brod 1",e.getMessage());
+            Log.d("Enviar Brod 1",e.getMessage());
         }
 
     }
