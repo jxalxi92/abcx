@@ -409,6 +409,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 }
                 else
                 {
+                    txtTea.setText("");
                     txtTea.setVisibility(View.GONE);
                 }
             }
@@ -533,6 +534,8 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 else
                 {
                     spnCampañas.setEnabled(false);
+                    txtTea.setText("");
+                    txtTea.setVisibility(View.GONE);
                 }
             }
         });
@@ -617,7 +620,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         }
         if (TipoCreditoSel.getnTipoCreditos()==0)
         {
-            Mensaje("Seleccione Tipo de Credito");
+            Mensaje("Seleccione Tipo de Crédito");
             return false;
         }
         if (txtNroCuotas.getText().length()==0)
@@ -625,13 +628,19 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
             Mensaje("Ingrese Número de Cuotas");
             return false;
         }
-        if (CondicionSolSel==null)
+        if (CampañaSel !=null)
         {
-            Mensaje("No se Cargado los Estados de Solicitud \n " +
-                    "Por Favor Sincronize Constantes: \n"
-                    +"Ajustes->Constantes->Sincronizar");
-            return false;
+            if (CampañaSel.getIdCampana()==129)
+            {
+                if(txtTea.getText().length()==0)
+                {
+                    Mensaje("Ingrese Tasa");
+                    return false;
+                }
+
+            }
         }
+
         return true;
     }
     private void Mensaje(String Mensaje)
@@ -1859,7 +1868,6 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
             if (response.getBoolean("IsCorrect")) {
 
                 Cliente = gson.fromJson(response.getJSONObject("Data").toString(), DatoPersonaSolicitudModel.class);
-
                 txtNombres.setText(Cliente.getDatoPersonal().getNombrePersona());
                 txtTipoPersona.setText(Cliente.getDatoPersonal().getTipoPersona());
                 Perstipo= Cliente.getDatoPersonal().getnPersPersoneria();
@@ -1872,6 +1880,29 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 OnCargarCondicion();
                 fab_guardar.setEnabled(true);
                 chckMicroSeguro.setChecked(Cliente.getbMicroSeguroActivo());
+                String Mensaje;
+                Mensaje=response.getString("Message");
+                if (Mensaje!="null")
+                {
+                    new AlertDialog.Builder(this)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle("Aviso")
+                            .setMessage(Mensaje)
+                            .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface arg0) {
+                                    //ActividadLogin.this.finish();
+                                }})
+
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
+                                @Override
+                                public void onClick(DialogInterface dialog, int which){
+
+                                }
+                            })
+                            .show();
+                }
+
 
             }else{
                 new AlertDialog.Builder(this)

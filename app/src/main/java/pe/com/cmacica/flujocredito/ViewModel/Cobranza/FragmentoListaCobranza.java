@@ -60,8 +60,8 @@ public class FragmentoListaCobranza extends Fragment {
         return vista;
     }
 
-    private void OnCargarClientes()
-    {
+    private void OnCargarClientes() {
+
         String url = String.format(SrvCmacIca.GET_CLIENTES_COBRANZA, UPreferencias.ObtenerCodigoPersonaLogeo(getActivity()));
         VolleySingleton.
                 getInstance(getActivity()).
@@ -86,8 +86,8 @@ public class FragmentoListaCobranza extends Fragment {
                         )
                 );
     }
-    private void ProcesarClientes(JSONObject response)
-    {
+    private void ProcesarClientes(JSONObject response){
+
         try {
             if (response.getBoolean("IsCorrect")){
 

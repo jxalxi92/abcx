@@ -11,7 +11,7 @@ public class SrvCmacIca {
     private static final String HOST_WEBAPI = "http://www.cmacica.com.pe"+ PUERTO_HOST + "/CrediMovil_Des/api/";
     */
 
-    private static final String PUERTO_HOST = "";
+   private static final String PUERTO_HOST = "";
     private static final String HOST_WEBAPI = "http://172.20.10.97"+ PUERTO_HOST + "/optimusrest/api/";
 
 

@@ -156,8 +156,6 @@ public class ActividadLogin extends AppCompatActivity   {
 
         }
 
-
-
     }
     private void ActualizaDesc (String Estado){
         UPreferencias.SaveIndDesconectado(this,Estado);
@@ -327,14 +325,10 @@ public class ActividadLogin extends AppCompatActivity   {
                             });
                     msj.show();
 
-
-
                 }
             }
 
         }else {
-
-
 
             gsonpojo = new GsonBuilder().create();
 
@@ -362,7 +356,6 @@ public class ActividadLogin extends AppCompatActivity   {
                     }
                     , cabeceras);
         }
-
 
     }
 
@@ -430,13 +423,9 @@ public class ActividadLogin extends AppCompatActivity   {
                             });
                             msj.show();
 
-
-
                 }
 
             }
-
-
 
         } catch (JSONException e) {
             Log.d(TAG, e.getMessage());
@@ -444,8 +433,6 @@ public class ActividadLogin extends AppCompatActivity   {
         }
 
     }
-
-
 
     private void errorservice (VolleyError error){
 
@@ -466,7 +453,6 @@ public class ActividadLogin extends AppCompatActivity   {
                 })
                 .show();
     }
-
 
     //region Imei
 
