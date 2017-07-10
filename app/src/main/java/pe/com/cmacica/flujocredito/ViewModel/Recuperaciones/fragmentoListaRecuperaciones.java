@@ -35,7 +35,6 @@ import pe.com.cmacica.flujocredito.AgenteServicio.VolleySingleton;
 import pe.com.cmacica.flujocredito.Model.Cobranza.ClienteCobranzaModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.TipoCreditoModel;
 import pe.com.cmacica.flujocredito.R;
-import pe.com.cmacica.flujocredito.Repositorio.Adaptadores.Cobranza.AdaptadorClienteCobranza;
 import pe.com.cmacica.flujocredito.Repositorio.Adaptadores.Recuperaciones.AdaptadorClienteRecuperaciones;
 import pe.com.cmacica.flujocredito.Utilitarios.DecoracionLineaDivisoria;
 import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
@@ -69,6 +68,7 @@ public class fragmentoListaRecuperaciones extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         spnTipoCredito=(Spinner)vista.findViewById(R.id.spnTipoCredito);
         OnCargarLitaTipoCredito();
+        OnCargarClientes();
        return vista;
 
     }
@@ -104,8 +104,10 @@ public class fragmentoListaRecuperaciones extends Fragment {
         try {
             if (response.getBoolean("IsCorrect")){
 
+                List<ClienteCobranzaModel>  ListClientes=new ArrayList<ClienteCobranzaModel>();
                 JSONArray ListaClientesRecuperaciones = response.getJSONArray("Data");
                 ClienteCobranzaModel[] ArrayClientesRecuperaciones= gson.fromJson(ListaClientesRecuperaciones.toString(), ClienteCobranzaModel[].class);
+                ListClientes= Arrays.asList(ArrayClientesRecuperaciones);
 
                 adaptador = new AdaptadorClienteRecuperaciones(getActivity(), Arrays.asList(ArrayClientesRecuperaciones));
                 recyclerView.setAdapter(adaptador);
@@ -140,7 +142,7 @@ public class fragmentoListaRecuperaciones extends Fragment {
                     Toast.LENGTH_LONG).show();
         }
     }
-    private void OnCargarLitaTipoCredito() {
+   private void OnCargarLitaTipoCredito() {
         try {
 
             String Url = String.format( SrvCmacIca.GET_ALL_TIPOCREDITO);

@@ -921,13 +921,40 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
                 DetalleGestionModel[] ArrayResultado = gson.fromJson(ListaDetalleGestion.toString(), DetalleGestionModel[].class);
 
 
-                ArrayAdapter<DetalleGestionModel> adpSpinnerDetalleGestion = new ArrayAdapter<DetalleGestionModel>(
-                        this,
-                        android.R.layout.simple_spinner_item,
-                        Arrays.asList(ArrayResultado)
-                );
-                adpSpinnerDetalleGestion.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spn_NroCredito.setAdapter(adpSpinnerDetalleGestion);
+                if (Arrays.asList(ArrayResultado).size()==0)
+                {
+                    new AlertDialog.Builder(this)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle("Aviso")
+                            .setMessage("El cliente no cuenta con Creditos de 1 a 30 Días")
+                            .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface arg0) {
+                                    //ActividadLogin.this.finish();
+                                }
+                            })
+                            //.setNegativeButton(android.R.string.cancel, null)//sin listener
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    onBackPressed();
+                                }
+                            })
+                            .show();
+                }
+                else
+                {
+                    ArrayAdapter<DetalleGestionModel> adpSpinnerDetalleGestion = new ArrayAdapter<DetalleGestionModel>(
+                            this,
+                            android.R.layout.simple_spinner_item,
+                            Arrays.asList(ArrayResultado)
+                    );
+                    adpSpinnerDetalleGestion.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spn_NroCredito.setAdapter(adpSpinnerDetalleGestion);
+                }
+
+
             } else {
                 new AlertDialog.Builder(this)
                         .setIcon(android.R.drawable.ic_dialog_alert)

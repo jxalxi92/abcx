@@ -610,6 +610,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 if (ValidarGuardar())
                 {
                     ValidarMotor();
+
                 }
             }
         });
@@ -618,6 +619,9 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         txt_Dni.setText("");
         txtNombres.setText("");
         txtTipoPersona.setText("");
+        txtCondicion.setText("");
+        txtMonto.setText("");
+        txtNroCuotas.setText("");
     }
 
     private Boolean ValidarGuardar() {
@@ -725,6 +729,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 }
                 if (Mensaje.equals("")){
                     GuardarSolicitud();
+
                 }
                 else
                 {
@@ -2073,6 +2078,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         }
     }
    //endregion
+
 
     }
 

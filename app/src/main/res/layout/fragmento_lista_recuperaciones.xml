@@ -4,46 +4,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="pe.com.cmacica.flujocredito.ViewModel.Recuperaciones.fragmentoListaRecuperaciones"
-    tools:layout_editor_absoluteY="25dp"
-    tools:layout_editor_absoluteX="0dp">
-
-    <!-- TODO: Update blank fragment layout -->
-
+    >
     <TextView
         android:id="@+id/textView32"
-        android:layout_width="344dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tipo Crédito"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp" />
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="5dp"/>
 
     <CheckBox
         android:id="@+id/chck_TipoCredito"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="16dp"
-        tools:layout_editor_absoluteX="8dp" />
+        tools:layout_editor_absoluteX="8dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView32" />
+
 
     <Spinner
         android:id="@+id/spnTipoCredito"
         android:layout_width="300dp"
         android:layout_height="19dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toRightOf="@+id/chck_TipoCredito"
-        tools:layout_editor_absoluteY="24dp"
-        android:layout_marginStart="8dp" />
 
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="13dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView32"
+        app:layout_constraintLeft_toRightOf="@+id/chck_TipoCredito"
+        android:layout_marginLeft="8dp" />
+    <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_clienteRecuperaciones"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spnTipoCredito"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/chck_TipoCredito"
+        app:layout_constraintVertical_bias="0.125" />
 
 </android.support.constraint.ConstraintLayout>

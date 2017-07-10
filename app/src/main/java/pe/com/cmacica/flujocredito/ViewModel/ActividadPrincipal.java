@@ -177,12 +177,13 @@ public class ActividadPrincipal extends AppCompatActivity implements
                 // Setear título actual
                 setTitle(itemDrawer.getTitle());
                 break;
-        /*    case R.id.nav_Recuperaciones:
+
+           case R.id.nav_Recuperaciones:
                 fragmentoGenerico = new fragmentoListaRecuperaciones(); //
                 TagGrament = fragmentoListaRecuperaciones.class.getSimpleName();
                 // Setear título actual
                 setTitle(itemDrawer.getTitle());
-                break;*/
+                break;
 
             case R.id.item_Ajustes:
                 this.startActivityForResult(

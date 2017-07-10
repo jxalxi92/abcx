@@ -130,11 +130,18 @@ public class fragmento_consultar_datos extends Fragment {
                     Snackbar.make(view, "No deje Campos Vacíos", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
-
-                else {
-                            OnGuardar(per);
-                            Inicializar();
+                if (txtEmail.getText().toString().matches("[a-zA-Z0-9._-]+@[a-z]+.[a-z]+") && txtEmail.length() > 0)
+                {
+                    OnGuardar(per);
+                    Inicializar();
                 }
+                else
+                {
+                    Snackbar.make(view, "Email No Valido", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+
+
             }
         });
 
