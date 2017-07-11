@@ -609,6 +609,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
                 if (ValidarGuardar())
                 {
+
                     ValidarMotor();
 
                 }
@@ -663,6 +664,8 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 Snackbar.LENGTH_LONG).show();
     }
     private void ValidarMotor() {
+
+        progressDialog = ProgressDialog.show(this,"Espere por favor","Validando Datos");
         Gson gsonpojo = new GsonBuilder().create();
         ReglasModel Reg = new ReglasModel();
 
@@ -699,6 +702,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        progressDialog.cancel();
                         ProcesarValidarMotor(response);
 
                     }
@@ -728,6 +732,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     }
                 }
                 if (Mensaje.equals("")){
+                    progressDialog = ProgressDialog.show(this,"Espere por favor","Guardando Datos...");
                     GuardarSolicitud();
 
                 }
@@ -866,6 +871,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        progressDialog.cancel();
                         ProcesarGuardar(response);
 
                     }
