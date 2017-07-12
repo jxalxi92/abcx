@@ -65,10 +65,10 @@ import pe.com.cmacica.flujocredito.Model.Solicitud.CredProcesosModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.ReglasModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.TipoCreditoModel;
 import pe.com.cmacica.flujocredito.R;
-import pe.com.cmacica.flujocredito.Repositorio.Mapeo.ContratoDbCmacIca;
+
 import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
 
-public  class ActividadMantSolCred extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+public  class ActividadMantSolCred extends AppCompatActivity {
 
     private static final String TAG = ActividadMantSolCred.class.getSimpleName();
     private Gson gson = new Gson();
@@ -121,7 +121,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_mant_sol_cred);
         showToolbar(getResources().getString(R.string.RegistroSolicitud), true);
-        getSupportLoaderManager().initLoader(0,null,this);
+
 
         /*mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -157,25 +157,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 //EVENTOS DE CONTROLES------------------------------------------------------------------------------
         EventosControles();
     }
- //LOADER CALLBACKS---------------------------------------------------------------------------------
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        Loader<Cursor> cursor = new CursorLoader(this,
-                ContratoDbCmacIca.ConstanteTable.URI_CONTENIDO,
-                null,
-                ContratoDbCmacIca.ConstanteTable.nConsCod + " IN (?)"
-                ,
-                new String[]{"9068"} ,
-                null);
-        return cursor;
-    }
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        OnCargarConstantes(data);
-    }
 
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {}
 
     /*********************************************************************************************************************
      **************************************************<  M E T O D O S  >*************************************************
@@ -268,6 +250,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         ProcesarListaMoneda();
         OnCagarProceso();
         OnCargarAgenciasBnAge();
+        OnCargarConstantes();
     }
 
     private void EventosControles(){
@@ -320,7 +303,8 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                         spnProyInmobilirio.setVisibility(View.GONE);
                         chckAgropecuario.setVisibility(View.INVISIBLE);
                         spnAgropecuario.setVisibility(View.INVISIBLE);
-                        spnProyecto.setVisibility(View.INVISIBLE);
+                        spnProyecto.setVisibility(View.GONE);
+                        lblProyecto.setVisibility(View.GONE);
                         ProcesarSector();
                         break;
                     case "404"://MI VIVIENDA - TECHO PROPIO
@@ -336,12 +320,12 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                     case "202"://COMERCIAL AGRICOLA
                         CarViewInstitucion.setVisibility(View.GONE);
                         spnProyInmobilirio.setVisibility(View.GONE);
-                        spnProyecto.setVisibility(View.INVISIBLE);
+                        spnProyecto.setVisibility(View.GONE);
+                        lblProyecto.setVisibility(View.GONE);
                         chckAgropecuario.setChecked(false);
                         OnCargarAgropecuario();
                         chckAgropecuario.setVisibility(View.VISIBLE);
                         spnAgropecuario.setVisibility(View.VISIBLE);
-                        spnProyecto.setVisibility(View.INVISIBLE);
                         break;
                     case "208"://ASOCIACIONES Y/O GRUPOS ORG
                     case "309"://ASOCIACIONES Y/O GRUPOS ORG
@@ -362,17 +346,20 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
                         spnProyInmobilirio.setVisibility(View.GONE);
                         chckAgropecuario.setVisibility(View.VISIBLE);
                         spnAgropecuario.setVisibility(View.VISIBLE);
-                        spnProyecto.setVisibility(View.INVISIBLE);
+                        spnProyecto.setVisibility(View.GONE);
+                        lblProyecto.setVisibility(View.GONE);
                         OnCargarAgropecuario();
                         chckAgropecuario.setChecked(false);
                         chckAgropecuario.setEnabled(true);
+                        break;
 
                     default:
                         CarViewInstitucion.setVisibility(View.GONE);
                         spnProyInmobilirio.setVisibility(View.GONE);
                         chckAgropecuario.setVisibility(View.INVISIBLE);
                         spnAgropecuario.setVisibility(View.INVISIBLE);
-                        spnProyecto.setVisibility(View.INVISIBLE);
+                        spnProyecto.setVisibility(View.GONE);
+                        lblProyecto.setVisibility(View.GONE);
                 }
                 chckCampañas.setChecked(false);
                 chckCampañas.setEnabled(true);
@@ -943,7 +930,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
         }
     }
 
-    private void OnCargarConstantes(Cursor query) {
+    private void OnCargarConstantes() {
 
         List<ConstanteModel> ListaConstanteEstadosSolictud = new ArrayList<ConstanteModel>();
         ListaConstanteEstadosSolictud.add(new ConstanteModel(9068,1,"PRECALIFICA",0));
@@ -1072,7 +1059,7 @@ public  class ActividadMantSolCred extends AppCompatActivity implements LoaderMa
 
             TipoCreditoList.add(0,new TipoCreditoModel(0,"SELECCIONAR"));
 
-            for (int i=1; i <= TipoCreditoList.size(); i++)
+            for (int i=0; i <= TipoCreditoList.size()-1; i++)
             {
                 if (TipoCreditoList.get(i).getnTipoCreditos()==4)
                 {

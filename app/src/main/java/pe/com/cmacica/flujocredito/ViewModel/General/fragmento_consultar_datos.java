@@ -29,12 +29,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import pe.com.cmacica.flujocredito.AgenteServicio.RESTService;
 import pe.com.cmacica.flujocredito.AgenteServicio.SrvCmacIca;
 import pe.com.cmacica.flujocredito.AgenteServicio.VolleySingleton;
+import pe.com.cmacica.flujocredito.Model.General.ConstanteModel;
 import pe.com.cmacica.flujocredito.Model.General.OcupacionModel;
 import pe.com.cmacica.flujocredito.Model.General.PersonaModel;
 import pe.com.cmacica.flujocredito.R;
@@ -48,13 +51,14 @@ public class fragmento_consultar_datos extends Fragment {
     private View view;
     private Button btnBuscar;
     private Button btnNuevo;
-    private EditText txtDniR,txtPersona,txtDirecion,txtReferencia,txtTelefono,txtEmail,txtnrohijos,
+    private EditText txtDniR,txtPersona,txtDirecion,txtReferencia,txtTelefono,txtEmail,
             txtEstadoCivil,TxtGradoInstruccion;
-    private Spinner spnOcupacion;
+    private Spinner spnOcupacion,spn_Hijos;
     private OnFragmentInteractionListener mListener;
     private ProgressDialog progressDialog ;
     PersonaModel per=new PersonaModel();
     private OcupacionModel OcupacionSel;
+    private ConstanteModel NroHijos;
 
     private FloatingActionButton fabGuardar;
     private Gson gson = new Gson();
@@ -81,10 +85,9 @@ public class fragmento_consultar_datos extends Fragment {
         TxtGradoInstruccion.setFocusable(false);
         fabGuardar.setEnabled(false);
 
-
-
 //ACCIONES DE CONTROLES---------------------------------------------------------------------------
         OnCargarOcupacion();
+        OnCargarNroHijos();
         spnOcupacion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -97,6 +100,20 @@ public class fragmento_consultar_datos extends Fragment {
 
             }
         });
+
+        spn_Hijos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                NroHijos =(ConstanteModel) parent.getItemAtPosition(position);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         btnBuscar.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -122,10 +139,10 @@ public class fragmento_consultar_datos extends Fragment {
                String Referencia=txtReferencia.getText().toString();
                String Telefono=txtTelefono.getText().toString();
                String Email=txtEmail.getText().toString();
-               String NroHijos=txtnrohijos.getText().toString();
 
-                if (Direccion.equals("") || Referencia.equals("") || Telefono.equals("") || Email.equals("") ||
-                         NroHijos.equals("") )
+
+                if (Direccion.equals("") || Referencia.equals("") || Telefono.equals("") || Email.equals("")  )
+
                 {
                     Snackbar.make(view, "No deje Campos Vacíos", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
@@ -140,7 +157,6 @@ public class fragmento_consultar_datos extends Fragment {
                     Snackbar.make(view, "Email No Valido", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
-
 
             }
         });
@@ -161,7 +177,7 @@ public class fragmento_consultar_datos extends Fragment {
         txtReferencia.setText("");
         txtTelefono.setText("");
         txtEmail.setText("");
-        txtnrohijos.setText("");
+
     }
 
     private void CargarDatos(){
@@ -197,8 +213,8 @@ public class fragmento_consultar_datos extends Fragment {
     txtReferencia=(EditText) view.findViewById(R.id.txt_referencia);
     txtTelefono=(EditText) view.findViewById(R.id.txt_telefono);
     txtEmail=(EditText) view.findViewById(R.id.txt_email);
+    spn_Hijos=(Spinner)view.findViewById(R.id.spn_Hijos);
 
-    txtnrohijos=(EditText) view.findViewById(R.id.txt_nrohijos);
     txtEstadoCivil=(EditText) view.findViewById(R.id.txtEstadoCivil);
     TxtGradoInstruccion=(EditText) view.findViewById(R.id.TxtGradoInstruccion);
     spnOcupacion=(Spinner) view.findViewById(R.id.spnOcupacion);
@@ -261,6 +277,35 @@ public class fragmento_consultar_datos extends Fragment {
                     ex.getMessage(),
                     Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void OnCargarNroHijos() {
+
+        List<ConstanteModel> ListaNroHijos = new ArrayList<ConstanteModel>();
+        ListaNroHijos.add(new ConstanteModel(1,0,"0",0));
+        ListaNroHijos.add(new ConstanteModel(1,1,"1",0));
+        ListaNroHijos.add(new ConstanteModel(1,2,"2",0));
+        ListaNroHijos.add(new ConstanteModel(1,3,"3",0));
+        ListaNroHijos.add(new ConstanteModel(1,4,"4",0));
+        ListaNroHijos.add(new ConstanteModel(1,5,"5",0));
+        ListaNroHijos.add(new ConstanteModel(1,6,"6",0));
+        ListaNroHijos.add(new ConstanteModel(1,7,"7",0));
+        ListaNroHijos.add(new ConstanteModel(1,8,"8",0));
+        ListaNroHijos.add(new ConstanteModel(1,9,"9",0));
+        ListaNroHijos.add(new ConstanteModel(1,10,"10",0));
+        ListaNroHijos.add(new ConstanteModel(1,11,"11",0));
+        ListaNroHijos.add(new ConstanteModel(1,12,"12",0));
+        ListaNroHijos.add(new ConstanteModel(1,13,"13",0));
+        ListaNroHijos.add(new ConstanteModel(1,14,"14",0));
+        ListaNroHijos.add(new ConstanteModel(1,15,"15",0));
+
+        ArrayAdapter<ConstanteModel> adpSpinnerNroHijos = new ArrayAdapter<ConstanteModel>(
+                getActivity(),
+                android.R.layout.simple_spinner_item,
+                ListaNroHijos
+        );
+        adpSpinnerNroHijos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spn_Hijos.setAdapter(adpSpinnerNroHijos);
     }
     private void OnBuscarPersona(String Dni){
 
@@ -361,7 +406,7 @@ public class fragmento_consultar_datos extends Fragment {
         Per.telefono=txtTelefono.getText().toString();
         Per.email=txtEmail.getText().toString();
         Per.ocupacion=OcupacionSel.getcDescripcion();
-        Per.nPersNatHijos= Integer.parseInt(txtnrohijos.getText().toString());
+        Per.nPersNatHijos= NroHijos.getCodigoValor();
 
 
         String json = gsonpojo.toJson(per);

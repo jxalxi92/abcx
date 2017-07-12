@@ -104,7 +104,7 @@ public class Fragmento_solCred_Clasif extends DialogFragment implements LoaderMa
                 new AlertDialog.Builder(getActivity())
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setTitle("Aviso")
-                        .setMessage("Desea Regresar a la Ventana Anterior?")
+                        .setMessage("Se va Procesar Información del Cliente")
                         .setOnDismissListener(new DialogInterface.OnDismissListener() {
                             @Override
                             public void onDismiss(DialogInterface arg0) {
@@ -204,7 +204,7 @@ public class Fragmento_solCred_Clasif extends DialogFragment implements LoaderMa
         try {
             if (response.getBoolean("IsCorrect")) {
 
-                Snackbar.make(Vista, "Se Guardo Correctamente los Datos", Snackbar.LENGTH_LONG)
+                Snackbar.make(Vista, "Se Guardó Correctamente los Datos", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         }

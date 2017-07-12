@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="0"
                 android:layout_row="2"
-                android:text="Direccion"
+                android:text="Dirección"
                 android:textStyle="bold" />
 
             <TextView
