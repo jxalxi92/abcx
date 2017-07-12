@@ -3,13 +3,9 @@ package pe.com.cmacica.flujocredito.ViewModel.Solicitud;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -58,6 +54,7 @@ import pe.com.cmacica.flujocredito.Model.Solicitud.ActividadesAgropecuariasModel
 import pe.com.cmacica.flujocredito.Model.Solicitud.ColocAgenciaBNModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.DestinosModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.GruposEvaluacionModel;
+import pe.com.cmacica.flujocredito.Model.Solicitud.PersonaRelacionCredModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.ProductoModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.CampañasModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.CredProcesosModel;
@@ -670,8 +667,14 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         Reg.nTipoCredito = String.valueOf(TipoCreditoSel.getnTipoCreditos());
         Reg.nSubTipoCredito = ProductoSel.getcCredProductos().substring(3, 3);
         Reg.nIdCampana=CampañaSel !=null ? String.valueOf(CampañaSel.getIdCampana()) : "0";
-
+        Reg.nTipoPeriodicidad="1";
         Reg.nCuotas=txtNroCuotas.getText().toString();
+        Reg.nPlazoGracia="0";
+        int Dias,Cuotas,Plazo ;
+        Cuotas=Integer.parseInt(Reg.nCuotas);
+        Dias=Integer.parseInt(txtDias.getText().toString());
+        Plazo=Cuotas*Dias;
+        Reg.nPlazo=String.valueOf(Plazo);
         Reg.CodSbsTit=Cliente.getUltimoRcc().getCod_Sbs();
         Reg.bAplicaMicroseguro=chckMicroSeguro.isChecked() ? 1: 0 ;
 
@@ -680,6 +683,14 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         GrupoEva.nIdGrupo="6";
         ListGrupo.add(GrupoEva);
         Reg.GruposEvaluacion=ListGrupo;
+
+
+        PersonaRelacionCredModel PersRela=new PersonaRelacionCredModel();
+        List<PersonaRelacionCredModel> ListPersRela=new ArrayList<PersonaRelacionCredModel>();
+        PersRela.cPersCod= Cliente.getDatoPersonal().getCodigoPersona();
+        PersRela.nPrdPersRelac="20";
+        ListPersRela.add(PersRela);
+        Reg.PersonaRelacionCred=ListPersRela;
         Reg.cUser=UPreferencias.ObtenerUserLogeo(this);
 
         String json = gsonpojo.toJson(Reg);

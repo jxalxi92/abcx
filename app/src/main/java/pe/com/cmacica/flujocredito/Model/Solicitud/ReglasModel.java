@@ -74,6 +74,8 @@ public class ReglasModel {
 
     public String cUserRegistro;
 
+    public String cDescripcion;
+
     public boolean bAplicaRegla;
 
     public boolean bAprueba ;
@@ -81,6 +83,7 @@ public class ReglasModel {
     public String cMensaje;
 
     public List<GruposEvaluacionModel> GruposEvaluacion;
+    public List<PersonaRelacionCredModel> PersonaRelacionCred;
 
 }
 
