@@ -684,7 +684,6 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         ListGrupo.add(GrupoEva);
         Reg.GruposEvaluacion=ListGrupo;
 
-
         PersonaRelacionCredModel PersRela=new PersonaRelacionCredModel();
         List<PersonaRelacionCredModel> ListPersRela=new ArrayList<PersonaRelacionCredModel>();
         PersRela.cPersCod= Cliente.getDatoPersonal().getCodigoPersona();
