@@ -665,7 +665,7 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         Reg.nColocCondicion2 = String.valueOf(ProcesoSel.getnCodCredProceso());
         Reg.nCodDestino = String.valueOf(DestinoSel.getnCodDestino());
         Reg.nTipoCredito = String.valueOf(TipoCreditoSel.getnTipoCreditos());
-        Reg.nSubTipoCredito = ProductoSel.getcCredProductos().substring(3, 3);
+        Reg.nSubTipoCredito = ProductoSel.getcCredProductos().substring(3,6);
         Reg.nIdCampana=CampañaSel !=null ? String.valueOf(CampañaSel.getIdCampana()) : "0";
         Reg.nTipoPeriodicidad="1";
         Reg.nCuotas=txtNroCuotas.getText().toString();
@@ -691,6 +691,7 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         ListPersRela.add(PersRela);
         Reg.PersonaRelacionCred=ListPersRela;
         Reg.cUser=UPreferencias.ObtenerUserLogeo(this);
+        Reg.cUserRegistro=UPreferencias.ObtenerUserLogeo(this);
 
         String json = gsonpojo.toJson(Reg);
         HashMap<String, String> cabeceras = new HashMap<>();
