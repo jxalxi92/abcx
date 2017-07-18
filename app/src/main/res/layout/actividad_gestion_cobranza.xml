@@ -32,6 +32,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/llOperacionSim"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -394,8 +395,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:columnCount="2"
-                            android:rowCount="1"
-                            >
+                            android:rowCount="1">
 
                             <android.support.design.widget.FloatingActionButton
                                 android:id="@+id/fab_guardar"

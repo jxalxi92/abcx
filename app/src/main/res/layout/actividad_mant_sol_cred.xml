@@ -458,7 +458,7 @@
                                 android:layout_height="wrap_content"
                                 android:ems="10"
                                 android:hint="TEA% CredCompra"
-                                android:inputType="number"
+                                android:inputType="numberDecimal"
                                 android:maxLength="5" />
                         </android.support.design.widget.TextInputLayout>
                     </GridLayout>

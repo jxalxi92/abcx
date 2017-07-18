@@ -9,7 +9,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.SearchView;
@@ -29,16 +32,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
 import pe.com.cmacica.flujocredito.AgenteServicio.RESTService;
 import pe.com.cmacica.flujocredito.AgenteServicio.SrvCmacIca;
 import pe.com.cmacica.flujocredito.AgenteServicio.VolleySingleton;
@@ -58,7 +58,6 @@ import pe.com.cmacica.flujocredito.Model.Solicitud.PersonaRelacionCredModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.ProductoModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.CampañasModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.CredProcesosModel;
-
 import pe.com.cmacica.flujocredito.Model.Solicitud.ReglasModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.TipoCreditoModel;
 import pe.com.cmacica.flujocredito.R;
@@ -119,7 +118,6 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         setContentView(R.layout.actividad_mant_sol_cred);
         showToolbar(getResources().getString(R.string.RegistroSolicitud), true);
 
-
         /*mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);*/
@@ -154,7 +152,6 @@ public  class ActividadMantSolCred extends AppCompatActivity {
 //EVENTOS DE CONTROLES------------------------------------------------------------------------------
         EventosControles();
     }
-
 
     /*********************************************************************************************************************
      **************************************************<  M E T O D O S  >*************************************************
@@ -281,6 +278,20 @@ public  class ActividadMantSolCred extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 MonedaSel = (ConstanteModel) parent.getItemAtPosition(position);
+                 if (Cliente !=null)
+                 {
+                     if (Cliente.getbMicroSeguroActivo()==true)
+                     {
+                         if (MonedaSel.getCodigoValor()==1)
+                         {
+                             chckMicroSeguro.setChecked(true);
+                         }
+                         else
+                         {
+                             chckMicroSeguro.setChecked(false);
+                         }
+                     }
+                 }
 
             }
 
@@ -410,6 +421,31 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                 FrecPagoSel=(FrecuenciaPagoModel) parent.getItemAtPosition(position);
 
                  txtDias.setText(String.valueOf(FrecPagoSel.getnDias()));
+                if (Cliente !=null)
+                {
+                    if (Cliente.getbMicroSeguroActivo()==true)
+                    {
+                        if (txtNroCuotas.getText().length()>0 )
+                        {
+                            int Cuotas=Integer.parseInt(txtNroCuotas.getText().toString());
+                            if (Cuotas >1)
+                            {
+                                if (FrecPagoSel.getnCodCredFrecPago()==3)
+                                {
+                                    chckMicroSeguro.setChecked(true);
+                                }
+                                else
+                                {
+                                    chckMicroSeguro.setChecked(false);
+                                }
+                            }
+                            else
+                            {
+                                chckMicroSeguro.setChecked(false);
+                            }
+                        }
+                    }
+                }
 
             }
 
@@ -439,7 +475,7 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                     if (CondicionSolSel.getCodigoValor()==1)
                     {
 
-                        chckAutoAsignado.setVisibility(view.INVISIBLE);
+                        chckAutoAsignado.setVisibility(View.INVISIBLE);
                         chckAutoAsignado.setChecked(false);
                     }
                     else
@@ -509,11 +545,15 @@ public  class ActividadMantSolCred extends AppCompatActivity {
             public void onClick(View v) {
                 if(chckBancoNacion.isChecked())
                 {
+                    spnBancoNacion.setVisibility(View.VISIBLE);
                     spnBancoNacion.setEnabled(true);
                 }
                 else
                 {
                     spnBancoNacion.setEnabled(false);
+                    AgenciaBnSel=null;
+                    spnBancoNacion.setVisibility(View.INVISIBLE);
+
                 }
             }
         });
@@ -522,12 +562,15 @@ public  class ActividadMantSolCred extends AppCompatActivity {
             public void onClick(View v) {
                 if(chckCampañas.isChecked())
                 {
+                    spnCampañas.setVisibility(View.VISIBLE);
                     spnCampañas.setEnabled(true);
                     OnCargarCampañas();
                 }
                 else
                 {
                     spnCampañas.setEnabled(false);
+                    spnCampañas.setVisibility(View.INVISIBLE);
+                    CampañaSel=null;
                     txtTea.setText("");
                     txtTea.setVisibility(View.GONE);
                 }
@@ -543,9 +586,40 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                 else
                 {
                     spnAgropecuario.setEnabled(false);
+                    AgropecuarioSel=null;
                 }
             }
         });
+
+        txtNroCuotas.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+
+                // you can call or do what you want with your EditText here
+                if (Cliente !=null)
+                {
+                    if (Cliente.getbMicroSeguroActivo()==true )
+                        if (TextUtils.isEmpty(txtNroCuotas.getText()) == false) {
+                            int cuotas = Integer.parseInt(txtNroCuotas.getText().toString());
+                            if (MonedaSel==null || FrecPagoSel==null)
+                            {
+                                return;
+                            }
+                            if (cuotas > 1 && MonedaSel.getCodigoValor() == 1 && FrecPagoSel.getnCodCredFrecPago() == 3) {
+                                chckMicroSeguro.setChecked(true);
+                            } else {
+                                chckMicroSeguro.setChecked(false);
+                            }
+                        }
+                }
+
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        });
+
         Fab_Buscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -659,7 +733,7 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         Reg.nMoneda = String.valueOf(MonedaSel.getCodigoValor());
         Reg.nMonto=txtMonto.getText().toString();
         Reg.cAgeCod = UPreferencias.ObtenerCodAgencia(this);
-        Reg.nDesemBN=chckBancoNacion.isChecked() ? String.valueOf(AgenciaBnSel.getcCodAgeBN()) : "0";
+        Reg.nDesemBN=chckBancoNacion.isChecked() ? "1" : "0";
 
         Reg.nColocCondicion = String.valueOf(Condicion.getCodigoValor());
         Reg.nColocCondicion2 = String.valueOf(ProcesoSel.getnCodCredProceso());
@@ -667,6 +741,7 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         Reg.nTipoCredito = String.valueOf(TipoCreditoSel.getnTipoCreditos());
         Reg.nSubTipoCredito = ProductoSel.getcCredProductos().substring(3,6);
         Reg.nIdCampana=CampañaSel !=null ? String.valueOf(CampañaSel.getIdCampana()) : "0";
+        Reg.cPersCodConvenio= IntsConvenioSel !=null ? IntsConvenioSel.getCodigoPersona(): "0";
         Reg.nTipoPeriodicidad="1";
         Reg.nCuotas=txtNroCuotas.getText().toString();
         Reg.nPlazoGracia="0";
@@ -831,7 +906,6 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         ColocSol.nTipoCredito = TipoCreditoSel.getnTipoCreditos();
 
         ColocSolicitudEstadoModel solEst = new ColocSolicitudEstadoModel();
-
 
         solEst.nEstado = CondicionSolSel.getCodigoValor();
         solEst.nMonto =Double.parseDouble(txtMonto.getText().toString());
@@ -1922,7 +1996,6 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                             })
                             .show();
                 }
-
             }else{
                 new AlertDialog.Builder(this)
                         .setIcon(android.R.drawable.ic_dialog_alert)
@@ -2082,7 +2155,6 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         }
     }
    //endregion
-
 
     }
 

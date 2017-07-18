@@ -24,16 +24,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
 import pe.com.cmacica.flujocredito.AgenteServicio.RESTService;
 import pe.com.cmacica.flujocredito.AgenteServicio.SrvCmacIca;
 import pe.com.cmacica.flujocredito.AgenteServicio.VolleySingleton;
@@ -75,7 +72,6 @@ public class fragmento_consultar_datos extends Fragment {
 //ASIGNACION DE CONTROLES--------------------------------------------------------------------------
         AsignarControles();
 
-
 //VALIDACIONES-------------------------------------------------------------------------------------
         txtDniR.setInputType(InputType.TYPE_NULL);
         txtPersona.setInputType(InputType.TYPE_NULL);
@@ -92,7 +88,6 @@ public class fragmento_consultar_datos extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 OcupacionSel = (OcupacionModel) parent.getItemAtPosition(position);
-
             }
 
             @Override
@@ -105,7 +100,6 @@ public class fragmento_consultar_datos extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 NroHijos =(ConstanteModel) parent.getItemAtPosition(position);
-
             }
 
             @Override
@@ -140,12 +134,12 @@ public class fragmento_consultar_datos extends Fragment {
                String Telefono=txtTelefono.getText().toString();
                String Email=txtEmail.getText().toString();
 
-
                 if (Direccion.equals("") || Referencia.equals("") || Telefono.equals("") || Email.equals("")  )
 
                 {
                     Snackbar.make(view, "No deje Campos Vacíos", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+                    return;
                 }
                 if (txtEmail.getText().toString().matches("[a-zA-Z0-9._-]+@[a-z]+.[a-z]+") && txtEmail.length() > 0)
                 {
@@ -157,15 +151,11 @@ public class fragmento_consultar_datos extends Fragment {
                     Snackbar.make(view, "Email No Valido", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
-
             }
         });
-
         return view;
     }
-
 //METODOS-------------------------------------------------------------------------------------------
-
     private void Inicializar(){
 
         TxtDni.setText("");
@@ -177,7 +167,8 @@ public class fragmento_consultar_datos extends Fragment {
         txtReferencia.setText("");
         txtTelefono.setText("");
         txtEmail.setText("");
-
+        spnOcupacion.setSelection(0);
+        spn_Hijos.setSelection(0);
     }
 
     private void CargarDatos(){
@@ -214,11 +205,9 @@ public class fragmento_consultar_datos extends Fragment {
     txtTelefono=(EditText) view.findViewById(R.id.txt_telefono);
     txtEmail=(EditText) view.findViewById(R.id.txt_email);
     spn_Hijos=(Spinner)view.findViewById(R.id.spn_Hijos);
-
     txtEstadoCivil=(EditText) view.findViewById(R.id.txtEstadoCivil);
     TxtGradoInstruccion=(EditText) view.findViewById(R.id.TxtGradoInstruccion);
     spnOcupacion=(Spinner) view.findViewById(R.id.spnOcupacion);
-
     fabGuardar=(FloatingActionButton)view.findViewById(R.id.fab_guardar);
 }
 
@@ -407,7 +396,6 @@ public class fragmento_consultar_datos extends Fragment {
         Per.email=txtEmail.getText().toString();
         Per.ocupacion=OcupacionSel.getcDescripcion();
         Per.nPersNatHijos= NroHijos.getCodigoValor();
-
 
         String json = gsonpojo.toJson(per);
         HashMap<String, String> cabeceras = new HashMap<>();
