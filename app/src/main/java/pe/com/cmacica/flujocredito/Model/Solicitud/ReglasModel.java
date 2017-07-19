@@ -81,6 +81,7 @@ public class ReglasModel {
     public boolean bAprueba ;
 
     public String cMensaje;
+    public String nNumRefinan;
 
     public List<GruposEvaluacionModel> GruposEvaluacion;
     public List<PersonaRelacionCredModel> PersonaRelacionCred;

@@ -262,10 +262,17 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                 }
                 if (TipoCreditoSel.getnTipoCreditos()!=0)
                 {
-                    OnCargarProducto();
                     OnVerificarEvaMensual();
-
-
+                    if (MontoSolicitado !=0)
+                    {
+                        OnCargarProducto();
+                    }
+                }
+                else
+                {
+                    spnProducto.setAdapter(null);
+                    spnDestino.setAdapter(null);
+                    spnAgropecuario.setAdapter(null);
                 }
             }
 
@@ -286,10 +293,10 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                          {
                              chckMicroSeguro.setChecked(true);
                          }
-                         else
+                         /*else
                          {
                              chckMicroSeguro.setChecked(false);
-                         }
+                         }*/
                      }
                  }
 
@@ -745,6 +752,8 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         Reg.nTipoPeriodicidad="1";
         Reg.nCuotas=txtNroCuotas.getText().toString();
         Reg.nPlazoGracia="0";
+        Reg.nNumRefinan="-1";
+
         int Dias,Cuotas,Plazo ;
         Cuotas=Integer.parseInt(Reg.nCuotas);
         Dias=Integer.parseInt(txtDias.getText().toString());
@@ -891,7 +900,7 @@ public  class ActividadMantSolCred extends AppCompatActivity {
             ColocSol.cPersCodInst = IntsConvenioSel.getCodigoPersona();
             ColocSol.cCodModular = txtCodModular.getText().toString();
         }
-        if (AgropecuarioSel !=null)
+        if (AgropecuarioSel !=null && chckAgropecuario.isChecked())
         {
           ColocSol.nCodActividadAgropecuaria=AgropecuarioSel.getnCodActividad();
         }
@@ -2032,10 +2041,12 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         try {
              if (MontoSolicitado==0)
              {
+                 spnProducto.setAdapter(null);
                  Snackbar.make(findViewById(R.id.llOperacionSim),
                          "Ingrese Monto",
                          Snackbar.LENGTH_LONG).show();
                  spnTipoCredito.setSelection(0);
+
              }
              else
              {
@@ -2112,6 +2123,8 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                                 public void onDismiss(DialogInterface arg0) {
                                     //ActividadLogin.this.finish();
                                     spnTipoCredito.setSelection(0);
+                                    spnProducto.setAdapter(null);
+                                    spnDestino.setAdapter(null);
                                     FragmentManager manager=getSupportFragmentManager();
                                     Fragmento_solCred_Clasif frag=new Fragmento_solCred_Clasif();
                                     frag.Datos(MontoSolicitado,Cliente);

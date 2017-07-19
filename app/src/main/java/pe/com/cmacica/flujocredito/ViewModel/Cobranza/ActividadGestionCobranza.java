@@ -1031,9 +1031,24 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
 
        try {if (response.getBoolean("IsCorrect")) {
 
-              Snackbar.make(findViewById(R.id.llOperacionSim), "Se Guardó Correctamente los Datos", Snackbar.LENGTH_LONG)
-                     .setAction("Action", null).show();
-      finish();
+           new AlertDialog.Builder(this)
+                   .setIcon(android.R.drawable.ic_dialog_alert)
+                   .setTitle("Aviso")
+                   .setMessage(response.getString("Se Guardó Correctamente los Datos"))
+                   .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                       @Override
+                       public void onDismiss(DialogInterface arg0) {
+                           //ActividadLogin.this.finish();
+                       }})
+
+                   .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
+                       @Override
+                       public void onClick(DialogInterface dialog, int which){
+                           finish();
+                       }
+                   })
+                   .show();
+
             }
         }
        catch (JSONException e) {

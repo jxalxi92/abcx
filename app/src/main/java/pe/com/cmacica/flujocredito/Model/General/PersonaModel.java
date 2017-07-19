@@ -15,6 +15,9 @@ public class PersonaModel {
     public String nacDptoCod;
     public String nacProvCod;
     public String nacDistCod;
+    public String domicDistCod;
+    public String domicDptoCod;
+    public String domicProvCod;
     public String direccion;
     public String docSustentTipDes;
     public String ubigeo;

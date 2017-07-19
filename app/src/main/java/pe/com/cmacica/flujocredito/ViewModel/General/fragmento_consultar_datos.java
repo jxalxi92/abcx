@@ -342,9 +342,10 @@ public class fragmento_consultar_datos extends Fragment {
                  per.apellidoMaterno=js.getString("apellidoMaterno");
                  per.nombres=js.getString("nombres");
                  per.docSustentTipDes=js.getString("docSustentTipDes");
-                 per.nacDptoCod=js.getString("nacDptoCod");
-                 per.nacProvCod=js.getString("nacProvCod");
-                 per.nacDistCod=js.getString("nacDistCod");
+                 per.domicDptoCod=js.getString("domicDptoCod");
+                 per.domicProvCod=js.getString("domicProvCod");
+                 per.domicDistCod=js.getString("domicDistCod");
+
                  per.gradoInstruccionCod=js.getInt("gradoInstruccionCod");
                  per.estadoCivilCod=js.getInt("estadoCivilCod");
                  per.domicDistDes=js.getString("domicDistDes");
