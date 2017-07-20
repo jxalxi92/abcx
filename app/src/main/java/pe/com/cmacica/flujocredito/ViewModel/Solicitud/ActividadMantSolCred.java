@@ -803,19 +803,55 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         try {
             if (response.getBoolean("IsCorrect")) {
                 String Mensaje="";
+                String MensajeInformativo="";
                 ReglasModel[] ArrayReglas = gson.fromJson(response.getJSONArray("Data").toString(), ReglasModel[].class);
                 List<ReglasModel>ReglasList=new ArrayList<ReglasModel>(Arrays.asList(ArrayReglas));
 
                 for (int i=0;i<=ReglasList.size()-1;i++)
                 {
-                    if (ReglasList.get(i).bAplicaRegla==true && ReglasList.get(i).bAprueba==false )
+                    if (ReglasList.get(i).bAplicaRegla==true && ReglasList.get(i).bAprueba==false && ReglasList.get(i).nTipoValidacion==1 )
                     {
                          Mensaje+=ReglasList.get(i).cMensaje+ "\n";
                     }
+                    else if (ReglasList.get(i).bAplicaRegla==true && ReglasList.get(i).bAprueba==false && ReglasList.get(i).nTipoValidacion==2 )
+                    {
+                        MensajeInformativo+=ReglasList.get(i).cMensaje+ "\n";
+                    }
                 }
                 if (Mensaje.equals("")){
-                    progressDialog = ProgressDialog.show(this,"Espere por favor","Guardando Datos...");
-                    GuardarSolicitud();
+
+                    if(MensajeInformativo.equals(""))
+                    {
+                        progressDialog = ProgressDialog.show(this,"Espere por favor","Guardando Datos...");
+                        GuardarSolicitud();
+                    }
+                   else
+                    {
+                        progressDialog = ProgressDialog.show(this,"Espere por favor","Guardando Datos...");
+                        new AlertDialog.Builder(this)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setTitle("Aviso")
+                                .setMessage(MensajeInformativo)
+                                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface arg0) {
+                                        // ActividadLogin.this.finish();
+                                    }})
+                                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        progressDialog.cancel();
+                                    }
+                                })//sin listener
+                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which){
+                                        progressDialog = ProgressDialog.show(getApplicationContext(),"Espere por favor","Guardando Datos...");
+                                        GuardarSolicitud();
+                                    }
+                                })
+                                .show();
+                    }
 
                 }
                 else

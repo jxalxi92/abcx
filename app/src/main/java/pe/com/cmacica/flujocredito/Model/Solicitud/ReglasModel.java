@@ -82,6 +82,7 @@ public class ReglasModel {
 
     public String cMensaje;
     public String nNumRefinan;
+    public int nTipoValidacion;
 
     public List<GruposEvaluacionModel> GruposEvaluacion;
     public List<PersonaRelacionCredModel> PersonaRelacionCred;
