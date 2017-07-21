@@ -437,7 +437,7 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                             int Cuotas=Integer.parseInt(txtNroCuotas.getText().toString());
                             if (Cuotas >1)
                             {
-                                if (FrecPagoSel.getnCodCredFrecPago()==3)
+                                if (FrecPagoSel.getnCodCredFrecPago()==3 && MonedaSel.getCodigoValor() == 1)
                                 {
                                     chckMicroSeguro.setChecked(true);
                                 }
@@ -688,6 +688,20 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         txtCondicion.setText("");
         txtMonto.setText("");
         txtNroCuotas.setText("");
+        spnDestino.setAdapter(null);
+        spnFrecPago.setAdapter(null);
+        spnMoneda.setAdapter(null);
+        spnCampañas.setAdapter(null);
+        spnSolicitud.setAdapter(null);
+        spnProducto.setAdapter(null);
+        spnTipoCredito.setAdapter(null);
+        spnProceso.setAdapter(null);
+        chckAgropecuario.setChecked(false);
+        txtDias.setText("");
+        chckCampañas.setChecked(false);
+        chckAutoAsignado.setChecked(false);
+        chckMicroSeguro.setChecked(false);
+
     }
 
     private Boolean ValidarGuardar() {
@@ -735,7 +749,7 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         ReglasModel Reg = new ReglasModel();
 
         Reg.cPersCodTitular = Cliente.getDatoPersonal().getCodigoPersona();
-        Reg.cPersIdNro = Cliente.getDatoPersonal().getNumeroDocumento();
+        Reg.cPersIdNro = Cliente.getDatoPersonal().getNumeroDocumento().trim();
         Reg.cCredProducto = ProductoSel.getcCredProductos().substring(0,3);
         Reg.nMoneda = String.valueOf(MonedaSel.getCodigoValor());
         Reg.nMonto=txtMonto.getText().toString();
@@ -827,7 +841,7 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                     }
                    else
                     {
-                        progressDialog = ProgressDialog.show(this,"Espere por favor","Guardando Datos...");
+
                         new AlertDialog.Builder(this)
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .setTitle("Aviso")
@@ -2088,9 +2102,9 @@ public  class ActividadMantSolCred extends AppCompatActivity {
              {
                  String Url =String.format(SrvCmacIca.GET_VERIF_EVA_MEN,
                          TipoCreditoSel.getnTipoCreditos(),
-                         Cliente.getDatoPersonal().getNumeroDocumento(),
+                         Cliente.getDatoPersonal().getNumeroDocumento().trim(),
                          Cliente.getDatoPersonal().getCodigoTipoDocumento(),
-                         String.valueOf( MontoSolicitado),
+                         String.valueOf(MontoSolicitado),
                          "false","false");
 
                  VolleySingleton.
@@ -2103,15 +2117,12 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                                              @Override
                                              public void onResponse(JSONObject response) {
                                                  // Procesar la respuesta Json
-                                                 ProcesarVerificarEvaMensual(response);
+                                                 ActividadMantSolCred.this.ProcesarVerificarEvaMensual(response);
                                              }
                                          },
-                                         new Response.ErrorListener() {
-                                             @Override
-                                             public void onErrorResponse(VolleyError error) {
-                                                 Log.d(TAG, "Error Volley: " + error.toString());
-                                                 // progressDialog.cancel();
-                                             }
+                                         error -> {
+                                             Log.d(TAG, "Error Volley: " + error.toString());
+                                             // progressDialog.cancel();
                                          }
                                  )
                          );

@@ -1034,7 +1034,7 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
            new AlertDialog.Builder(this)
                    .setIcon(android.R.drawable.ic_dialog_alert)
                    .setTitle("Aviso")
-                   .setMessage(response.getString("Se Guardó Correctamente los Datos"))
+                   .setMessage("Se Guardó Correctamente los Datos")
                    .setOnDismissListener(new DialogInterface.OnDismissListener() {
                        @Override
                        public void onDismiss(DialogInterface arg0) {

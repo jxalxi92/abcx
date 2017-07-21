@@ -82,8 +82,7 @@ public class fragmento_consultar_datos extends Fragment {
         fabGuardar.setEnabled(false);
 
 //ACCIONES DE CONTROLES---------------------------------------------------------------------------
-        OnCargarOcupacion();
-        OnCargarNroHijos();
+
         spnOcupacion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -144,7 +143,7 @@ public class fragmento_consultar_datos extends Fragment {
                 if (txtEmail.getText().toString().matches("[a-zA-Z0-9._-]+@[a-z]+.[a-z]+") && txtEmail.length() > 0)
                 {
                     OnGuardar(per);
-                    Inicializar();
+
                 }
                 else
                 {
@@ -167,8 +166,8 @@ public class fragmento_consultar_datos extends Fragment {
         txtReferencia.setText("");
         txtTelefono.setText("");
         txtEmail.setText("");
-        spnOcupacion.setSelection(0);
-        spn_Hijos.setSelection(0);
+        spnOcupacion.setAdapter(null);
+        spn_Hijos.setAdapter(null);
     }
 
     private void CargarDatos(){
@@ -357,6 +356,8 @@ public class fragmento_consultar_datos extends Fragment {
                  per.fechaExpedicion=js.getString("fechaExpedicion");
                  per.sexoCod=js.getString("sexoCod");
 
+                 OnCargarOcupacion();
+                 OnCargarNroHijos();
                  fabGuardar.setEnabled(true);
              }else{
                  new AlertDialog.Builder(getActivity())
@@ -424,8 +425,23 @@ public class fragmento_consultar_datos extends Fragment {
         try {
             if (response.getBoolean("IsCorrect")) {
 
-                Snackbar.make(view, "Se Guardó Correctamente los Datos", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                new AlertDialog.Builder(getActivity())
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Aviso")
+                        .setMessage("Se Guardó Correctamente los Datos")
+                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface arg0) {
+                                //ActividadLogin.this.finish();
+                            }})
+
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
+                            @Override
+                            public void onClick(DialogInterface dialog, int which){
+                                Inicializar();
+                            }
+                        })
+                        .show();
             }
         }
         catch (JSONException e) {
