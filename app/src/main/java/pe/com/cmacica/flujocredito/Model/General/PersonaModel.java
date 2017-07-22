@@ -36,6 +36,8 @@ public class PersonaModel {
     public String email;
     public String ocupacion;
     public int nPersNatHijos;
+    public String cCondicion;
+    public int nTpoDomicilio;
 
     public String getUsuario() {
         return usuario;

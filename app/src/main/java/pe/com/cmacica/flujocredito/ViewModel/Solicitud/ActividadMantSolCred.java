@@ -124,7 +124,7 @@ public  class ActividadMantSolCred extends AppCompatActivity {
 //ASIGNACION DE CONTROLES---------------------------------------------------------------------------
         AsignarControles();
 //--------------------------------------------------------------------------------------------------
-        InicializarControles();
+
 //VALIDACIONES--------------------------------------------------------------------------------------
         txtNombres.setInputType(InputType.TYPE_NULL);
         txtTipoPersona.setInputType(InputType.TYPE_NULL);
@@ -617,6 +617,10 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                             } else {
                                 chckMicroSeguro.setChecked(false);
                             }
+                            if (cuotas>360)
+                            {
+                                txtNroCuotas.setText("360");
+                            }
                         }
                 }
 
@@ -836,7 +840,7 @@ public  class ActividadMantSolCred extends AppCompatActivity {
 
                     if(MensajeInformativo.equals(""))
                     {
-                        progressDialog = ProgressDialog.show(this,"Espere por favor","Guardando Datos...");
+                        Progress();
                         GuardarSolicitud();
                     }
                    else
@@ -860,7 +864,7 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
                                     @Override
                                     public void onClick(DialogInterface dialog, int which){
-                                        progressDialog = ProgressDialog.show(getApplicationContext(),"Espere por favor","Guardando Datos...");
+                                        Progress();
                                         GuardarSolicitud();
                                     }
                                 })
@@ -1978,7 +1982,7 @@ public  class ActividadMantSolCred extends AppCompatActivity {
 
     private void OnSelDatoClienteSolCred(String Dni){
         try {
-
+            progressDialog = ProgressDialog.show(this,"Espere por favor","Cargando Datos");
             String Url = String.format(
                     SrvCmacIca.GET_DATO_CLIENTE_SOL,
                     Dni,
@@ -1994,6 +1998,7 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                                         @Override
                                         public void onResponse(JSONObject response) {
                                             // Procesar la respuesta Json
+                                            progressDialog.cancel();
                                             OnProcesarDatoClienteSolCred(response);
                                         }
                                     },
@@ -2001,6 +2006,7 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
                                             Log.d(TAG, "Error Volley: " + error.toString());
+                                            progressDialog.cancel();
                                             // progressDialog.cancel();
                                         }
                                     }
@@ -2031,6 +2037,7 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                 //cargar los combos
                 OnCargarLitaTipoCredito();
                 OnCargarCondicion();
+                InicializarControles();
                 fab_guardar.setEnabled(true);
                 chckMicroSeguro.setChecked(Cliente.getbMicroSeguroActivo());
                 String Mensaje;
@@ -2209,12 +2216,16 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         } catch (JSONException e) {
             Log.d(TAG, e.getMessage());
             Toast.makeText(
-                    this,
+                    this,"ProcesarVerificarEvaMensual "+
                     e.getMessage(),
                     Toast.LENGTH_LONG).show();
         }
     }
    //endregion
+    private void Progress()
+    {
+        progressDialog = ProgressDialog.show(this,"Espere por favor","Guardando Datos...");
+    }
 
     }
 

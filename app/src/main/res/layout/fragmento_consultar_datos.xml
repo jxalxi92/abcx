@@ -173,14 +173,14 @@
                     android:id="@+id/txtEstadoCivil"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textSize="14sp"
                     android:layout_alignBaseline="@+id/textView15"
                     android:layout_alignBottom="@+id/textView15"
                     android:layout_alignEnd="@+id/txt_referencia"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toEndOf="@+id/textView15"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:textSize="14sp" />
+                    android:layout_toEndOf="@+id/textView16" />
 
                 <EditText
                     android:id="@+id/TxtGradoInstruccion"
@@ -190,18 +190,18 @@
                     android:layout_alignBottom="@+id/textView16"
                     android:layout_alignEnd="@+id/txtEstadoCivil"
                     android:layout_marginLeft="10dp"
-                    android:layout_toEndOf="@+id/textView16"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:layout_toEndOf="@+id/textView16" />
 
                 <TextView
                     android:id="@+id/textView15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/textView14"
-                    android:layout_below="@+id/txt_referencia"
-                    android:layout_marginTop="24dp"
+                    android:layout_alignStart="@+id/textView40"
+                    android:layout_below="@+id/textView41"
+                    android:layout_marginTop="27dp"
                     android:text="Estado Civil:" />
 
                 <TextView
@@ -279,15 +279,15 @@
                     android:id="@+id/fab_guardar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/spnOcupacion"
+                    android:layout_below="@+id/spnOcupacion"
+                    android:layout_marginEnd="8dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="13dp"
                     android:clickable="true"
                     app:backgroundTint="@color/colorPrimary"
                     app:fabSize="normal"
-                    app:srcCompat="@android:drawable/ic_menu_save"
-                    android:layout_below="@+id/spnOcupacion"
-                    android:layout_alignEnd="@+id/spnOcupacion"
-                    android:layout_marginEnd="8dp" />
+                    app:srcCompat="@android:drawable/ic_menu_save" />
 
                 <Spinner
                     android:id="@+id/spnOcupacion"
@@ -303,6 +303,40 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/textView10"
                     android:layout_alignStart="@+id/spnOcupacion" />
+
+                <TextView
+                    android:id="@+id/textView40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/textView10"
+                    android:layout_below="@+id/textView13"
+                    android:layout_marginTop="18dp"
+                    android:text="Tipo Domicilio:" />
+
+                <Spinner
+                    android:id="@+id/spnTipoDomicilio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/textView40"
+                    android:layout_alignEnd="@+id/txt_referencia"
+                    android:layout_alignStart="@+id/TxtGradoInstruccion" />
+
+                <TextView
+                    android:id="@+id/textView41"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/textView14"
+                    android:layout_below="@+id/textView40"
+                    android:layout_marginTop="27dp"
+                    android:text="Condición" />
+
+                <Spinner
+                    android:id="@+id/spnCondicion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/textView41"
+                    android:layout_alignEnd="@+id/spnTipoDomicilio"
+                    android:layout_alignStart="@+id/spnTipoDomicilio" />
 
 
             </RelativeLayout>

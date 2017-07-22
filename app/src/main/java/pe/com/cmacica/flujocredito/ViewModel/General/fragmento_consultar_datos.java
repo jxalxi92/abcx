@@ -37,6 +37,7 @@ import pe.com.cmacica.flujocredito.AgenteServicio.VolleySingleton;
 import pe.com.cmacica.flujocredito.Model.General.ConstanteModel;
 import pe.com.cmacica.flujocredito.Model.General.OcupacionModel;
 import pe.com.cmacica.flujocredito.Model.General.PersonaModel;
+import pe.com.cmacica.flujocredito.Model.Solicitud.TipoCreditoModel;
 import pe.com.cmacica.flujocredito.R;
 
 import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
@@ -50,12 +51,14 @@ public class fragmento_consultar_datos extends Fragment {
     private Button btnNuevo;
     private EditText txtDniR,txtPersona,txtDirecion,txtReferencia,txtTelefono,txtEmail,
             txtEstadoCivil,TxtGradoInstruccion;
-    private Spinner spnOcupacion,spn_Hijos;
+    private Spinner spnOcupacion,spn_Hijos,spnTipoDomicilio,spnCondicion;
     private OnFragmentInteractionListener mListener;
     private ProgressDialog progressDialog ;
     PersonaModel per=new PersonaModel();
     private OcupacionModel OcupacionSel;
     private ConstanteModel NroHijos;
+    private ConstanteModel CondicionSel;
+    private ConstanteModel TipoDomicilioSel;
 
     private FloatingActionButton fabGuardar;
     private Gson gson = new Gson();
@@ -94,7 +97,28 @@ public class fragmento_consultar_datos extends Fragment {
 
             }
         });
+        spnCondicion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CondicionSel = (ConstanteModel) parent.getItemAtPosition(position);
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spnTipoDomicilio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TipoDomicilioSel = (ConstanteModel) parent.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         spn_Hijos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -156,7 +180,8 @@ public class fragmento_consultar_datos extends Fragment {
     }
 //METODOS-------------------------------------------------------------------------------------------
     private void Inicializar(){
-
+        TxtDni.requestFocus();
+        fabGuardar.setEnabled(false);
         TxtDni.setText("");
         txtDniR.setText("");
         txtPersona.setText("");
@@ -168,6 +193,8 @@ public class fragmento_consultar_datos extends Fragment {
         txtEmail.setText("");
         spnOcupacion.setAdapter(null);
         spn_Hijos.setAdapter(null);
+        spnCondicion.setAdapter(null);
+        spnTipoDomicilio.setAdapter(null);
     }
 
     private void CargarDatos(){
@@ -204,6 +231,8 @@ public class fragmento_consultar_datos extends Fragment {
     txtTelefono=(EditText) view.findViewById(R.id.txt_telefono);
     txtEmail=(EditText) view.findViewById(R.id.txt_email);
     spn_Hijos=(Spinner)view.findViewById(R.id.spn_Hijos);
+    spnTipoDomicilio=(Spinner)view.findViewById(R.id.spnTipoDomicilio);
+    spnCondicion=(Spinner)view.findViewById(R.id.spnCondicion);
     txtEstadoCivil=(EditText) view.findViewById(R.id.txtEstadoCivil);
     TxtGradoInstruccion=(EditText) view.findViewById(R.id.TxtGradoInstruccion);
     spnOcupacion=(Spinner) view.findViewById(R.id.spnOcupacion);
@@ -295,8 +324,40 @@ public class fragmento_consultar_datos extends Fragment {
         adpSpinnerNroHijos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spn_Hijos.setAdapter(adpSpinnerNroHijos);
     }
-    private void OnBuscarPersona(String Dni){
 
+    private void OnCargarCondicion() {
+
+        List<ConstanteModel> ListaCondicion = new ArrayList<ConstanteModel>();
+        ListaCondicion.add(new ConstanteModel(1029,1,"PROPIA",0));
+        ListaCondicion.add(new ConstanteModel(1029,2,"ALQUILADA",0));
+        ListaCondicion.add(new ConstanteModel(1029,3,"DE FAMILIA",0));
+        ListaCondicion.add(new ConstanteModel(1029,4,"ALQUILER VENTA",0));
+
+
+        ArrayAdapter<ConstanteModel> adpSpinnerCondicion = new ArrayAdapter<ConstanteModel>(
+                getActivity(),
+                android.R.layout.simple_spinner_item,
+                ListaCondicion
+        );
+        adpSpinnerCondicion.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnCondicion.setAdapter(adpSpinnerCondicion);
+    }
+    private void OnCargarTipoDomicilio() {
+
+        List<ConstanteModel> ListaTipoDomicilio = new ArrayList<ConstanteModel>();
+        ListaTipoDomicilio.add(new ConstanteModel(1018,1,"DOMICILIO",0));
+        ListaTipoDomicilio.add(new ConstanteModel(1018,2,"NEGOCIO",0));
+
+        ArrayAdapter<ConstanteModel> adpSpinnerTipoDomicilio = new ArrayAdapter<ConstanteModel>(
+                getActivity(),
+                android.R.layout.simple_spinner_item,
+                ListaTipoDomicilio
+        );
+        adpSpinnerTipoDomicilio.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnTipoDomicilio.setAdapter(adpSpinnerTipoDomicilio);
+    }
+    private void OnBuscarPersona(String Dni){
+        progressDialog = ProgressDialog.show(getActivity(),"Espere por favor","Cargando Datos");
         String url = String.format(SrvCmacIca.GET_OBTENERPERSONA,Dni);
         VolleySingleton.
                 getInstance(getActivity()).
@@ -308,6 +369,7 @@ public class fragmento_consultar_datos extends Fragment {
                                     @Override
                                     public void onResponse(JSONObject response) {
                                         //Procesar la respuesta Json
+                                        progressDialog.cancel();
                                         ProcesarPersona(response);                                    }
                                 },
                                 new Response.ErrorListener() {
@@ -356,6 +418,8 @@ public class fragmento_consultar_datos extends Fragment {
                  per.fechaExpedicion=js.getString("fechaExpedicion");
                  per.sexoCod=js.getString("sexoCod");
 
+                 OnCargarCondicion();
+                 OnCargarTipoDomicilio();
                  OnCargarOcupacion();
                  OnCargarNroHijos();
                  fabGuardar.setEnabled(true);
@@ -398,6 +462,8 @@ public class fragmento_consultar_datos extends Fragment {
         Per.email=txtEmail.getText().toString();
         Per.ocupacion=OcupacionSel.getcDescripcion();
         Per.nPersNatHijos= NroHijos.getCodigoValor();
+        Per.cCondicion=String.valueOf(CondicionSel.getCodigoValor());
+        Per.nTpoDomicilio=TipoDomicilioSel.getCodigoValor();
 
         String json = gsonpojo.toJson(per);
         HashMap<String, String> cabeceras = new HashMap<>();
@@ -442,6 +508,7 @@ public class fragmento_consultar_datos extends Fragment {
                             }
                         })
                         .show();
+                Inicializar();
             }
         }
         catch (JSONException e) {

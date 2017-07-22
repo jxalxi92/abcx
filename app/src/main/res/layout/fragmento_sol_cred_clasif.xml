@@ -43,7 +43,7 @@ a
         android:hint="Monto "
         android:inputType="numberDecimal"
 
-        />
+        android:maxLength="11" />
 
     <TextView
         android:id="@+id/textView27"
