@@ -92,6 +92,7 @@ public class ColocSolicitudModel {
     public int nCondicionAmpliacion ;
 
     public int nTipoPerCliente;
+    public double nTEACampCD;
 
     public int nAplicacion;
     public int nCodActividadAgropecuaria;

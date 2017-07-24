@@ -289,14 +289,18 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                  {
                      if (Cliente.getbMicroSeguroActivo()==true)
                      {
-                         if (MonedaSel.getCodigoValor()==1)
+                         if (FrecPagoSel==null)
+                         {
+                             return;
+                         }
+                         if (MonedaSel.getCodigoValor()==1 && FrecPagoSel.getnCodCredFrecPago()==3)
                          {
                              chckMicroSeguro.setChecked(true);
                          }
-                         /*else
+                         else
                          {
                              chckMicroSeguro.setChecked(false);
-                         }*/
+                         }
                      }
                  }
 
@@ -704,7 +708,17 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         txtDias.setText("");
         chckCampañas.setChecked(false);
         chckAutoAsignado.setChecked(false);
+        spnAgropecuario.setAdapter(null);
+        chckAgropecuario.setVisibility(View.GONE);
+        spnAgropecuario.setVisibility(View.GONE);
+        txtTea.setText("");
+        txtTea.setVisibility(View.GONE);
         chckMicroSeguro.setChecked(false);
+        spnSector.setAdapter(null);
+        spnIntSector.setAdapter(null);
+        txtCodModular.setText("");
+        CarViewInstitucion.setVisibility(View.GONE);
+
 
     }
 
@@ -939,10 +953,16 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         ColocSol.dFechaSBS=Cliente.getUltimoRcc().getFec_Rep();
         ColocSol.nEstadoSBS=1;
         ColocSol.nDestino=DestinoSel.getnCodDestino();
+        ColocSol.IdCampana=ProductoSel.getnCodCampana();
 
         if(chckCampañas.isChecked())
         {
-            ColocSol.IdCampana=CampañaSel.getIdCampana();
+            ColocSol.IdCampanaNew=CampañaSel.getIdCampana();
+
+            if (CampañaSel.getIdCampana()==129 || CampañaSel.getIdCampana()==134)
+            {
+                ColocSol.nTEACampCD=txtTea.getText().length()!=0 ? Double.parseDouble(txtTea.getText().toString()): 0;
+            }
         }
         if (chckBancoNacion.isChecked())
         {
