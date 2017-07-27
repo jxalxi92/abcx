@@ -719,7 +719,6 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         txtCodModular.setText("");
         CarViewInstitucion.setVisibility(View.GONE);
 
-
     }
 
     private Boolean ValidarGuardar() {
@@ -859,7 +858,6 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                     }
                    else
                     {
-
                         new AlertDialog.Builder(this)
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .setTitle("Aviso")

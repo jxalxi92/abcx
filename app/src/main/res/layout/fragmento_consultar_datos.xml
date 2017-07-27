@@ -80,11 +80,11 @@
                     android:id="@+id/textView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/txt_dni_r"
+                    android:layout_alignBottom="@+id/txt_dni_r"
                     android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="27dp"
-                    android:text="DNI" />
+                    android:layout_marginStart="13dp"
+                    android:text="DNI:" />
 
                 <EditText
                     android:id="@+id/txt_dni_r"
@@ -104,10 +104,11 @@
                     android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/textView11"
-                    android:layout_alignTop="@+id/txt_persona"
                     android:lineSpacingExtra="10sp"
-                    android:text="Persona:" />
+                    android:text="Persona:"
+                    android:layout_alignBaseline="@+id/txt_persona"
+                    android:layout_alignBottom="@+id/txt_persona"
+                    android:layout_alignStart="@+id/textView11" />
 
                 <EditText
                     android:id="@+id/txt_persona"
@@ -173,14 +174,14 @@
                     android:id="@+id/txtEstadoCivil"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:textSize="14sp"
                     android:layout_alignBaseline="@+id/textView15"
                     android:layout_alignBottom="@+id/textView15"
                     android:layout_alignEnd="@+id/txt_referencia"
-                    android:layout_toEndOf="@+id/textView16" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_toEndOf="@+id/textView16"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/TxtGradoInstruccion"
@@ -190,10 +191,10 @@
                     android:layout_alignBottom="@+id/textView16"
                     android:layout_alignEnd="@+id/txtEstadoCivil"
                     android:layout_marginLeft="10dp"
+                    android:layout_toEndOf="@+id/textView16"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:textSize="14sp"
-                    android:layout_toEndOf="@+id/textView16" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/textView15"
@@ -224,16 +225,44 @@
 
                 <EditText
                     android:id="@+id/txt_telefono"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
                     android:layout_alignBaseline="@+id/textView19"
                     android:layout_alignBottom="@+id/textView19"
                     android:layout_alignEnd="@+id/TxtGradoInstruccion"
-                    android:layout_toEndOf="@+id/textView13"
+                    android:layout_toEndOf="@+id/txt_Codigo"
                     android:ems="10"
                     android:inputType="phone"
                     android:maxLength="9"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/txt_celular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_alignBaseline="@+id/textView"
+                    android:layout_alignBottom="@+id/textView"
+                    android:layout_alignEnd="@+id/txt_telefono"
+                    android:layout_alignStart="@+id/txt_Codigo"
+                    android:ems="10"
+                    android:inputType="phone"
+                    android:maxLength="9"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/txt_Codigo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_alignBaseline="@+id/txt_telefono"
+                    android:layout_alignBottom="@+id/txt_telefono"
+                    android:layout_alignStart="@+id/txt_referencia"
+                    android:layout_toStartOf="@+id/spnCondicion"
+                    android:ems="10"
+                    android:inputType="phone"
+                    android:maxLength="3"
                     android:textSize="14sp" />
 
                 <TextView
@@ -241,8 +270,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/textView19"
-                    android:layout_below="@+id/txt_telefono"
-                    android:layout_marginTop="35dp"
+                    android:layout_below="@+id/txt_celular"
+                    android:layout_marginTop="16dp"
                     android:text="Email:" />
 
                 <EditText
@@ -250,9 +279,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
+                    android:layout_alignBaseline="@+id/textView6"
                     android:layout_alignBottom="@+id/textView6"
-                    android:layout_alignEnd="@+id/txtEstadoCivil"
-                    android:layout_alignStart="@+id/txt_telefono"
+                    android:layout_alignEnd="@+id/txt_celular"
+                    android:layout_alignStart="@+id/txt_celular"
+                    android:layout_toEndOf="@+id/textView10"
                     android:ems="10"
                     android:inputType="textEmailAddress"
                     android:textSize="14sp" />
@@ -261,9 +292,9 @@
                     android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textView6"
-                    android:layout_marginTop="31dp"
-                    android:layout_toStartOf="@+id/txt_email"
+                    android:layout_alignStart="@+id/textView"
+                    android:layout_below="@+id/txt_email"
+                    android:layout_marginTop="20dp"
                     android:text="Ocupación:" />
 
                 <TextView
@@ -295,7 +326,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/textView8"
                     android:layout_alignEnd="@+id/txt_email"
-                    android:layout_toEndOf="@+id/textView15" />
+                    android:layout_toEndOf="@+id/textView40" />
 
                 <Spinner
                     android:id="@+id/spn_Hijos"
@@ -337,6 +368,15 @@
                     android:layout_alignBottom="@+id/textView41"
                     android:layout_alignEnd="@+id/spnTipoDomicilio"
                     android:layout_alignStart="@+id/spnTipoDomicilio" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/textView13"
+                    android:layout_below="@+id/txt_telefono"
+                    android:layout_marginTop="18dp"
+                    android:text="Celular:" />
 
 
             </RelativeLayout>

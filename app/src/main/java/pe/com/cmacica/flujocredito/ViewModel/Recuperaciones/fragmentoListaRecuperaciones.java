@@ -12,7 +12,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -33,6 +35,7 @@ import java.util.List;
 import pe.com.cmacica.flujocredito.AgenteServicio.SrvCmacIca;
 import pe.com.cmacica.flujocredito.AgenteServicio.VolleySingleton;
 import pe.com.cmacica.flujocredito.Model.Cobranza.ClienteCobranzaModel;
+import pe.com.cmacica.flujocredito.Model.Recuperaciones.ClienteRecuperacionModel;
 import pe.com.cmacica.flujocredito.Model.Solicitud.TipoCreditoModel;
 import pe.com.cmacica.flujocredito.R;
 import pe.com.cmacica.flujocredito.Repositorio.Adaptadores.Recuperaciones.AdaptadorClienteRecuperaciones;
@@ -50,9 +53,11 @@ public class fragmentoListaRecuperaciones extends Fragment {
 
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
+    private CheckBox chck_TipoCredito;
     private AdaptadorClienteRecuperaciones adaptador;
     private Spinner spnTipoCredito;
-
+    private TipoCreditoModel TipoCreditoSel;
+    List<ClienteRecuperacionModel>  ListClientes=new ArrayList<ClienteRecuperacionModel>();
     public fragmentoListaRecuperaciones() {
         // Required empty public constructor
     }
@@ -67,15 +72,52 @@ public class fragmentoListaRecuperaciones extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         spnTipoCredito=(Spinner)vista.findViewById(R.id.spnTipoCredito);
-        OnCargarLitaTipoCredito();
+        chck_TipoCredito=(CheckBox)vista.findViewById(R.id.chck_TipoCredito);
+        spnTipoCredito.setEnabled(false);
         OnCargarClientes();
-       return vista;
+        OnCargarLitaTipoCredito();
+
+        spnTipoCredito.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TipoCreditoSel = (TipoCreditoModel) parent.getItemAtPosition(position);
+
+                if (TipoCreditoSel.getnTipoCreditos() !=0)
+                {
+                    ListClientes.stream().filter(x-> x.getNtipocredito()==TipoCreditoSel.getnTipoCreditos());
+                    ListClientes.size();
+            }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        chck_TipoCredito.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(chck_TipoCredito.isChecked())
+                {
+                    spnTipoCredito.setEnabled(true);
+
+                }
+                else
+                {
+                    spnTipoCredito.setEnabled(false);
+                    TipoCreditoSel=null;
+
+                }
+            }
+        });
+        return vista;
 
     }
 
     private void OnCargarClientes() {
 
-        String url = String.format(SrvCmacIca.GET_CLIENTES_COBRANZA, UPreferencias.ObtenerCodigoPersonaLogeo(getActivity()));
+        String url = String.format(SrvCmacIca.GET_CLIENTES_RECUPERACIONES, UPreferencias.ObtenerCodigoPersonaLogeo(getActivity()));
         VolleySingleton.
                 getInstance(getActivity()).
                 addToRequestQueue(
@@ -104,9 +146,9 @@ public class fragmentoListaRecuperaciones extends Fragment {
         try {
             if (response.getBoolean("IsCorrect")){
 
-                List<ClienteCobranzaModel>  ListClientes=new ArrayList<ClienteCobranzaModel>();
+
                 JSONArray ListaClientesRecuperaciones = response.getJSONArray("Data");
-                ClienteCobranzaModel[] ArrayClientesRecuperaciones= gson.fromJson(ListaClientesRecuperaciones.toString(), ClienteCobranzaModel[].class);
+                ClienteRecuperacionModel[] ArrayClientesRecuperaciones= gson.fromJson(ListaClientesRecuperaciones.toString(), ClienteRecuperacionModel[].class);
                 ListClientes= Arrays.asList(ArrayClientesRecuperaciones);
 
                 adaptador = new AdaptadorClienteRecuperaciones(getActivity(), Arrays.asList(ArrayClientesRecuperaciones));

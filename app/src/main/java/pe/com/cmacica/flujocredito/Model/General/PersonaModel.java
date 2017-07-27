@@ -38,6 +38,8 @@ public class PersonaModel {
     public int nPersNatHijos;
     public String cCondicion;
     public int nTpoDomicilio;
+    public String Celular;
+    public String Nacionalidad;
 
     public String getUsuario() {
         return usuario;

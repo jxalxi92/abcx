@@ -9,6 +9,7 @@ import android.widget.TextView;
 import java.util.List;
 import pe.com.cmacica.flujocredito.Base.ItemClickListener;
 import pe.com.cmacica.flujocredito.Model.Cobranza.ClienteCobranzaModel;
+import pe.com.cmacica.flujocredito.Model.Recuperaciones.ClienteRecuperacionModel;
 import pe.com.cmacica.flujocredito.R;
 
 
@@ -20,10 +21,10 @@ public class AdaptadorClienteRecuperaciones extends RecyclerView.Adapter<Adaptad
         implements ItemClickListener{
 
 
-    private List<ClienteCobranzaModel> ListaClienteRecuperaciones;
+    private List<ClienteRecuperacionModel> ListaClienteRecuperaciones;
     public Context contexto;
 
-    public AdaptadorClienteRecuperaciones(Context contexto,List<ClienteCobranzaModel> ClienteRecuperaciones){
+    public AdaptadorClienteRecuperaciones(Context contexto,List<ClienteRecuperacionModel> ClienteRecuperaciones){
 
         this.contexto = contexto;
         this.ListaClienteRecuperaciones = ClienteRecuperaciones;

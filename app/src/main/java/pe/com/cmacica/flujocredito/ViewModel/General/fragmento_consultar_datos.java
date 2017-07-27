@@ -34,6 +34,7 @@ import java.util.List;
 import pe.com.cmacica.flujocredito.AgenteServicio.RESTService;
 import pe.com.cmacica.flujocredito.AgenteServicio.SrvCmacIca;
 import pe.com.cmacica.flujocredito.AgenteServicio.VolleySingleton;
+import pe.com.cmacica.flujocredito.Model.General.AreaTelefonoModel;
 import pe.com.cmacica.flujocredito.Model.General.ConstanteModel;
 import pe.com.cmacica.flujocredito.Model.General.OcupacionModel;
 import pe.com.cmacica.flujocredito.Model.General.PersonaModel;
@@ -50,7 +51,7 @@ public class fragmento_consultar_datos extends Fragment {
     private Button btnBuscar;
     private Button btnNuevo;
     private EditText txtDniR,txtPersona,txtDirecion,txtReferencia,txtTelefono,txtEmail,
-            txtEstadoCivil,TxtGradoInstruccion;
+            txtEstadoCivil,TxtGradoInstruccion,txt_Codigo,txt_celular;
     private Spinner spnOcupacion,spn_Hijos,spnTipoDomicilio,spnCondicion;
     private OnFragmentInteractionListener mListener;
     private ProgressDialog progressDialog ;
@@ -157,10 +158,22 @@ public class fragmento_consultar_datos extends Fragment {
                String Telefono=txtTelefono.getText().toString();
                String Email=txtEmail.getText().toString();
 
-                if (Direccion.equals("") || Referencia.equals("") || Telefono.equals("") || Email.equals("")  )
+                if (Direccion.equals("") || Referencia.equals("")  || Email.equals("")  )
 
                 {
                     Snackbar.make(view, "No deje Campos Vacíos", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    return;
+                }
+                if( txtTelefono.getText().length()==0 && txt_celular.getText().length()==0)
+                {
+                    Snackbar.make(view, "Ingrese Teléfono o Celular", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    return;
+                }
+                if (txtTelefono.getText().length()>0 && txt_Codigo.getText().length()==0){
+
+                    Snackbar.make(view, "Ingrese Código de Teléfono", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     return;
                 }
@@ -171,7 +184,7 @@ public class fragmento_consultar_datos extends Fragment {
                 }
                 else
                 {
-                    Snackbar.make(view, "Email No Valido", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "Email No Válido", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             }
@@ -230,6 +243,8 @@ public class fragmento_consultar_datos extends Fragment {
     txtReferencia=(EditText) view.findViewById(R.id.txt_referencia);
     txtTelefono=(EditText) view.findViewById(R.id.txt_telefono);
     txtEmail=(EditText) view.findViewById(R.id.txt_email);
+    txt_Codigo=(EditText) view.findViewById(R.id.txt_Codigo);
+    txt_celular=(EditText) view.findViewById(R.id.txt_celular);
     spn_Hijos=(Spinner)view.findViewById(R.id.spn_Hijos);
     spnTipoDomicilio=(Spinner)view.findViewById(R.id.spnTipoDomicilio);
     spnCondicion=(Spinner)view.findViewById(R.id.spnCondicion);
@@ -406,12 +421,16 @@ public class fragmento_consultar_datos extends Fragment {
                  per.domicDptoCod=js.getString("domicDptoCod");
                  per.domicProvCod=js.getString("domicProvCod");
                  per.domicDistCod=js.getString("domicDistCod");
+                 per.nacDptoCod=js.getString("nacDptoCod");
+                 per.nacProvCod=js.getString("nacProvCod");
+                 per.nacDistCod=js.getString("nacDistCod");
 
                  per.gradoInstruccionCod=js.getInt("gradoInstruccionCod");
                  per.estadoCivilCod=js.getInt("estadoCivilCod");
                  per.domicDistDes=js.getString("domicDistDes");
                  per.domicProvDes=js.getString("domicProvDes");
                  per.domicDptoDes=js.getString("domicDptoDes");
+                 txt_Codigo.setText(CodigoCiudadTelefono(per.domicDptoDes.trim()));
                  per.estaturaDes=js.getString("estaturaDes");
                  per.fechaNacimiento=js.getString("fechaNacimiento");
                  per.fechaInscripcion=js.getString("fechaInscripcion");
@@ -459,6 +478,15 @@ public class fragmento_consultar_datos extends Fragment {
         Per.direccion=txtDirecion.getText().toString().toUpperCase();
         Per.referencia=txtReferencia.getText().toString().toUpperCase();
         Per.telefono=txtTelefono.getText().toString();
+        if (txtTelefono.getText().length()>0)
+        {
+            Per.telefono=txt_Codigo.getText().toString()+txtTelefono.getText().toString();
+        }
+        if (txt_celular.getText().length()>0)
+        {
+            Per.Celular=txt_celular.getText().toString();
+        }
+        Per.Nacionalidad="04028";
         Per.email=txtEmail.getText().toString();
         Per.ocupacion=OcupacionSel.getcDescripcion();
         Per.nPersNatHijos= NroHijos.getCodigoValor();
@@ -518,6 +546,47 @@ public class fragmento_consultar_datos extends Fragment {
                     e.getMessage(),
                     Toast.LENGTH_LONG).show();
         }
+    }
+
+    public String CodigoCiudadTelefono(String Ciudad)
+
+    {
+        String Resultado="";
+        List<AreaTelefonoModel> ListaAreaTelefono = new ArrayList<AreaTelefonoModel>();
+        ListaAreaTelefono.add(new AreaTelefonoModel("01","AMAZONAS", "041"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("02","ANCASH", "043"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("03","APURIMAC", "083"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("04","AREQUIPA", "054"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("05","AYACUCHO", "066"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("06","CAJAMARCA","076"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("07","CALLAO", "01"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("08","CUSCO", "084"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("09","HUANCAVELICA", "067"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("10","HUANUCO", "062"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("11","ICA", "056"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("12","JUNIN", "064"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("13","LA LIBERTAD", "044"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("14","LAMBAYEQUE", "074"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("15","LIMA", "01"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("16","LORETO", "065"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("17","MADRE DE DIOS", "082"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("18","MOQUEGUA", "053"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("19","PASCO", "063"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("20","PIURA", "073"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("21","PUNO", "051"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("22","SAN MARTIN", "042"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("23","TACNA", "052"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("24","TUMBES", "072"));
+        ListaAreaTelefono.add(new AreaTelefonoModel("25","UCAYALI", "061"));
+
+        for (int i=0;i<ListaAreaTelefono.size()-1;i++)
+        {
+            if ((ListaAreaTelefono.get(i).getDepartamento()).equals(Ciudad.trim()))
+            {
+                Resultado=ListaAreaTelefono.get(i).getCodigoTelefonico();
+            }
+        }
+        return Resultado;
     }
 
 //--------------------------------------------------------------------------------------------------
