@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.util.Log;
@@ -42,6 +43,7 @@ import pe.com.cmacica.flujocredito.Model.Solicitud.TipoCreditoModel;
 import pe.com.cmacica.flujocredito.R;
 
 import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
+import pe.com.cmacica.flujocredito.ViewModel.Solicitud.Fragmento_solCred_Clasif;
 
 public class fragmento_consultar_datos extends Fragment {
 
@@ -60,9 +62,11 @@ public class fragmento_consultar_datos extends Fragment {
     private ConstanteModel NroHijos;
     private ConstanteModel CondicionSel;
     private ConstanteModel TipoDomicilioSel;
+    public static  String Calculado = null;
 
     private FloatingActionButton fabGuardar;
     private Gson gson = new Gson();
+
     public fragmento_consultar_datos() {
         // Required empty public constructor
     }
@@ -158,6 +162,7 @@ public class fragmento_consultar_datos extends Fragment {
                String Telefono=txtTelefono.getText().toString();
                String Email=txtEmail.getText().toString();
 
+
                 if (Direccion.equals("") || Referencia.equals("")  || Email.equals("")  )
 
                 {
@@ -176,6 +181,41 @@ public class fragmento_consultar_datos extends Fragment {
                     Snackbar.make(view, "Ingrese Código de Teléfono", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     return;
+
+
+                }
+                if (Calculado !=null)
+                {
+                    per.domicDptoCod=Calculado.substring(0,2);
+                    per.domicProvCod=Calculado.substring(2,4);
+                    per.domicDistCod=Calculado.substring(4,6);
+                }
+                if (per.domicProvCod.equals("00"))
+                {
+                    new AlertDialog.Builder(getActivity())
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle("Aviso")
+                            .setMessage("El domicilio de la Persona No es de Perú,Por favor Ingrese una Dirección dentro del país")
+                            .setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+
+                                @Override
+                                public void onDismiss(DialogInterface arg0) {
+                                    FragmentManager manager=getFragmentManager();
+                                    FragmentoUbigeoPersona frag=new FragmentoUbigeoPersona();
+                                    frag.show(manager,"Domicilio");
+
+                                }
+                            })
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
+                                @Override
+                                public void onClick(DialogInterface dialog, int which){
+
+                                }
+                            })
+                            .show();
+
+                 return;
                 }
                 if (txtEmail.getText().toString().matches("[a-zA-Z0-9._-]+@[a-z]+.[a-z]+") && txtEmail.length() > 0)
                 {
@@ -208,6 +248,8 @@ public class fragmento_consultar_datos extends Fragment {
         spn_Hijos.setAdapter(null);
         spnCondicion.setAdapter(null);
         spnTipoDomicilio.setAdapter(null);
+        txt_Codigo.setText("");
+        txt_celular.setText("");
     }
 
     private void CargarDatos(){
@@ -419,6 +461,7 @@ public class fragmento_consultar_datos extends Fragment {
                  per.nombres=js.getString("nombres");
                  per.docSustentTipDes=js.getString("docSustentTipDes");
                  per.domicDptoCod=js.getString("domicDptoCod");
+
                  per.domicProvCod=js.getString("domicProvCod");
                  per.domicDistCod=js.getString("domicDistCod");
                  per.nacDptoCod=js.getString("nacDptoCod");
@@ -442,6 +485,8 @@ public class fragmento_consultar_datos extends Fragment {
                  OnCargarOcupacion();
                  OnCargarNroHijos();
                  fabGuardar.setEnabled(true);
+
+
              }else{
                  new AlertDialog.Builder(getActivity())
                          .setIcon(android.R.drawable.ic_dialog_alert)
@@ -588,7 +633,11 @@ public class fragmento_consultar_datos extends Fragment {
         }
         return Resultado;
     }
+public void Ubigeo(String Ubigeo)
+{
+    Calculado=Ubigeo;
 
+}
 //--------------------------------------------------------------------------------------------------
 // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

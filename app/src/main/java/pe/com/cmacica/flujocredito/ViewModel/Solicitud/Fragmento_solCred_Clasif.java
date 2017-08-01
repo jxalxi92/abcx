@@ -50,7 +50,6 @@ public class Fragmento_solCred_Clasif extends DialogFragment implements LoaderMa
 
     private Button btnAceptar,btnProcesar;
 
-
     private DatoPersonaSolicitudModel Cliente_L;
     private ConstanteModel ConstanteSel;
 

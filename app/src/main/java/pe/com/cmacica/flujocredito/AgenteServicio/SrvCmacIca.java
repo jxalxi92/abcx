@@ -59,8 +59,9 @@ public class SrvCmacIca {
     //region PERSONA------------------------------------------------------------------------------------------------
     public static final String GET_OBTENERPERSONA= HOST_WEBAPI+"Persona/PersonaReniec?cNumDoc=%s";
     public static final String GET_OCUPACION=HOST_WEBAPI+"Persona/SelOcupacion";
-   //endRegion------------------------------------------------------------------------------------------------------
     public static final String POST_PERSONA= HOST_WEBAPI+"Persona/GuardarPersonaReniec";
+    public static final String GET_UBIGEO= HOST_WEBAPI+"Persona/ListarUbigeo?cCodUbigeo=%s&pTipoFiltro=%s";
+    //endRegion------------------------------------------------------------------------------------------------------
     //region SOLICITUD----------------------------------------------------------------------------------------------
 
     public static final String GET_PROCESO=HOST_WEBAPI+"Solicitud/ListaProcesosCreditos";
