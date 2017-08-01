@@ -39,11 +39,9 @@ import pe.com.cmacica.flujocredito.Model.General.AreaTelefonoModel;
 import pe.com.cmacica.flujocredito.Model.General.ConstanteModel;
 import pe.com.cmacica.flujocredito.Model.General.OcupacionModel;
 import pe.com.cmacica.flujocredito.Model.General.PersonaModel;
-import pe.com.cmacica.flujocredito.Model.Solicitud.TipoCreditoModel;
 import pe.com.cmacica.flujocredito.R;
-
 import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
-import pe.com.cmacica.flujocredito.ViewModel.Solicitud.Fragmento_solCred_Clasif;
+
 
 public class fragmento_consultar_datos extends Fragment {
 
@@ -52,8 +50,16 @@ public class fragmento_consultar_datos extends Fragment {
     private View view;
     private Button btnBuscar;
     private Button btnNuevo;
-    private EditText txtDniR,txtPersona,txtDirecion,txtReferencia,txtTelefono,txtEmail,
-            txtEstadoCivil,TxtGradoInstruccion,txt_Codigo,txt_celular;
+    private EditText txtDniR;
+    private EditText txtPersona;
+    private EditText txtDirecion;
+    private EditText txtReferencia;
+    private EditText txtTelefono;
+    private EditText txtEmail;
+    private EditText txtEstadoCivil;
+    private EditText TxtGradoInstruccion;
+    public EditText txt_CodigoCiudad;
+    private EditText txt_celular;
     private Spinner spnOcupacion,spn_Hijos,spnTipoDomicilio,spnCondicion;
     private OnFragmentInteractionListener mListener;
     private ProgressDialog progressDialog ;
@@ -176,7 +182,7 @@ public class fragmento_consultar_datos extends Fragment {
                             .setAction("Action", null).show();
                     return;
                 }
-                if (txtTelefono.getText().length()>0 && txt_Codigo.getText().length()==0){
+                if (txtTelefono.getText().length()>0 && txt_CodigoCiudad.getText().length()==0){
 
                     Snackbar.make(view, "Ingrese Código de Teléfono", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
@@ -189,6 +195,8 @@ public class fragmento_consultar_datos extends Fragment {
                     per.domicDptoCod=Calculado.substring(0,2);
                     per.domicProvCod=Calculado.substring(2,4);
                     per.domicDistCod=Calculado.substring(4,6);
+
+
                 }
                 if (per.domicProvCod.equals("00"))
                 {
@@ -204,7 +212,6 @@ public class fragmento_consultar_datos extends Fragment {
                                     FragmentManager manager=getFragmentManager();
                                     FragmentoUbigeoPersona frag=new FragmentoUbigeoPersona();
                                     frag.show(manager,"Domicilio");
-
                                 }
                             })
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
@@ -248,8 +255,10 @@ public class fragmento_consultar_datos extends Fragment {
         spn_Hijos.setAdapter(null);
         spnCondicion.setAdapter(null);
         spnTipoDomicilio.setAdapter(null);
-        txt_Codigo.setText("");
+        txt_CodigoCiudad.setText("");
         txt_celular.setText("");
+        Calculado=null;
+
     }
 
     private void CargarDatos(){
@@ -285,7 +294,7 @@ public class fragmento_consultar_datos extends Fragment {
     txtReferencia=(EditText) view.findViewById(R.id.txt_referencia);
     txtTelefono=(EditText) view.findViewById(R.id.txt_telefono);
     txtEmail=(EditText) view.findViewById(R.id.txt_email);
-    txt_Codigo=(EditText) view.findViewById(R.id.txt_Codigo);
+    txt_CodigoCiudad=(EditText) view.findViewById(R.id.txt_Codigo);
     txt_celular=(EditText) view.findViewById(R.id.txt_celular);
     spn_Hijos=(Spinner)view.findViewById(R.id.spn_Hijos);
     spnTipoDomicilio=(Spinner)view.findViewById(R.id.spnTipoDomicilio);
@@ -473,7 +482,7 @@ public class fragmento_consultar_datos extends Fragment {
                  per.domicDistDes=js.getString("domicDistDes");
                  per.domicProvDes=js.getString("domicProvDes");
                  per.domicDptoDes=js.getString("domicDptoDes");
-                 txt_Codigo.setText(CodigoCiudadTelefono(per.domicDptoDes.trim()));
+                 txt_CodigoCiudad.setText(CodigoCiudadTelefono(per.domicDptoDes.trim()));
                  per.estaturaDes=js.getString("estaturaDes");
                  per.fechaNacimiento=js.getString("fechaNacimiento");
                  per.fechaInscripcion=js.getString("fechaInscripcion");
@@ -525,7 +534,7 @@ public class fragmento_consultar_datos extends Fragment {
         Per.telefono=txtTelefono.getText().toString();
         if (txtTelefono.getText().length()>0)
         {
-            Per.telefono=txt_Codigo.getText().toString()+txtTelefono.getText().toString();
+            Per.telefono=txt_CodigoCiudad.getText().toString()+txtTelefono.getText().toString();
         }
         if (txt_celular.getText().length()>0)
         {
@@ -593,9 +602,8 @@ public class fragmento_consultar_datos extends Fragment {
         }
     }
 
-    public String CodigoCiudadTelefono(String Ciudad)
+    public String CodigoCiudadTelefono(String Ciudad){
 
-    {
         String Resultado="";
         List<AreaTelefonoModel> ListaAreaTelefono = new ArrayList<AreaTelefonoModel>();
         ListaAreaTelefono.add(new AreaTelefonoModel("01","AMAZONAS", "041"));
@@ -633,11 +641,7 @@ public class fragmento_consultar_datos extends Fragment {
         }
         return Resultado;
     }
-public void Ubigeo(String Ubigeo)
-{
-    Calculado=Ubigeo;
 
-}
 //--------------------------------------------------------------------------------------------------
 // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

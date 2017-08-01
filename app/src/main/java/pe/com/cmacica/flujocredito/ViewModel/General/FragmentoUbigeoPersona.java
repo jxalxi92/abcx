@@ -114,7 +114,6 @@ public class FragmentoUbigeoPersona extends DialogFragment {
                 frag.Calculado=DistritoSel.getcUbigeoCodReniec().toString();
                 Snackbar.make(Vista, "Datos asignados correctamente", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-
                 onDestroyView();
             }
         });

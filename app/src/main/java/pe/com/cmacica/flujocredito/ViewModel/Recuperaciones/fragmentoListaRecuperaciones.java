@@ -3,6 +3,7 @@ package pe.com.cmacica.flujocredito.ViewModel.Recuperaciones;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -28,9 +29,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import pe.com.cmacica.flujocredito.AgenteServicio.SrvCmacIca;
 import pe.com.cmacica.flujocredito.AgenteServicio.VolleySingleton;
@@ -82,11 +85,18 @@ public class fragmentoListaRecuperaciones extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 TipoCreditoSel = (TipoCreditoModel) parent.getItemAtPosition(position);
 
-                if (TipoCreditoSel.getnTipoCreditos() !=0)
-                {
-                    ListClientes.stream().filter(x-> x.getNtipocredito()==TipoCreditoSel.getnTipoCreditos());
-                    ListClientes.size();
-            }
+                if (TipoCreditoSel.getnTipoCreditos() !=0) {
+                    List<ClienteRecuperacionModel> ListaNueva = null;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                      //  ListaNueva = ListClientes.stream().filter(x -> x.getNtipocredito()==TipoCreditoSel.getnTipoCreditos()).collect(Collectors.toList());
+                        List<Integer> numbers = Arrays.asList(1, 2, 3, 4);
+                        List<Integer> result = numbers.stream()
+                                .filter(e -> (e % 2) == 0)
+                                .map(e -> e * 2)
+                                .collect(Collectors.toList());
+                    }
+
+                }
 
             }
 
