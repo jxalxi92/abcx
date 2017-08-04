@@ -244,7 +244,8 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         ProcesarListaMoneda();
         OnCagarProceso();
         OnCargarAgenciasBnAge();
-        OnCargarConstantes();
+
+        OnCargarEstadosSolicitud();
     }
 
     private void EventosControles(){
@@ -1096,22 +1097,71 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         }
     }
 
-    private void OnCargarConstantes() {
+    private void OnCargarEstadosSolicitud()
+    {
+        try {
 
-        List<ConstanteModel> ListaConstanteEstadosSolictud = new ArrayList<ConstanteModel>();
-        ListaConstanteEstadosSolictud.add(new ConstanteModel(9068,1,"PRECALIFICA",0));
-        ListaConstanteEstadosSolictud.add(new ConstanteModel(9068,6,"CALIFICA",0));
-        ListaConstanteEstadosSolictud.add(new ConstanteModel(9068,7,"NO CALIFICA",0));
-
-        ArrayAdapter<ConstanteModel> adpSpinnerEstadoSolicitud = new ArrayAdapter<ConstanteModel>(
-                this,
-                android.R.layout.simple_spinner_item,
-                ListaConstanteEstadosSolictud
-        );
-        adpSpinnerEstadoSolicitud.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnSolicitud.setAdapter(adpSpinnerEstadoSolicitud);
+            String Url =String.format(SrvCmacIca.GET_ESTADOS_SOLICITUD);
+            VolleySingleton.
+                    getInstance(this).
+                    addToRequestQueue(
+                            new JsonObjectRequest(
+                                    Request.Method.GET,
+                                    Url,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            // Procesar la respuesta Json
+                                            ProcesarEstadosSolicitud(response);
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Log.d(TAG, "Error Volley: " + error.toString());
+                                            // progressDialog.cancel();
+                                        }
+                                    }
+                            )
+                    );
+        } catch (Exception ex) {
+            Log.d(TAG, ex.getMessage());
+            Toast.makeText(
+                    this,
+                    ex.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
     }
+    private void ProcesarEstadosSolicitud(JSONObject response)
+    {
+        try {
+            JSONArray ListaEstadosSolicitud = response.getJSONArray("Data");
+            ConstanteModel[] ArrayEstadosSolicitud = gson.fromJson(ListaEstadosSolicitud.toString(), ConstanteModel[].class);
 
+            ArrayAdapter<ConstanteModel> adpSpinnerEstadosSolicitud = new ArrayAdapter<ConstanteModel>(
+                    this,
+                    android.R.layout.simple_spinner_item,
+                    Arrays.asList(ArrayEstadosSolicitud)
+            );
+            //adpSpinnerTipoCredito.
+            adpSpinnerEstadosSolicitud.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            spnSolicitud.setAdapter(adpSpinnerEstadosSolicitud);
+
+        } catch (JSONException e) {
+            Log.d(TAG, e.getMessage());
+            Toast.makeText(
+                    this,
+                    e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        } catch (Exception ex) {
+            Log.d(TAG, ex.getMessage());
+            Toast.makeText(
+                    this,
+                    ex.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
     //region Procesos
     private void OnCagarProceso(){
         try {

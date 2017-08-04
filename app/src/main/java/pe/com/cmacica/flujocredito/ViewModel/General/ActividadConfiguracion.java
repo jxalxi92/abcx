@@ -26,19 +26,18 @@ public class ActividadConfiguracion extends AppCompatActivity {
 
     Button btnSyncPersona;
     TextView lblPorSyncPer;
-    TextView lblPorSyncCons;
-    Button btnSyncConstante;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_configuracion);
         btnSyncPersona = (Button) findViewById(R.id.btnSyncPersona);
-        btnSyncConstante=(Button)findViewById(R.id.btnSyncConstante);
+
         lblPorSyncPer = (TextView) findViewById(R.id.lblPorSyncPer);
-        lblPorSyncCons=(TextView) findViewById(R.id.lblPorSynCons);
+
         lblPorSyncPer.setVisibility(View.GONE);
-        lblPorSyncCons.setVisibility(View.GONE);
+
         // Filtro de acciones que serán alertadas
         IntentFilter filter = new IntentFilter(Constantes.ACTION_RUN_ISERVICE);
         filter.addAction(Constantes.ACTION_PROGRESS_EXIT);
@@ -58,13 +57,7 @@ public class ActividadConfiguracion extends AppCompatActivity {
                     }
                 });
 
-        btnSyncConstante.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        OnValidaAntesDeSinc(2);
-                    }
-                });
+
     }
 
     public void OnValidaAntesDeSinc(int NrodeSincronizacion){
@@ -131,18 +124,12 @@ public class ActividadConfiguracion extends AppCompatActivity {
             switch (intent.getAction()) {
 
                 case Constantes.ACTION_RUN_ISERVICE:
-                    //Region Constantes-EstadoCivil
-                    lblPorSyncCons.setVisibility(View.VISIBLE);
-                    lblPorSyncCons.setText("100");
-                    btnSyncConstante.setEnabled(false);
-                    lblPorSyncCons.setText(intent.getIntExtra(Constantes.EXTRA_PROGRESS, -1) + "");
+
                   /*Log.d("sync","ACTION_RUN_ISERVICE");lblPorSyncPer.setVisibility(View.VISIBLE);
                   lblPorSyncPer.setText("100");
                   btnSyncPersona.setEnabled(false);
                    lblPorSyncPer.setText(intent.getIntExtra(Constantes.EXTRA_PROGRESS, -1) + "");
 */
-
-
                     //btnSyncPersona.setBackground(R.color.colorAccent);
                     break;
 
@@ -151,9 +138,6 @@ public class ActividadConfiguracion extends AppCompatActivity {
                   btnSyncPersona.setEnabled(true);
                   lblPorSyncPer.setVisibility(View.GONE);
 
-                    //Constantes-EstadoCivil
-                    btnSyncConstante.setEnabled(true);
-                    lblPorSyncCons.setVisibility(View.GONE);
                     break;
             }
         }

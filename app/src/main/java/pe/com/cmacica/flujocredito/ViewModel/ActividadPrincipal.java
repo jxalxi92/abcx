@@ -178,7 +178,7 @@ public class ActividadPrincipal extends AppCompatActivity implements
                 setTitle(itemDrawer.getTitle());
                 break;
 
-           case R.id.nav_Recuperaciones:
+             case R.id.nav_Recuperaciones:
                 fragmentoGenerico = new fragmentoListaRecuperaciones(); //
                 TagGrament = fragmentoListaRecuperaciones.class.getSimpleName();
                 // Setear título actual
@@ -281,8 +281,6 @@ public class ActividadPrincipal extends AppCompatActivity implements
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
         ContentResolver.requestSync(cuentaActiva, ContratoDbCmacIca.AUTORIDAD, bundle);
     }
-
-
     @Override
     public void OnTipoFuenteOperacion(int operacion,  DigitacionDto DatosCliente) {
         Intent intent;

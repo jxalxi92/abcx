@@ -60,7 +60,7 @@ public class fragmentoListaRecuperaciones extends Fragment {
     private AdaptadorClienteRecuperaciones adaptador;
     private Spinner spnTipoCredito;
     private TipoCreditoModel TipoCreditoSel;
-    List<ClienteRecuperacionModel>  ListClientes=new ArrayList<ClienteRecuperacionModel>();
+   public static List<ClienteRecuperacionModel>  ListClientes=new ArrayList<ClienteRecuperacionModel>();
     public fragmentoListaRecuperaciones() {
         // Required empty public constructor
     }
@@ -78,7 +78,8 @@ public class fragmentoListaRecuperaciones extends Fragment {
         chck_TipoCredito=(CheckBox)vista.findViewById(R.id.chck_TipoCredito);
         spnTipoCredito.setEnabled(false);
         OnCargarClientes();
-        OnCargarLitaTipoCredito();
+
+
 
         spnTipoCredito.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -86,16 +87,18 @@ public class fragmentoListaRecuperaciones extends Fragment {
                 TipoCreditoSel = (TipoCreditoModel) parent.getItemAtPosition(position);
 
                 if (TipoCreditoSel.getnTipoCreditos() !=0) {
-                    List<ClienteRecuperacionModel> ListaNueva = null;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                      //  ListaNueva = ListClientes.stream().filter(x -> x.getNtipocredito()==TipoCreditoSel.getnTipoCreditos()).collect(Collectors.toList());
-                        List<Integer> numbers = Arrays.asList(1, 2, 3, 4);
-                        List<Integer> result = numbers.stream()
-                                .filter(e -> (e % 2) == 0)
-                                .map(e -> e * 2)
-                                .collect(Collectors.toList());
-                    }
+                    List<ClienteRecuperacionModel> ListaNueva = new ArrayList<ClienteRecuperacionModel>();
 
+                 for (ClienteRecuperacionModel CliE : ListClientes)
+                 {
+                     if (CliE.getNtipocredito()==TipoCreditoSel.getnTipoCreditos()) {
+                         ListaNueva.add(CliE);
+
+                     }
+                 }
+                    adaptador = new AdaptadorClienteRecuperaciones(getActivity(),ListaNueva);
+                    recyclerView.setAdapter(adaptador);
+                    recyclerView.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));
                 }
 
             }
@@ -111,12 +114,16 @@ public class fragmentoListaRecuperaciones extends Fragment {
                 if(chck_TipoCredito.isChecked())
                 {
                     spnTipoCredito.setEnabled(true);
-
+                    OnCargarLitaTipoCredito();
                 }
                 else
                 {
                     spnTipoCredito.setEnabled(false);
+                    spnTipoCredito.setAdapter(null);
                     TipoCreditoSel=null;
+                    adaptador = new AdaptadorClienteRecuperaciones(getActivity(), ListClientes);
+                    recyclerView.setAdapter(adaptador);
+                    recyclerView.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));
 
                 }
             }

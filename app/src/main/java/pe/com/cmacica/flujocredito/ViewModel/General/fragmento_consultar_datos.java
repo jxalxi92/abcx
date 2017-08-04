@@ -187,16 +187,12 @@ public class fragmento_consultar_datos extends Fragment {
                     Snackbar.make(view, "Ingrese Código de Teléfono", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     return;
-
-
                 }
                 if (Calculado !=null)
                 {
                     per.domicDptoCod=Calculado.substring(0,2);
                     per.domicProvCod=Calculado.substring(2,4);
                     per.domicDistCod=Calculado.substring(4,6);
-
-
                 }
                 if (per.domicProvCod.equals("00"))
                 {
@@ -221,7 +217,6 @@ public class fragmento_consultar_datos extends Fragment {
                                 }
                             })
                             .show();
-
                  return;
                 }
                 if (txtEmail.getText().toString().matches("[a-zA-Z0-9._-]+@[a-z]+.[a-z]+") && txtEmail.length() > 0)
@@ -258,7 +253,6 @@ public class fragmento_consultar_datos extends Fragment {
         txt_CodigoCiudad.setText("");
         txt_celular.setText("");
         Calculado=null;
-
     }
 
     private void CargarDatos(){

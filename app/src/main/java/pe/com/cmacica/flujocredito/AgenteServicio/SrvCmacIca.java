@@ -5,10 +5,10 @@ package pe.com.cmacica.flujocredito.AgenteServicio;
  */
 public class SrvCmacIca {
 
-   /*
+/*
     private static final String PUERTO_HOST = ":8080";
-    private static final String HOST_WEBAPI = "http://www.cmacica.com.pe"+ PUERTO_HOST + "/CrediMovil_Des/api/";
-    */
+    private static final String HOST_WEBAPI = "http://www.cmacica.com.pe"+ PUERTO_HOST + "/CrediMovil_Des/api/";*/
+
 
   private static final String PUERTO_HOST = "";
   private static final String HOST_WEBAPI = "http://172.20.10.97"+ PUERTO_HOST + "/optimusrest/api/";
@@ -79,6 +79,7 @@ public class SrvCmacIca {
     public static final String POST_REGISTRO_SOLICITUD=HOST_WEBAPI+"Solicitud/EjecutarSolicitudCreditoMovil";
     public static final String POST_MOTOR_EVA= HOST_WEBAPI+"Solicitud/ListaReglasValidacion";
     public static final String GET_CREDPRODUCTOS= HOST_WEBAPI+"Solicitud/SelCredProductos?cAgeCod=%s&nTipoCredito=%s";
+    public static final String GET_ESTADOS_SOLICITUD= HOST_WEBAPI+"Solicitud/ListarEstadosSolicitud";
 
     //endRegion-----------------------------------------------------------------------------------------------------
 

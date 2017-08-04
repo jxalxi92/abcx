@@ -5,12 +5,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import java.util.List;
 import pe.com.cmacica.flujocredito.Base.ItemClickListener;
 import pe.com.cmacica.flujocredito.Model.Cobranza.ClienteCobranzaModel;
 import pe.com.cmacica.flujocredito.Model.Recuperaciones.ClienteRecuperacionModel;
 import pe.com.cmacica.flujocredito.R;
+import pe.com.cmacica.flujocredito.ViewModel.Recuperaciones.fragmentoListaRecuperaciones;
 
 
 /**
@@ -40,21 +43,25 @@ public class AdaptadorClienteRecuperaciones extends RecyclerView.Adapter<Adaptad
         public TextView lblDocumento;
         public TextView lblNombre;
         public TextView lblDireccion;
+        public CheckBox chck_Seleccionado;
         public ItemClickListener listener;
 
-        public ViewHolder(View v,ItemClickListener listener) {
+
+        public ViewHolder(View v,ItemClickListener  listener) {
             super(v);
 
             lblDocumento = (TextView) v.findViewById(R.id.lblDocumento);
             lblNombre = (TextView) v.findViewById(R.id.lblNombre);
             lblDireccion = (TextView) v.findViewById(R.id.lblDireccion);
+            chck_Seleccionado=(CheckBox) v.findViewById(R.id.chck_Seleccionado);
             this.listener = listener;
             v.setOnClickListener(this);
 
         }
         @Override
         public void onClick(View v) {
-            listener.onItemClick(v, getAdapterPosition());
+           listener.onItemClick(v, getAdapterPosition());
+
         }
     }
     @Override
@@ -68,10 +75,31 @@ public class AdaptadorClienteRecuperaciones extends RecyclerView.Adapter<Adaptad
         holder.lblDocumento.setText(ListaClienteRecuperaciones.get(position).getDocumento());
         holder.lblNombre.setText(ListaClienteRecuperaciones.get(position).getNombres());
         holder.lblDireccion.setText(ListaClienteRecuperaciones.get(position).getDireccion());
+        holder.chck_Seleccionado.setOnCheckedChangeListener(null);
+        holder.chck_Seleccionado.setChecked(ListaClienteRecuperaciones.get(position).isSeleccionado());
+
+        holder.chck_Seleccionado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //set your object's last status
+              fragmentoListaRecuperaciones frag=new fragmentoListaRecuperaciones();
+                for (ClienteRecuperacionModel CliE : frag.ListClientes)
+                {
+                    if(CliE.getDocumento()==ListaClienteRecuperaciones.get(position).getDocumento())
+                    {
+                        CliE.setSeleccionado(isChecked);
+                    }
+                }
+
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
        return ListaClienteRecuperaciones.size();
     }
+
+
 }

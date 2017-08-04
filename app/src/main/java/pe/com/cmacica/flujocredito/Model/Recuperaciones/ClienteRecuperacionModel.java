@@ -5,8 +5,10 @@ package pe.com.cmacica.flujocredito.Model.Recuperaciones;
  */
 
 public class ClienteRecuperacionModel {
+
+
     public ClienteRecuperacionModel(String codigo, String documento, String nombres, String direccion
-            ,int Ntipocredito,int NdiasAtraso,boolean seleccionado) {
+            , int Ntipocredito, int NdiasAtraso, boolean seleccionado) {
         Codigo = codigo;
         Documento = documento;
         Nombres = nombres;
@@ -36,6 +38,10 @@ public class ClienteRecuperacionModel {
     public int getNtipocredito() {return ntipocredito;}
 
     public int getnDiasAtraso() {return nDiasAtraso;}
+
+    public void setSeleccionado(boolean seleccionado) {
+        Seleccionado = seleccionado;
+    }
 
     private String Codigo ;
 
