@@ -8,7 +8,7 @@ public class ClienteRecuperacionModel {
 
 
     public ClienteRecuperacionModel(String codigo, String documento, String nombres, String direccion
-            , int Ntipocredito, int NdiasAtraso, boolean seleccionado) {
+            , int Ntipocredito, int NdiasAtraso,double nCapital, boolean seleccionado) {
         Codigo = codigo;
         Documento = documento;
         Nombres = nombres;
@@ -16,6 +16,7 @@ public class ClienteRecuperacionModel {
         Seleccionado=seleccionado;
         ntipocredito=Ntipocredito;
         nDiasAtraso=NdiasAtraso;
+        ncapital=nCapital;
     }
 
     public String getCodigo() {
@@ -38,21 +39,22 @@ public class ClienteRecuperacionModel {
     public int getNtipocredito() {return ntipocredito;}
 
     public int getnDiasAtraso() {return nDiasAtraso;}
+    public double getNcapital() {
+        return ncapital;
+    }
 
     public void setSeleccionado(boolean seleccionado) {
         Seleccionado = seleccionado;
     }
 
     private String Codigo ;
-
     private String Documento;
-
     private String Nombres ;
-
     private String Direccion;
     private boolean Seleccionado;
     private int ntipocredito;
     private int nDiasAtraso;
+    private double ncapital;
 
 
 }

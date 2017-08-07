@@ -78,20 +78,17 @@ public class AdaptadorClienteRecuperaciones extends RecyclerView.Adapter<Adaptad
         holder.chck_Seleccionado.setOnCheckedChangeListener(null);
         holder.chck_Seleccionado.setChecked(ListaClienteRecuperaciones.get(position).isSeleccionado());
 
-        holder.chck_Seleccionado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //set your object's last status
-              fragmentoListaRecuperaciones frag=new fragmentoListaRecuperaciones();
-                for (ClienteRecuperacionModel CliE : frag.ListClientes)
-                {
-                    if(CliE.getDocumento()==ListaClienteRecuperaciones.get(position).getDocumento())
-                    {
-                        CliE.setSeleccionado(isChecked);
-                    }
-                }
+        holder.chck_Seleccionado.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
+          fragmentoListaRecuperaciones frag=new fragmentoListaRecuperaciones();
+            for (ClienteRecuperacionModel CliE : frag.ListClientes)
+            {
+                if(CliE.getDocumento()==ListaClienteRecuperaciones.get(position).getDocumento())
+                {
+                    CliE.setSeleccionado(isChecked);
+                }
             }
+
         });
 
     }

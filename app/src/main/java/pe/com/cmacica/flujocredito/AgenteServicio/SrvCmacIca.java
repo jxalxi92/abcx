@@ -44,7 +44,7 @@ public class SrvCmacIca {
 
     //region Fuentes de ingreso
     public static final String URL_SYNC_BATCH_Fte_Igr = HOST_WEBAPI + "FuenteIngreso/";
-    public static final String URL_SYNC_BATCH_FTEIGR_REQUEST = HOST_WEBAPI+"FuenteIngreso/ListFteIgrClixAna?cPersCodAna=%s&cImei=%s";
+    public static final String URL_SYNC_BATCH_FTEIGR_REQUEST = HOST_WEBAPI+"FuenteIngreso/ListFteIgrClixAna?cPersCodAna=%s&cImei=%s&Fecha=%s";
     public static final String URL_SYNC_BATCH_FTEIGR_RESPONSE = HOST_WEBAPI+"FuenteIngreso/SyncFteIgrMovil";
     //endregion
 

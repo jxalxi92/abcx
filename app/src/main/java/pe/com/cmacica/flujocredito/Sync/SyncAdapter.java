@@ -36,6 +36,7 @@ import pe.com.cmacica.flujocredito.Model.ResultOpe;
 import pe.com.cmacica.flujocredito.Repositorio.Mapeo.ContratoDbCmacIca;
 import pe.com.cmacica.flujocredito.Sync.Procesador.ProcLocal;
 import pe.com.cmacica.flujocredito.Sync.Procesador.ProcRemoto;
+import pe.com.cmacica.flujocredito.Utilitarios.UGeneral;
 import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
 
 /**
@@ -109,7 +110,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         new RESTService(getContext()).get(
                 String.format( SrvCmacIca.URL_SYNC_BATCH_FTEIGR_REQUEST ,
                         UPreferencias.ObtenerCodigoPersonaLogeo(contexto)
-                        ,UPreferencias.ObtenerImei(contexto) ),
+                        ,UPreferencias.ObtenerImei(contexto), UGeneral.obtenerTiempoCorto()),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

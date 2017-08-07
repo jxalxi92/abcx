@@ -169,7 +169,7 @@ public class fragmento_consultar_datos extends Fragment {
                String Email=txtEmail.getText().toString();
 
 
-                if (Direccion.equals("") || Referencia.equals("")  || Email.equals("")  )
+                if (Direccion.equals("") || Referencia.equals("")  )
 
                 {
                     Snackbar.make(view, "No deje Campos Vacíos", Snackbar.LENGTH_LONG)
@@ -219,16 +219,20 @@ public class fragmento_consultar_datos extends Fragment {
                             .show();
                  return;
                 }
-                if (txtEmail.getText().toString().matches("[a-zA-Z0-9._-]+@[a-z]+.[a-z]+") && txtEmail.length() > 0)
-                {
-                    OnGuardar(per);
 
-                }
-                else
+                if  (txtEmail.length() > 0)
                 {
-                    Snackbar.make(view, "Email No Válido", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    if (txtEmail.getText().toString().matches("[a-zA-Z0-9._-]+@[a-z]+.[a-z]+"))
+                    {
+                        OnGuardar(per);
+                    }
+                    else
+                    {
+                        Snackbar.make(view, "Email No Válido", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
                 }
+                OnGuardar(per);
             }
         });
         return view;

@@ -72,7 +72,7 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
     private Spinner spn_NroCredito, spn_TipoContacto, spn_Telefono, spn_TipoGestion, spn_Resultado, spn_MtvnoPago,
             spn_ResultadoGestion, spn_EstrategiaGestion;
     private EditText txtTipoCredito, txtValorDeuda, txtDiasAtraso, txtProducto, txtMonto, txtEstado, txtObservacion;
-    private TextView lblFecha;
+    private TextView lblFecha,txtResultaGestion;
     private Gson gson = new Gson();
     private ProgressDialog progressDialog;
     private FloatingActionButton fab_guardar;
@@ -109,6 +109,7 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
         spn_ResultadoGestion = (Spinner) findViewById(R.id.spn_ResultadoGestion);
         spn_EstrategiaGestion = (Spinner) findViewById(R.id.spn_EstrategiaGestion);
         spn_NroCredito = (Spinner) findViewById(R.id.spn_NroCredito);
+        txtResultaGestion=(TextView) findViewById(R.id.txtResultaGestion);
 
 
         txtTipoCredito = (EditText) findViewById(R.id.txtTipoCredito);
@@ -131,7 +132,8 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
         txtValorDeuda.setFocusable(false);
         txtDiasAtraso.setFocusable(false);
 
-
+        txtResultaGestion.setVisibility(View.GONE);
+        spn_ResultadoGestion.setVisibility(View.GONE);
 
 
         lblFecha.setOnClickListener(
@@ -216,7 +218,7 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
 
             }
         });
-        spn_ResultadoGestion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+       /* spn_ResultadoGestion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ResultadoGestionSel = (ResultadoModel) parent.getItemAtPosition(position);
@@ -227,7 +229,7 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });
+        });*/
 
         spn_MtvnoPago.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -1001,7 +1003,7 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
         Reg.CodigoAnalista = DetalleGestionSel.getAnalista();
         Reg.nIdResultado = ResultadoSel.getResCod();
         Reg.Observacion = txtObservacion.getText().toString();
-        Reg.nIdResultadoMK = ResultadoGestionSel.getResCod();
+    /*    Reg.nIdResultadoMK = ResultadoGestionSel.getResCod();*/
         Reg.nIdMotivonoPago = MotivoNoPagoSel.getMotnpCod();
         Reg.nIdestGestion = EstrategiaGestionSel.getEstGesionCod();
         Reg.nIdTipoGestion = TipoGestionSel.getCodigo();

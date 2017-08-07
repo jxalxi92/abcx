@@ -67,7 +67,7 @@ public class ProcLocal {
                     //endregion
 
                     digDto.FteIngreso = new ArrayList<>();
-                    JSONObject UltPersFteIngresoObject = fila.getJSONObject("FteIgreso");
+                     JSONObject UltPersFteIngresoObject = (fila.getJSONArray("FteIgreso")).getJSONObject(0);
 
                     PersFteIngresoDto FIDep = InicializarPersFteIngresoDto();
                     PersFteIngresoDto FIInDep  = InicializarPersFteIngresoDto();

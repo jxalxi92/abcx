@@ -5,10 +5,14 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -32,6 +37,8 @@ import org.json.JSONObject;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,10 +63,12 @@ public class fragmentoListaRecuperaciones extends Fragment {
 
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
-    private CheckBox chck_TipoCredito;
+    private CheckBox chck_TipoCredito,chck_DiasAtraso,chck_SaldoCapital;
     private AdaptadorClienteRecuperaciones adaptador;
     private Spinner spnTipoCredito;
+    private EditText txtDiaIni,txtDiaFin,txtSalIni,txtSalFin;
     private TipoCreditoModel TipoCreditoSel;
+    private View vista;
    public static List<ClienteRecuperacionModel>  ListClientes=new ArrayList<ClienteRecuperacionModel>();
     public fragmentoListaRecuperaciones() {
         // Required empty public constructor
@@ -69,17 +78,26 @@ public class fragmentoListaRecuperaciones extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View vista = inflater.inflate(R.layout.fragmento_lista_recuperaciones, container, false);
+         vista = inflater.inflate(R.layout.fragmento_lista_recuperaciones, container, false);
 
         recyclerView = (RecyclerView) vista.findViewById(R.id.rv_clienteRecuperaciones);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         spnTipoCredito=(Spinner)vista.findViewById(R.id.spnTipoCredito);
         chck_TipoCredito=(CheckBox)vista.findViewById(R.id.chck_TipoCredito);
+        chck_DiasAtraso=(CheckBox) vista.findViewById(R.id.chck_DiasAtraso);
+        chck_SaldoCapital=(CheckBox) vista.findViewById(R.id.chck_SaldoCapital);
+        txtDiaIni=(EditText)vista.findViewById(R.id.txtDiaIni);
+        txtDiaFin=(EditText)vista.findViewById(R.id.txtDiaFin);
+        txtSalIni=(EditText)vista.findViewById(R.id.txtSalIni);
+        txtSalFin=(EditText)vista.findViewById(R.id.txtSalFin);
         spnTipoCredito.setEnabled(false);
+        txtDiaIni.setEnabled(false);
+        txtDiaFin.setEnabled(false);
+        txtSalIni.setEnabled(false);
+        txtSalFin.setEnabled(false);
+
         OnCargarClientes();
-
-
 
         spnTipoCredito.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -125,6 +143,189 @@ public class fragmentoListaRecuperaciones extends Fragment {
                     recyclerView.setAdapter(adaptador);
                     recyclerView.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));
 
+                }
+            }
+        });
+
+        chck_DiasAtraso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(chck_DiasAtraso.isChecked())
+                {
+                    txtDiaIni.setEnabled(true);
+                    txtDiaFin.setEnabled(true);
+
+                    txtDiaIni.addTextChangedListener(new TextWatcher() {
+
+                        public void afterTextChanged(Editable s) {
+
+                            // you can call or do what you want with your EditText here
+                            if (txtDiaFin.getText().length()==0 || txtDiaIni.getText().length()==0)
+                            {
+                                Snackbar.make(vista.findViewById(R.id.Recuperaciones),
+                                        "Ingrese valor",
+                                        Snackbar.LENGTH_LONG).show();
+                            }
+                            else
+                            {
+                                int DiaIn,Diafin;
+                                DiaIn = Integer.parseInt(txtDiaIni.getText().toString());
+                                Diafin=Integer.parseInt(txtDiaFin.getText().toString());
+                                List<ClienteRecuperacionModel> ListaNueva = new ArrayList<ClienteRecuperacionModel>();
+                                for (ClienteRecuperacionModel CliE : ListClientes)
+                                {
+                                    if (CliE.getnDiasAtraso()>=DiaIn && CliE.getnDiasAtraso()<=Diafin ) {
+                                        ListaNueva.add(CliE);
+                                    }
+                                }
+                                adaptador = new AdaptadorClienteRecuperaciones(getActivity(),ListaNueva);
+                                recyclerView.setAdapter(adaptador);
+                                recyclerView.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));
+                            }
+
+                        }
+
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+                    });
+
+                    txtDiaFin.addTextChangedListener(new TextWatcher() {
+
+                        public void afterTextChanged(Editable s) {
+
+
+                            // you can call or do what you want with your EditText here
+                        if (txtDiaIni.getText().length()==0 || txtDiaFin.getText().length()==0)
+                        {
+                            Snackbar.make(vista.findViewById(R.id.Recuperaciones),
+                                    "Ingrese valor",
+                                    Snackbar.LENGTH_LONG).show();
+                        }
+                        else
+                        {
+                            int DiaIn,Diafin;
+                            DiaIn = Integer.parseInt(txtDiaIni.getText().toString());
+                            Diafin=Integer.parseInt(txtDiaFin.getText().toString());
+                            List<ClienteRecuperacionModel> ListaNueva = new ArrayList<ClienteRecuperacionModel>();
+                            for (ClienteRecuperacionModel CliE : ListClientes)
+                            {
+                                if (CliE.getnDiasAtraso()>=DiaIn && CliE.getnDiasAtraso()<=Diafin ) {
+                                    ListaNueva.add(CliE);
+                                }
+                            }
+                            adaptador = new AdaptadorClienteRecuperaciones(getActivity(),ListaNueva);
+                            recyclerView.setAdapter(adaptador);
+                            recyclerView.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));
+                        }
+                        }
+
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+                    });
+                }
+                else
+                {
+                  txtDiaIni.setText("");
+                  txtDiaFin.setText("");
+                  txtDiaIni.setEnabled(false);
+                  txtDiaFin.setEnabled(false);
+                  adaptador = new AdaptadorClienteRecuperaciones(getActivity(), ListClientes);
+                  recyclerView.setAdapter(adaptador);
+                  recyclerView.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));
+                }
+            }
+        });
+
+        chck_SaldoCapital.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(chck_SaldoCapital.isChecked())
+                {
+                    txtSalIni.setEnabled(true);
+                    txtSalFin.setEnabled(true);
+
+                    txtSalIni.addTextChangedListener(new TextWatcher() {
+
+                        public void afterTextChanged(Editable s) {
+
+                            // you can call or do what you want with your EditText here
+                            if (txtSalIni.getText().length()==0 || txtSalFin.getText().length()==0)
+                            {
+                                Snackbar.make(vista.findViewById(R.id.Recuperaciones),
+                                        "Ingrese valor",
+                                        Snackbar.LENGTH_LONG).show();
+                            }
+                            else
+                            {
+                                int SalIn,Salfin;
+                                SalIn = Integer.parseInt(txtSalIni.getText().toString());
+                                Salfin=Integer.parseInt(txtSalFin.getText().toString());
+                                List<ClienteRecuperacionModel> ListaNueva = new ArrayList<ClienteRecuperacionModel>();
+                                for (ClienteRecuperacionModel CliE : ListClientes)
+                                {
+                                    if (CliE.getNcapital()>=SalIn && CliE.getNcapital()<=Salfin ) {
+                                        ListaNueva.add(CliE);
+                                    }
+                                }
+                                adaptador = new AdaptadorClienteRecuperaciones(getActivity(),ListaNueva);
+                                recyclerView.setAdapter(adaptador);
+                                recyclerView.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));
+                            }
+
+                        }
+
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+                    });
+
+                    txtSalFin.addTextChangedListener(new TextWatcher() {
+
+                        public void afterTextChanged(Editable s) {
+
+
+                            // you can call or do what you want with your EditText here
+                            if (txtSalIni.getText().length()==0 || txtSalFin.getText().length()==0)
+                            {
+                                Snackbar.make(vista.findViewById(R.id.Recuperaciones),
+                                        "Ingrese valor",
+                                        Snackbar.LENGTH_LONG).show();
+                            }
+                            else
+                            {
+                                int SalIn,Salfin;
+                                SalIn = Integer.parseInt(txtSalIni.getText().toString());
+                                Salfin=Integer.parseInt(txtSalFin.getText().toString());
+                                List<ClienteRecuperacionModel> ListaNueva = new ArrayList<ClienteRecuperacionModel>();
+                                for (ClienteRecuperacionModel CliE : ListClientes)
+                                {
+                                    if (CliE.getNcapital()>=SalIn && CliE.getNcapital()<=Salfin ) {
+                                        ListaNueva.add(CliE);
+                                    }
+                                }
+                                adaptador = new AdaptadorClienteRecuperaciones(getActivity(),ListaNueva);
+                                recyclerView.setAdapter(adaptador);
+                                recyclerView.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));
+                            }
+                        }
+
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+                    });
+
+                }
+                else
+                {
+                    txtSalIni.setText("");
+                    txtSalFin.setText("");
+                    txtSalIni.setEnabled(false);
+                    txtSalFin.setEnabled(false);
+                    adaptador = new AdaptadorClienteRecuperaciones(getActivity(), ListClientes);
+                    recyclerView.setAdapter(adaptador);
+                    recyclerView.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));
                 }
             }
         });

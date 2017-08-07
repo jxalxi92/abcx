@@ -1,17 +1,21 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Recuperaciones"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pe.com.cmacica.flujocredito.ViewModel.Recuperaciones.fragmentoListaRecuperaciones"
-    >
+    tools:context="pe.com.cmacica.flujocredito.ViewModel.Recuperaciones.fragmentoListaRecuperaciones">
+
     <TextView
         android:id="@+id/textView32"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tipo Crédito"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="5dp"/>
+        android:text="Filtros"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.028"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteY="7dp" />
 
 
     <!-- TODO: Update blank fragment layout -->
@@ -20,8 +24,7 @@
         android:id="@+id/gridLayout"
         android:layout_width="344dp"
         android:layout_height="0dp"
-        android:layout_marginTop="-6dp"
-        android:columnCount="2"
+        android:columnCount="3"
         android:rowCount="1"
         app:layout_constraintTop_toBottomOf="@+id/textView32"
         tools:layout_editor_absoluteX="8dp">
@@ -34,30 +37,213 @@
             android:layout_marginTop="5dp"
             android:layout_row="0" />
 
-        <Spinner
-            android:id="@+id/spnTipoCredito"
-            android:layout_width="266dp"
+        <TextView
+            android:id="@+id/textView49"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
-
-            android:layout_marginTop="6dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
             android:layout_row="0"
+            android:text="Tipo Crédito:"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/gridLayout"
+            tools:layout_editor_absoluteX="16dp" />
 
-
-            />
-
+        <Spinner
+            android:id="@+id/spnTipoCredito"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_marginTop="6dp"
+            android:layout_row="0" />
     </GridLayout>
+
+    <GridLayout
+        android:id="@+id/gridLayout1"
+        android:layout_width="344dp"
+        android:layout_height="0dp"
+
+        android:columnCount="6"
+        android:rowCount="1"
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout"
+        tools:layout_editor_absoluteX="8dp">
+
+        <CheckBox
+            android:id="@+id/chck_DiasAtraso"
+            android:layout_width="27dp"
+            android:layout_height="19dp"
+            android:layout_column="0"
+            android:layout_marginTop="3dp"
+            android:layout_row="0" />
+
+        <TextView
+            android:id="@+id/textView50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_row="0"
+            android:text="Días de Atraso:"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/gridLayout"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <TextView
+            android:id="@+id/textView47"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="3dp"
+            android:layout_row="0"
+            android:text="Desde"
+            app:layout_constraintTop_toBottomOf="@+id/gridLayout"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <EditText
+            android:id="@+id/txtDiaIni"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="3"
+            android:layout_marginLeft="5dp"
+            android:layout_row="0"
+            android:ems="3"
+            android:inputType="number"
+            android:maxLength="3"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView48"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="4"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="3dp"
+            android:layout_row="0"
+            android:text="Hasta"
+            app:layout_constraintTop_toBottomOf="@+id/gridLayout"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <EditText
+            android:id="@+id/txtDiaFin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="5"
+            android:layout_marginLeft="5dp"
+            android:layout_row="0"
+            android:ems="3"
+            android:inputType="number"
+            android:maxLength="3"
+            android:textSize="14sp" />
+    </GridLayout>
+
+    <View
+        android:id="@+id/view7"
+        android:layout_width="375dp"
+        android:layout_height="2dp"
+        android:layout_below="@+id/lblTituloFteIgr"
+        android:layout_marginTop="18dp"
+        android:background="@color/ColorSentinel"
+        app:layout_constraintLeft_toLeftOf="parent"
+
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout2"
+        tools:layout_editor_absoluteX="50dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_clienteRecuperaciones"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayout"
-        app:layout_constraintVertical_bias="0.125" />
+        app:layout_constraintTop_toBottomOf="@+id/view7"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <GridLayout
+        android:id="@+id/gridLayout2"
+        android:layout_width="344dp"
+        android:layout_height="0dp"
+
+        android:layout_marginTop="0dp"
+        android:columnCount="6"
+        android:rowCount="1"
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout1"
+        tools:layout_editor_absoluteX="8dp">
+
+        <CheckBox
+            android:id="@+id/chck_SaldoCapital"
+            android:layout_width="27dp"
+            android:layout_height="19dp"
+            android:layout_column="0"
+            android:layout_marginTop="3dp"
+            android:layout_row="0" />
+
+        <TextView
+            android:id="@+id/textView51"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_row="0"
+            android:text="Saldo Capital:"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/gridLayout"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <TextView
+            android:id="@+id/textView52"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="3dp"
+            android:layout_row="0"
+            android:text="Desde"
+            app:layout_constraintTop_toBottomOf="@+id/gridLayout"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <EditText
+            android:id="@+id/txtSalIni"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_column="3"
+            android:layout_marginLeft="5dp"
+            android:layout_row="0"
+            android:ems="3"
+            android:inputType="number"
+            android:maxLength="7"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView53"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="4"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="3dp"
+            android:layout_row="0"
+            android:text="Hasta"
+            app:layout_constraintTop_toBottomOf="@+id/gridLayout"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <EditText
+            android:id="@+id/txtSalFin"
+            android:layout_width="62dp"
+            android:layout_height="wrap_content"
+            android:layout_column="5"
+            android:layout_marginLeft="5dp"
+            android:layout_row="0"
+            android:ems="3"
+            android:inputType="number"
+            android:maxLength="7"
+            android:textSize="14sp" />
+    </GridLayout>
+
 
 </android.support.constraint.ConstraintLayout>
