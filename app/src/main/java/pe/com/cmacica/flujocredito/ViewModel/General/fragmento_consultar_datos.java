@@ -230,9 +230,14 @@ public class fragmento_consultar_datos extends Fragment {
                     {
                         Snackbar.make(view, "Email No Válido", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
+                        return;
                     }
                 }
-                OnGuardar(per);
+                else
+                {
+                    OnGuardar(per);
+                }
+
             }
         });
         return view;
@@ -525,7 +530,8 @@ public class fragmento_consultar_datos extends Fragment {
     }
 
     private void OnGuardar(PersonaModel Per){
-
+        progressDialog = ProgressDialog.show(getActivity(),"Espere por favor","Cargando Datos");
+        fabGuardar.setEnabled(false);
        Gson gsonpojo = new GsonBuilder().create();
         Per.direccion=txtDirecion.getText().toString().toUpperCase();
         Per.referencia=txtReferencia.getText().toString().toUpperCase();
@@ -552,6 +558,7 @@ public class fragmento_consultar_datos extends Fragment {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        progressDialog.cancel();
                         ProcesarGuardar(response);
                     }
                 },

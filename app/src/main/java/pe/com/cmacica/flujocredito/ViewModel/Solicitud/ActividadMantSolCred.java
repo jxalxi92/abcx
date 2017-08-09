@@ -317,6 +317,7 @@ public  class ActividadMantSolCred extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 ProductoSel = (ProductoModel) parent.getItemAtPosition(position);
+                spnAgropecuario.setAdapter(null);
                 switch (ProductoSel.getcCredProductos().substring(0,3)) {
                     case "301": //CrediSueldo
                         CarViewInstitucion.setVisibility(View.VISIBLE);
@@ -342,7 +343,8 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                         spnProyInmobilirio.setVisibility(View.GONE);
                         spnProyecto.setVisibility(View.GONE);
                         lblProyecto.setVisibility(View.GONE);
-                        chckAgropecuario.setChecked(false);
+                        chckAgropecuario.setChecked(true);
+                        chckAgropecuario.setEnabled(false);
                         OnCargarAgropecuario();
                         chckAgropecuario.setVisibility(View.VISIBLE);
                         spnAgropecuario.setVisibility(View.VISIBLE);
