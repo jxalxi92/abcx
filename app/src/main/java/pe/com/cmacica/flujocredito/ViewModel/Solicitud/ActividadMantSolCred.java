@@ -934,6 +934,7 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         }
     }
+
     private void GuardarSolicitud(){
 
         Gson gsonpojo = new GsonBuilder().create();
@@ -1042,6 +1043,7 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                 }
                 , cabeceras);
     }
+
     private void ProcesarGuardar(JSONObject response){
 
         try {
@@ -1099,8 +1101,8 @@ public  class ActividadMantSolCred extends AppCompatActivity {
         }
     }
 
-    private void OnCargarEstadosSolicitud()
-    {
+    private void OnCargarEstadosSolicitud()  {
+
         try {
 
             String Url =String.format(SrvCmacIca.GET_ESTADOS_SOLICITUD);
@@ -1134,8 +1136,8 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         }
     }
-    private void ProcesarEstadosSolicitud(JSONObject response)
-    {
+    private void ProcesarEstadosSolicitud(JSONObject response) {
+
         try {
             JSONArray ListaEstadosSolicitud = response.getJSONArray("Data");
             ConstanteModel[] ArrayEstadosSolicitud = gson.fromJson(ListaEstadosSolicitud.toString(), ConstanteModel[].class);
@@ -1164,6 +1166,7 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         }
     }
+
     //region Procesos
     private void OnCagarProceso(){
         try {

@@ -36,7 +36,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 
 import pe.com.cmacica.flujocredito.AgenteServicio.RESTService;
@@ -54,6 +57,9 @@ import pe.com.cmacica.flujocredito.R;
 import pe.com.cmacica.flujocredito.Utilitarios.Dialogos.DateDialog;
 import pe.com.cmacica.flujocredito.Utilitarios.UGeneral;
 import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
+
+import static pe.com.cmacica.flujocredito.Utilitarios.UGeneral.ConvertStringToDate;
+import static pe.com.cmacica.flujocredito.Utilitarios.UGeneral.DaysEntreFechas;
 
 
 public class ActividadGestionCobranza extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
@@ -928,7 +934,7 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
                     new AlertDialog.Builder(this)
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setTitle("Aviso")
-                            .setMessage("El cliente no cuenta con Creditos de 1 a 30 Días")
+                            .setMessage("El cliente no tiene crédito(s) con 1 a 30 días de atraso")
                             .setOnDismissListener(new DialogInterface.OnDismissListener() {
                                 @Override
                                 public void onDismiss(DialogInterface arg0) {
@@ -998,6 +1004,47 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
         Reg.nMontoCuota = DetalleGestionSel.getValorCuota();
         Reg.DiasAtraso = DetalleGestionSel.getDiasAtraso();
         Reg.nMontoPactado = Double.parseDouble(txtMonto.getText().toString());
+        Reg.dFecCompromiso = lblFecha.getText().toString();
+
+        if (lblFecha.getText().length()>0)
+        {
+            /*Date FechaInicio = ConvertStringToDate(lblFecha.getText().toString());
+            Date FechaFin = ConvertStringToDate(UGeneral.obtenerTiempoCorto());*/
+            SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd");
+
+            Date FechaSeleccionada ;
+            Date FechaActual ;
+            Boolean TodoOk=false;
+            try {
+                FechaSeleccionada = sdf.parse(lblFecha.getText().toString());
+                FechaActual=sdf.parse(UGeneral.obtenerTiempoCorto());
+                if (FechaSeleccionada.before(FechaActual))
+                {
+                    TodoOk=false;
+                }
+                else
+                {
+                    if(FechaSeleccionada.after(FechaActual))
+                    {
+                       TodoOk=true;
+                    }
+                    else
+                    {
+                        TodoOk=false;
+                    }
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if (TodoOk==false)
+            {
+                Snackbar.make(findViewById(R.id.actividadGestionCobranza),
+                        "Fecha de promesa debe ser mayor que la fecha actual",
+                        Snackbar.LENGTH_LONG).show();
+                return;
+            }
+
+        }
         Reg.dFecCompromiso = lblFecha.getText().toString();
         Reg.Usuario = UPreferencias.ObtenerUserLogeo(this);
         Reg.CodigoAnalista = DetalleGestionSel.getAnalista();

@@ -27,10 +27,10 @@
             android:id="@+id/nav_RegistroPersona"
             android:icon="@drawable/ic_file_document"
             android:title="@string/item_RegistroPersona" />
-<!-- <item
+        <item
             android:id="@+id/nav_Recuperaciones"
             android:icon="@drawable/ic_file_document"
-            android:title="@string/item_Recuperaciones" />-->
+            android:title="@string/item_Recuperaciones" />
 
         <item
             android:id="@+id/itemFigitacion"

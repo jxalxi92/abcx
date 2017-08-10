@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -68,6 +69,7 @@ public class fragmentoListaRecuperaciones extends Fragment {
     private Spinner spnTipoCredito;
     private EditText txtDiaIni,txtDiaFin,txtSalIni,txtSalFin;
     private TipoCreditoModel TipoCreditoSel;
+    private Button btn_programar;
     private View vista;
    public static List<ClienteRecuperacionModel>  ListClientes=new ArrayList<ClienteRecuperacionModel>();
     public fragmentoListaRecuperaciones() {
@@ -91,6 +93,7 @@ public class fragmentoListaRecuperaciones extends Fragment {
         txtDiaFin=(EditText)vista.findViewById(R.id.txtDiaFin);
         txtSalIni=(EditText)vista.findViewById(R.id.txtSalIni);
         txtSalFin=(EditText)vista.findViewById(R.id.txtSalFin);
+        btn_programar=(Button)vista.findViewById(R.id.btn_programar);
         spnTipoCredito.setEnabled(false);
         txtDiaIni.setEnabled(false);
         txtDiaFin.setEnabled(false);
@@ -327,6 +330,24 @@ public class fragmentoListaRecuperaciones extends Fragment {
                     recyclerView.setAdapter(adaptador);
                     recyclerView.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));
                 }
+            }
+        });
+
+        btn_programar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+             int Contador=0;
+             for (int i=0;i<ListClientes.size();i++)
+             {
+                if (ListClientes.get(i).isSeleccionado()==true)
+                {
+                    Contador++;
+                }
+             }
+              if (Contador<0)
+              {
+
+              }
             }
         });
         return vista;
