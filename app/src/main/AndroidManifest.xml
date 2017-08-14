@@ -143,6 +143,10 @@
         <activity
             android:name=".ViewModel.GeoReferenciacion.MostrarLatitudLongitud"
             android:label="@string/title_activity_mostrar_latitud_longitud"
+            android:theme="@style/Theme.FlujoCredito" />
+        <activity
+            android:name=".ViewModel.Recuperaciones.ActividadProgramacionRecuperaciones"
+            android:label="@string/title_activity_actividad_programacion_recuperaciones"
             android:theme="@style/Theme.FlujoCredito"></activity>
     </application>
 

@@ -1,7 +1,9 @@
 package pe.com.cmacica.flujocredito.ViewModel.Recuperaciones;
 
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -52,6 +54,7 @@ import pe.com.cmacica.flujocredito.R;
 import pe.com.cmacica.flujocredito.Repositorio.Adaptadores.Recuperaciones.AdaptadorClienteRecuperaciones;
 import pe.com.cmacica.flujocredito.Utilitarios.DecoracionLineaDivisoria;
 import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
+import pe.com.cmacica.flujocredito.ViewModel.Cobranza.ActividadGestionCobranza;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,6 +74,7 @@ public class fragmentoListaRecuperaciones extends Fragment {
     private TipoCreditoModel TipoCreditoSel;
     private Button btn_programar;
     private View vista;
+    public Context contexto;
    public static List<ClienteRecuperacionModel>  ListClientes=new ArrayList<ClienteRecuperacionModel>();
     public fragmentoListaRecuperaciones() {
         // Required empty public constructor
@@ -337,16 +341,41 @@ public class fragmentoListaRecuperaciones extends Fragment {
             @Override
             public void onClick(View view) {
              int Contador=0;
-             for (int i=0;i<ListClientes.size();i++)
+                List<ClienteRecuperacionModel>ListaProgramados=new ArrayList<ClienteRecuperacionModel>();
+             for (ClienteRecuperacionModel CliE : ListClientes)
              {
-                if (ListClientes.get(i).isSeleccionado()==true)
+                if (CliE.isSeleccionado()==true)
                 {
                     Contador++;
+                    ListaProgramados.add(CliE);
                 }
              }
-              if (Contador<0)
+              if (Contador > 0)
               {
+                  ActividadProgramacionRecuperaciones.createInstance(
+                         getActivity()
+                          ,ListaProgramados
+                         );
+              }
+              else
+              {
+                  new AlertDialog.Builder(getActivity())
+                          .setIcon(android.R.drawable.ic_dialog_alert)
+                          .setTitle("Aviso")
+                          .setMessage("No tiene Clientes asignados para realizar la programación")
+                          .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                              @Override
+                              public void onDismiss(DialogInterface arg0) {
+                                  //ActividadLogin.this.finish();
+                              }})
 
+                          .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
+                              @Override
+                              public void onClick(DialogInterface dialog, int which){
+
+                              }
+                          })
+                          .show();
               }
             }
         });

@@ -58,8 +58,6 @@ import pe.com.cmacica.flujocredito.Utilitarios.Dialogos.DateDialog;
 import pe.com.cmacica.flujocredito.Utilitarios.UGeneral;
 import pe.com.cmacica.flujocredito.Utilitarios.UPreferencias;
 
-import static pe.com.cmacica.flujocredito.Utilitarios.UGeneral.ConvertStringToDate;
-import static pe.com.cmacica.flujocredito.Utilitarios.UGeneral.DaysEntreFechas;
 
 
 public class ActividadGestionCobranza extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {

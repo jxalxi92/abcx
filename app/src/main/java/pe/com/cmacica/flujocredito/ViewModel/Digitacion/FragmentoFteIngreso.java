@@ -78,7 +78,6 @@ public class FragmentoFteIngreso extends Fragment implements LoaderManager.Loade
                 }
                 pestanas.setupWithViewPager(viewPager);
             //}
-
         }
 
         return view;
