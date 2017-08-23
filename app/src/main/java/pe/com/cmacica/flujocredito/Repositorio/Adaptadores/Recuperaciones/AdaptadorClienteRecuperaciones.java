@@ -77,15 +77,28 @@ public class AdaptadorClienteRecuperaciones extends RecyclerView.Adapter<Adaptad
         holder.chck_Seleccionado.setChecked(ListaClienteRecuperaciones.get(position).isSeleccionado());
 
         holder.chck_Seleccionado.setOnCheckedChangeListener((buttonView, isChecked) -> {
-
-          fragmentoListaRecuperaciones frag=new fragmentoListaRecuperaciones();
-            for (ClienteRecuperacionModel CliE : frag.ListClientes)
-            {
-                if(CliE.getDocumento()==ListaClienteRecuperaciones.get(position).getDocumento())
-                {
-                    CliE.setSeleccionado(isChecked);
-                }
-            }
+if (holder.chck_Seleccionado.isChecked())
+{
+    fragmentoListaRecuperaciones frag=new fragmentoListaRecuperaciones();
+    for (ClienteRecuperacionModel CliE : frag.ListClientes)
+    {
+        if(CliE.getDocumento()==ListaClienteRecuperaciones.get(position).getDocumento())
+        {
+            CliE.setSeleccionado(true);
+        }
+    }
+}
+else
+{
+    fragmentoListaRecuperaciones frag=new fragmentoListaRecuperaciones();
+    for (ClienteRecuperacionModel CliE : frag.ListClientes)
+    {
+        if(CliE.getDocumento()==ListaClienteRecuperaciones.get(position).getDocumento())
+        {
+            CliE.setSeleccionado(false);
+        }
+    }
+}
 
         });
 

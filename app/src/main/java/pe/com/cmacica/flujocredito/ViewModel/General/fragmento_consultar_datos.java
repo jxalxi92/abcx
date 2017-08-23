@@ -530,7 +530,7 @@ public class fragmento_consultar_datos extends Fragment {
     }
 
     private void OnGuardar(PersonaModel Per){
-        progressDialog = ProgressDialog.show(getActivity(),"Espere por favor","Cargando Datos");
+        progressDialog = ProgressDialog.show(getActivity(),"Espere por favor","Guardando Datos");
         fabGuardar.setEnabled(false);
        Gson gsonpojo = new GsonBuilder().create();
         Per.direccion=txtDirecion.getText().toString().toUpperCase();

@@ -73,7 +73,7 @@ public class SrvCmacIca {
     public static final String GET_PROYECTOS_INMOBILIARIOS=HOST_WEBAPI+"Solicitud/ListarProyectosInmobiliarios?cCodAgencia=%s&cCodProducto=%s";
     public static final String GET_INTS_CONVENIO=HOST_WEBAPI+"Solicitud/ListaIntsConvenio?nPerstipo=%s&nTipoSector=%s";
     public static final String GET_VERIF_EVA_MEN=HOST_WEBAPI+"Solicitud/ReclasificarEval?pnTipoCred=%s&pCodigoPersona=%s&nTipoPersona=%s&nMonto=%s&pbLineaCredito=%s&bFlag=%s";
-    public static final String GET_DATO_CLIENTE_SOL=HOST_WEBAPI+"Solicitud/SelDatoClienteSolCred?cDoiCliente=%s&cUserOpe=%s&cAgeOpe=%s";
+    public static final String GET_DATO_CLIENTE_SOL=HOST_WEBAPI+"Solicitud/SelDatoClienteSolCred?cDoiCliente=%s&cUserOpe=%s&cAgeOpe=%s&cImei=%s";
     public static final String GET_SEL_CONDICION_SOL=HOST_WEBAPI+"Solicitud/SelCondicionSolicitud?cCodCliente=%s";
     public static final String POST_INGRESO_VENTAS=HOST_WEBAPI+"Solicitud/InsEndeuPersonaSol";
     public static final String POST_REGISTRO_SOLICITUD=HOST_WEBAPI+"Solicitud/EjecutarSolicitudCreditoMovil";
@@ -107,6 +107,8 @@ public class SrvCmacIca {
     public static final String GET_CLIENTES_COBRANZA=HOST_WEBAPI+"Cobranza/ListarClientesCobranza?Codigoanalista=%s";
 
     public static final String GET_CLIENTES_RECUPERACIONES=HOST_WEBAPI+"Cobranza/ListarClientesRecuperaciones?Codigoanalista=%s";
+
+    public static final String POST_REGISTRO_PROGRAMACION=HOST_WEBAPI+"Cobranza/RegistroProgramacion";
 
     //endregion---------------------------------------------------------------------------------------------------------
 }

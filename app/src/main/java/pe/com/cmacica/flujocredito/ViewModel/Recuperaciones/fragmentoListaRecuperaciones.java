@@ -16,6 +16,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +77,7 @@ public class fragmentoListaRecuperaciones extends Fragment {
     private View vista;
     public Context contexto;
    public static List<ClienteRecuperacionModel>  ListClientes=new ArrayList<ClienteRecuperacionModel>();
+
     public fragmentoListaRecuperaciones() {
         // Required empty public constructor
     }
@@ -337,47 +339,44 @@ public class fragmentoListaRecuperaciones extends Fragment {
             }
         });
 
-        btn_programar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-             int Contador=0;
-                List<ClienteRecuperacionModel>ListaProgramados=new ArrayList<ClienteRecuperacionModel>();
-             for (ClienteRecuperacionModel CliE : ListClientes)
-             {
-                if (CliE.isSeleccionado()==true)
-                {
-                    Contador++;
-                    ListaProgramados.add(CliE);
-                }
-             }
-              if (Contador > 0)
-              {
-                  ActividadProgramacionRecuperaciones.createInstance(
-                         getActivity()
-                          ,ListaProgramados
-                         );
-              }
-              else
-              {
-                  new AlertDialog.Builder(getActivity())
-                          .setIcon(android.R.drawable.ic_dialog_alert)
-                          .setTitle("Aviso")
-                          .setMessage("No tiene Clientes asignados para realizar la programación")
-                          .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                              @Override
-                              public void onDismiss(DialogInterface arg0) {
-                                  //ActividadLogin.this.finish();
-                              }})
+        btn_programar.setOnClickListener(view -> {
+         int Contador=0;
+            List<ClienteRecuperacionModel>ListaProgramados=new ArrayList<ClienteRecuperacionModel>();
+         for (ClienteRecuperacionModel CliE : ListClientes)
+         {
+            if (CliE.isSeleccionado()==true)
+            {
 
-                          .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
-                              @Override
-                              public void onClick(DialogInterface dialog, int which){
-
-                              }
-                          })
-                          .show();
-              }
+                ListaProgramados.add(CliE);
             }
+         }
+          if (ListaProgramados.size() > 0)
+          {
+              ActividadProgramacionRecuperaciones.createInstance(
+                     getActivity()
+                      ,ListaProgramados
+                     );
+          }
+          else
+          {
+              new AlertDialog.Builder(getActivity())
+                      .setIcon(android.R.drawable.ic_dialog_alert)
+                      .setTitle("Aviso")
+                      .setMessage("No tiene Clientes asignados para realizar la programación")
+                      .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                          @Override
+                          public void onDismiss(DialogInterface arg0) {
+                              //ActividadLogin.this.finish();
+                          }})
+
+                      .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
+                          @Override
+                          public void onClick(DialogInterface dialog, int which){
+
+                          }
+                      })
+                      .show();
+          }
         });
         return vista;
 
@@ -523,4 +522,6 @@ public class fragmentoListaRecuperaciones extends Fragment {
                     Toast.LENGTH_LONG).show();
         }
     }
+
+
 }

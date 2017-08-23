@@ -2060,7 +2060,8 @@ public  class ActividadMantSolCred extends AppCompatActivity {
                     SrvCmacIca.GET_DATO_CLIENTE_SOL,
                     Dni,
                     UPreferencias.ObtenerUserLogeo(this),
-                    UPreferencias.ObtenerCodAgencia(this));
+                    UPreferencias.ObtenerCodAgencia(this),
+                    UPreferencias.ObtenerImei(this));
             VolleySingleton.
                     getInstance(this).
                     addToRequestQueue(

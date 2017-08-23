@@ -269,21 +269,60 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
                         Monto =Double.parseDouble(txtMonto.getText().toString());
                         if(ResultadoSel.getResCod()==57)
                         {
-                            if (Monto>0){
+                            if (Monto==0){
 
-                                OnGuardarGestion();
-                            }
-                            else
-                            {
                                 Snackbar.make(findViewById(R.id.actividadGestionCobranza),
                                         "Ingrese Monto",
                                         Snackbar.LENGTH_LONG).show();
+                                return;
                             }
+
+                            SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd");
+
+                            Date FechaSeleccionada ;
+                            Date FechaActual ;
+                            Boolean TodoOk=false;
+                            try {
+                                FechaSeleccionada = sdf.parse(lblFecha.getText().toString());
+                                FechaActual=sdf.parse(UGeneral.obtenerTiempoCorto());
+                                if (FechaSeleccionada.before(FechaActual))
+                                {
+                                    TodoOk=false;
+                                }
+                                else
+                                {
+                                    if(FechaSeleccionada.after(FechaActual))
+                                    {
+                                        TodoOk=true;
+                                    }
+                                    else
+                                    {
+                                        //cuando es la misma fecha
+                                        TodoOk=true;
+                                    }
+
+                                }
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            if (TodoOk==false)
+                            {
+                                Snackbar.make(findViewById(R.id.actividadGestionCobranza),
+                                        "Fecha de promesa debe ser mayor que la fecha actual",
+                                        Snackbar.LENGTH_LONG).show();
+                                return;
+                            }
+                            else
+                            {
+                                OnGuardarGestion();
+                            }
+
                         }
                         else
                         {
                             OnGuardarGestion();
                         }
+
                     }
                 }
         );
@@ -994,55 +1033,15 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
 
     private void OnGuardarGestion() {
 
+        progressDialog = ProgressDialog.show(this,"Espere por favor","Guardando Datos");
+        fab_guardar.setEnabled(false);
         Gson gsonpojo = new GsonBuilder().create();
-
         Reg.CodigoCuenta = DetalleGestionSel.getNroCredito();
         Reg.nIdBase = DetalleGestionSel.getnIdBase();
         Reg.CodigoPersona=CodCliente;
         Reg.nMontoCuota = DetalleGestionSel.getValorCuota();
         Reg.DiasAtraso = DetalleGestionSel.getDiasAtraso();
         Reg.nMontoPactado = Double.parseDouble(txtMonto.getText().toString());
-        Reg.dFecCompromiso = lblFecha.getText().toString();
-
-        if (lblFecha.getText().length()>0)
-        {
-            /*Date FechaInicio = ConvertStringToDate(lblFecha.getText().toString());
-            Date FechaFin = ConvertStringToDate(UGeneral.obtenerTiempoCorto());*/
-            SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd");
-
-            Date FechaSeleccionada ;
-            Date FechaActual ;
-            Boolean TodoOk=false;
-            try {
-                FechaSeleccionada = sdf.parse(lblFecha.getText().toString());
-                FechaActual=sdf.parse(UGeneral.obtenerTiempoCorto());
-                if (FechaSeleccionada.before(FechaActual))
-                {
-                    TodoOk=false;
-                }
-                else
-                {
-                    if(FechaSeleccionada.after(FechaActual))
-                    {
-                       TodoOk=true;
-                    }
-                    else
-                    {
-                        TodoOk=false;
-                    }
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            if (TodoOk==false)
-            {
-                Snackbar.make(findViewById(R.id.actividadGestionCobranza),
-                        "Fecha de promesa debe ser mayor que la fecha actual",
-                        Snackbar.LENGTH_LONG).show();
-                return;
-            }
-
-        }
         Reg.dFecCompromiso = lblFecha.getText().toString();
         Reg.Usuario = UPreferencias.ObtenerUserLogeo(this);
         Reg.CodigoAnalista = DetalleGestionSel.getAnalista();
@@ -1060,6 +1059,7 @@ public class ActividadGestionCobranza extends AppCompatActivity implements DateP
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        progressDialog.cancel();
                         ProcesarGuardar(response);
 
                     }
