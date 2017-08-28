@@ -10,6 +10,8 @@
     <string name="item_FteIngresoDep">Fte. Ingreso</string>
     <string name="item_RegistroPersona">Registro Persona</string>
     <string name="item_Recuperaciones">Recuperaciones</string>
+    <string name="item_Programacion">Programación</string>
+    <string name="item_Seguimiento">Seguimiento</string>
     <string name="item_Configuracion">Configuración</string>
     <string name="item_Ajustes">Ajustes</string>
     <string name="log_out_item">Cerrar Sesión</string>

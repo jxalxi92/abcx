@@ -8,7 +8,7 @@ public class ClienteRecuperacionModel {
 
 
     public ClienteRecuperacionModel(String codigo, String documento, String nombres, String direccion
-            , int Ntipocredito, int NdiasAtraso,double nCapital,String cCodcred ,boolean seleccionado,String posicion,String fecha) {
+            , int Ntipocredito, int NdiasAtraso,double nCapital,String cCodcred ,String fecha,String posicion,boolean seleccionado) {
         Codigo = codigo;
         Documento = documento;
         Nombres = nombres;
@@ -17,8 +17,8 @@ public class ClienteRecuperacionModel {
         ntipocredito=Ntipocredito;
         nDiasAtraso=NdiasAtraso;
         ncapital=nCapital;
-        Posicion=posicion;
-        Fecha=fecha;
+        nOrdenVisita=posicion;
+        dFechaVisita=fecha;
         ccodcred=cCodcred;
     }
 
@@ -51,18 +51,18 @@ public class ClienteRecuperacionModel {
     }
 
     public String getPosicion() {
-        return Posicion;
+        return nOrdenVisita;
     }
 
     public void setPosicion(String posicion) {
-        Posicion = posicion;
+        nOrdenVisita = posicion;
     }
     public String getFechaRec() {
-        return Fecha;
+        return dFechaVisita;
     }
 
     public void setFechaRec(String fecha) {
-        Fecha = fecha;
+        dFechaVisita = fecha;
     }
 
     public String getcCodcred() {
@@ -77,9 +77,9 @@ public class ClienteRecuperacionModel {
     private int ntipocredito;
     private int nDiasAtraso;
     private double ncapital;
-    private String Posicion;
+    private String nOrdenVisita;
     private String ccodcred;
-    private String Fecha;
+    private String dFechaVisita;
 
 
 }

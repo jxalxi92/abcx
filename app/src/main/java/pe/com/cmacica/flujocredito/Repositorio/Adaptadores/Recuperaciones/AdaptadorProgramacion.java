@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.TextView;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import pe.com.cmacica.flujocredito.Base.ItemClickListener;
@@ -19,7 +18,6 @@ import pe.com.cmacica.flujocredito.Model.Recuperaciones.ClienteRecuperacionModel
 import pe.com.cmacica.flujocredito.R;
 import pe.com.cmacica.flujocredito.Utilitarios.UGeneral;
 import pe.com.cmacica.flujocredito.ViewModel.Recuperaciones.ActividadProgramacionRecuperaciones;
-
 
 /**
  * Created by faqf on 11/08/2017.
@@ -32,7 +30,7 @@ public class AdaptadorProgramacion extends RecyclerView.Adapter<AdaptadorProgram
     public Context contexto;
     int Contador=0;
     String date;
-    List<ClienteRecuperacionModel>ListaProgramados=new ArrayList<ClienteRecuperacionModel>();
+
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private AdaptadorProgramacion.ViewHolder HolderFecha;
 
@@ -93,7 +91,7 @@ public class AdaptadorProgramacion extends RecyclerView.Adapter<AdaptadorProgram
         holder.lblFecha.setText(UGeneral.obtenerTiempoCorto());
         holder.chck_Seleccionado.setChecked(ListaClienteRecuperaciones.get(position).isSeleccionado());
 
-        if (ListaClienteRecuperaciones.get(position).getPosicion()!=null)
+        if (ListaClienteRecuperaciones.get(position).getPosicion()!="0")
         {
             holder.lblFecha.setText(ListaClienteRecuperaciones.get(position).getFechaRec());
             holder.lblNumero.setText(String.valueOf("Orden de Visita: "+ListaClienteRecuperaciones.get(position).getPosicion()));
@@ -103,7 +101,7 @@ public class AdaptadorProgramacion extends RecyclerView.Adapter<AdaptadorProgram
         holder.chck_Seleccionado.setOnCheckedChangeListener((buttonView, isChecked) -> {
          if (holder.chck_Seleccionado.isChecked())
          {
-              Contador++;
+             Contador++;
              holder.lblNumero.setText(String.valueOf("Orden de Visita: "+Contador));
              ActividadProgramacionRecuperaciones Act=new ActividadProgramacionRecuperaciones();
              for (ClienteRecuperacionModel CliE : Act.ListaProgramados)
@@ -115,7 +113,6 @@ public class AdaptadorProgramacion extends RecyclerView.Adapter<AdaptadorProgram
                      CliE.setSeleccionado(true);
                  }
              }
-
          }
          else
          {

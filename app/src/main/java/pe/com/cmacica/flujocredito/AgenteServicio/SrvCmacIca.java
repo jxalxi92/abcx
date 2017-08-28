@@ -110,6 +110,8 @@ public class SrvCmacIca {
 
     public static final String POST_REGISTRO_PROGRAMACION=HOST_WEBAPI+"Cobranza/RegistroProgramacion";
 
+  public static final String GET_CLIENTES_PROGRAMACION=HOST_WEBAPI+"Cobranza/ListarClientesProgramados?Codigoanalista=%s&Fecha=%s";
+
     //endregion---------------------------------------------------------------------------------------------------------
 }
 

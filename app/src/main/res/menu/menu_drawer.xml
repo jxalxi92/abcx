@@ -27,11 +27,22 @@
             android:id="@+id/nav_RegistroPersona"
             android:icon="@drawable/ic_file_document"
             android:title="@string/item_RegistroPersona" />
-    <item
-            android:id="@+id/nav_Recuperaciones"
-            android:icon="@drawable/ic_file_document"
-            android:title="@string/item_Recuperaciones" />
-
+       <item
+            android:id="@+id/itemRecuperaciones"
+            android:title="@string/item_Recuperaciones" >
+        <menu>
+            <item
+                android:id="@+id/nav_Programacion"
+                android:icon="@drawable/ic_file_document"
+                android:title="@string/item_Programacion"
+                />
+            <item
+                android:id="@+id/nav_Seguimiento"
+                android:icon="@drawable/ic_file_document"
+                android:title="@string/item_Seguimiento"
+                />
+        </menu>
+       </item>
         <item
             android:id="@+id/itemFigitacion"
             android:title="@string/item_digitacion">

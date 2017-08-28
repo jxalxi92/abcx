@@ -45,6 +45,7 @@ import pe.com.cmacica.flujocredito.ViewModel.General.ActividadConfiguracion;
 import pe.com.cmacica.flujocredito.ViewModel.General.fragmento_consultar_datos;
 import pe.com.cmacica.flujocredito.ViewModel.PlanPago.fragmentoSimuladorCredito;
 import pe.com.cmacica.flujocredito.ViewModel.Recuperaciones.fragmentoListaRecuperaciones;
+import pe.com.cmacica.flujocredito.ViewModel.Recuperaciones.fragmentoListaSeguimiento;
 import pe.com.cmacica.flujocredito.ViewModel.Solicitud.FragmentoListaSolCred;
 
 
@@ -178,9 +179,16 @@ public class ActividadPrincipal extends AppCompatActivity implements
                 setTitle(itemDrawer.getTitle());
                 break;
 
-             case R.id.nav_Recuperaciones:
+             case R.id.nav_Programacion:
                 fragmentoGenerico = new fragmentoListaRecuperaciones(); //
                 TagGrament = fragmentoListaRecuperaciones.class.getSimpleName();
+                // Setear título actual
+                setTitle(itemDrawer.getTitle());
+                break;
+
+            case R.id.nav_Seguimiento:
+                fragmentoGenerico = new fragmentoListaSeguimiento(); //
+                TagGrament = fragmentoListaSeguimiento.class.getSimpleName();
                 // Setear título actual
                 setTitle(itemDrawer.getTitle());
                 break;

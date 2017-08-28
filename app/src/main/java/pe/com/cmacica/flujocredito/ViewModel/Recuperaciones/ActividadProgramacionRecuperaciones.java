@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,18 +17,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+
+
 import pe.com.cmacica.flujocredito.AgenteServicio.RESTService;
 import pe.com.cmacica.flujocredito.AgenteServicio.SrvCmacIca;
 import pe.com.cmacica.flujocredito.Model.Recuperaciones.ClienteRecuperacionModel;
@@ -90,9 +91,26 @@ public static List<ClienteRecuperacionModel>ListaProgramados;
             @Override
             public void onClick(View v) {
 
+             for (int i=0;i<ListaProgramados.size();i++)
+             {
+                 if(ListaProgramados.get(i).isSeleccionado()==false)
+                 {
+                     Mensaje("No deje Clientes sin seleccionar");
+                     return;
+                 }
+             }
+             Collections.sort(ListaProgramados, (o1, o2) -> o1.getPosicion().compareTo(o2.getPosicion()));
 
+             for (int i=0;i<ListaProgramados.size();i++)
+             {
+                 if (ListaProgramados.get(i).getPosicion()!=String.valueOf(i+1))
+                 {
+                     Mensaje("Los clientes no se encuentran en orden Consecutivo");
+                     return;
+                 }
+             }
+                Mensaje("Ahora puedes guardar");
                 Guardar();
-
             }
         });
     }
@@ -141,6 +159,7 @@ public static List<ClienteRecuperacionModel>ListaProgramados;
     private void Guardar()
     {
         progressDialog = ProgressDialog.show(this,"Espere por favor","Guardando Datos");
+        btn_Registrar.setEnabled(false);
         Gson gsonpojo = new GsonBuilder().create();
         ProgramacionModel Prog=new ProgramacionModel();
         Prog.cPersCodAna= UPreferencias.ObtenerCodigoPersonaLogeo(this);
@@ -231,5 +250,11 @@ public static List<ClienteRecuperacionModel>ListaProgramados;
      }
         super.onBackPressed();
 
+    }
+    private void Mensaje(String Mensaje){
+
+        Snackbar.make(findViewById(R.id.cl_Principal),
+                Mensaje,
+                Snackbar.LENGTH_LONG).show();
     }
 }
