@@ -95,7 +95,7 @@
                 android:layout_weight="0.44"
                 android:text="2015-07-11"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/lblNumero"

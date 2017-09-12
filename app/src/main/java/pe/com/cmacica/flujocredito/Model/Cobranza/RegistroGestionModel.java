@@ -24,5 +24,8 @@ public class RegistroGestionModel {
     public int nIdMotivonoPago;
     public int nIdestGestion;
     public int nIdTipoGestion;
+    public double nLatitud;
+    public double nLongitud;
+
 
 }

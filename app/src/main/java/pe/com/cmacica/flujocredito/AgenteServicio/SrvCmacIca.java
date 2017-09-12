@@ -106,7 +106,7 @@ public class SrvCmacIca {
 
     public static final String GET_CLIENTES_COBRANZA=HOST_WEBAPI+"Cobranza/ListarClientesCobranza?Codigoanalista=%s";
 
-    public static final String GET_CLIENTES_RECUPERACIONES=HOST_WEBAPI+"Cobranza/ListarClientesRecuperaciones?Codigoanalista=%s";
+    public static final String GET_CLIENTES_RECUPERACIONES=HOST_WEBAPI+"Cobranza/ListarClientesRecuperaciones?CodigoGestor=%s";
 
     public static final String POST_REGISTRO_PROGRAMACION=HOST_WEBAPI+"Cobranza/RegistroProgramacion";
 

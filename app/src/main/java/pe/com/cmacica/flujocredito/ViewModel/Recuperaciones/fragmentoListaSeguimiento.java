@@ -85,7 +85,7 @@ public class fragmentoListaSeguimiento extends Fragment {
 
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
-                                        progressDialog.cancel();
+
                                         Log.d(TAG, "Error Volley: " + error.toString());
                                     }
                                 }

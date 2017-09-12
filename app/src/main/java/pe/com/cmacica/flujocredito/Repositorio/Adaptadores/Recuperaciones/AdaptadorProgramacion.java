@@ -57,7 +57,6 @@ public class AdaptadorProgramacion extends RecyclerView.Adapter<AdaptadorProgram
 
         public ViewHolder(View v, ItemClickListener listener) {
             super(v);
-
             lblDocumento = (TextView) v.findViewById(R.id.lblDocumento);
             lblNombre = (TextView) v.findViewById(R.id.lblNombre);
             lblDireccion = (TextView) v.findViewById(R.id.lblDireccion);
@@ -66,12 +65,10 @@ public class AdaptadorProgramacion extends RecyclerView.Adapter<AdaptadorProgram
             lblNumero=(TextView)v.findViewById(R.id.lblNumero);
             this.listener = listener;
             v.setOnClickListener(this);
-
         }
         @Override
         public void onClick(View v) {
             listener.onItemClick(v, getAdapterPosition());
-
         }
     }
 
@@ -91,7 +88,7 @@ public class AdaptadorProgramacion extends RecyclerView.Adapter<AdaptadorProgram
         holder.lblFecha.setText(UGeneral.obtenerTiempoCorto());
         holder.chck_Seleccionado.setChecked(ListaClienteRecuperaciones.get(position).isSeleccionado());
 
-        if (ListaClienteRecuperaciones.get(position).getPosicion()!="0")
+        if (ListaClienteRecuperaciones.get(position).getPosicion()!="0" )
         {
             holder.lblFecha.setText(ListaClienteRecuperaciones.get(position).getFechaRec());
             holder.lblNumero.setText(String.valueOf("Orden de Visita: "+ListaClienteRecuperaciones.get(position).getPosicion()));

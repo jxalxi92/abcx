@@ -38,7 +38,7 @@ public class AdaptadorClienteRecuperaciones extends RecyclerView.Adapter<Adaptad
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        public TextView lblDocumento;
+        public TextView lblSaldoCapítal;
         public TextView lblNombre;
         public TextView lblDireccion;
         public CheckBox chck_Seleccionado;
@@ -48,7 +48,7 @@ public class AdaptadorClienteRecuperaciones extends RecyclerView.Adapter<Adaptad
         public ViewHolder(View v,ItemClickListener  listener) {
             super(v);
 
-            lblDocumento = (TextView) v.findViewById(R.id.lblDocumento);
+            lblSaldoCapítal = (TextView) v.findViewById(R.id.lblSaldoCapítal);
             lblNombre = (TextView) v.findViewById(R.id.lblNombre);
             lblDireccion = (TextView) v.findViewById(R.id.lblDireccion);
             chck_Seleccionado=(CheckBox) v.findViewById(R.id.chck_Seleccionado);
@@ -70,7 +70,7 @@ public class AdaptadorClienteRecuperaciones extends RecyclerView.Adapter<Adaptad
 
     @Override
     public void onBindViewHolder(AdaptadorClienteRecuperaciones.ViewHolder holder, int position) {
-        holder.lblDocumento.setText(ListaClienteRecuperaciones.get(position).getDocumento());
+        holder.lblSaldoCapítal.setText(String.valueOf(ListaClienteRecuperaciones.get(position).getNcapital()));
         holder.lblNombre.setText(ListaClienteRecuperaciones.get(position).getNombres());
         holder.lblDireccion.setText(ListaClienteRecuperaciones.get(position).getDireccion());
         holder.chck_Seleccionado.setOnCheckedChangeListener(null);

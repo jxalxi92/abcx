@@ -210,7 +210,6 @@ public class ActividadLogin extends AppCompatActivity   {
         }
     }
 
-
     private void OnValidaUsuario(){
 
         /*
@@ -422,7 +421,6 @@ public class ActividadLogin extends AppCompatActivity   {
                                 }
                             });
                             msj.show();
-
                 }
 
             }
@@ -431,7 +429,6 @@ public class ActividadLogin extends AppCompatActivity   {
             Log.d(TAG, e.getMessage());
             //progressDialog.cancel();
         }
-
     }
 
     private void errorservice (VolleyError error){
@@ -614,7 +611,6 @@ public class ActividadLogin extends AppCompatActivity   {
         //loading_tv2 = (TextView) findViewById(R.id.loading_tv2);
         //loading_tv2.setText(IMEINumber);
     }
-
     //endregion
 
 

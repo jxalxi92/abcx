@@ -14,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -109,7 +110,7 @@ public static List<ClienteRecuperacionModel>ListaProgramados;
                      return;
                  }
              }
-                Mensaje("Ahora puedes guardar");
+
                 Guardar();
             }
         });
@@ -126,6 +127,7 @@ public static List<ClienteRecuperacionModel>ListaProgramados;
 
         List<ClienteRecuperacionModel>ListaAuxiliar=new ArrayList<ClienteRecuperacionModel> ();
         ClienteRecuperacionModel Clie;
+        int Contador=0;
         for (int i=0;i<ListaProgramados.size();i++)
         {
             if (ListaProgramados.get(i).isSeleccionado()==false)
@@ -133,19 +135,29 @@ public static List<ClienteRecuperacionModel>ListaProgramados;
                 Clie=ListaProgramados.get(i);
                 ListaAuxiliar.add(Clie);
                 ListaProgramados.remove(i);
+                i--;
+            }
+            else
+            {
+                Contador++;
             }
         }
-        Collections.sort(ListaProgramados, (o1, o2) -> o1.getPosicion().compareTo(o2.getPosicion()));
-
-        for (int i=0;i<ListaProgramados.size();i++)
+        if (Contador>0)
         {
-            ListaProgramados.get(i).setPosicion(String.valueOf(i+1));
+            Collections.sort(ListaProgramados, (o1, o2) -> o1.getPosicion().compareTo(o2.getPosicion()));
+
+            for (int i=0;i<ListaProgramados.size();i++)
+            {
+                ListaProgramados.get(i).setPosicion(String.valueOf(i+1));
+            }
+
         }
         if (ListaAuxiliar.size()!=0)
         {
             for (int i=0;i<ListaAuxiliar.size();i++)
             {
                 Clie=ListaAuxiliar.get(i);
+                Clie.setPosicion("0");
                 ListaProgramados.add(Clie);
             }
         }
@@ -256,5 +268,44 @@ public static List<ClienteRecuperacionModel>ListaProgramados;
         Snackbar.make(findViewById(R.id.cl_Principal),
                 Mensaje,
                 Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+
+            case android.R.id.home:
+                // app icon in action bar clicked; go home
+
+                new AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Aviso")
+                        .setMessage("Desea Regresar a la Ventana Anterior?")
+                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface arg0) {
+                                // ActividadLogin.this.finish();
+                            }})
+                        .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })//sin listener
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
+                            @Override
+                            public void onClick(DialogInterface dialog, int which){
+                                //Salir
+
+                                onBackPressed();
+                            }
+                        })
+                        .show();
+                break;
+            default:
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

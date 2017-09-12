@@ -8,7 +8,7 @@ public class ClienteRecuperacionModel {
 
 
     public ClienteRecuperacionModel(String codigo, String documento, String nombres, String direccion
-            , int Ntipocredito, int NdiasAtraso,double nCapital,String cCodcred ,String fecha,String posicion,boolean seleccionado) {
+            , int Ntipocredito, int NdiasAtraso,double nCapital,String cCodcred ,String cUbigeodom,String cpersCodAna ,String fecha,String posicion,boolean seleccionado) {
         Codigo = codigo;
         Documento = documento;
         Nombres = nombres;
@@ -20,6 +20,8 @@ public class ClienteRecuperacionModel {
         nOrdenVisita=posicion;
         dFechaVisita=fecha;
         ccodcred=cCodcred;
+        cubigeodom=cUbigeodom;
+        cPersCodAna=cpersCodAna;
     }
 
     public String getCodigo() {
@@ -68,6 +70,13 @@ public class ClienteRecuperacionModel {
     public String getcCodcred() {
         return ccodcred;
     }
+    public String getCubigeodom() {
+        return cubigeodom;
+    }
+
+    public String getcPersCodAna() {
+        return cPersCodAna;
+    }
 
     private String Codigo ;
     private String Documento;
@@ -80,6 +89,8 @@ public class ClienteRecuperacionModel {
     private String nOrdenVisita;
     private String ccodcred;
     private String dFechaVisita;
+    private String cubigeodom;
+    private String cPersCodAna;
 
 
 }
